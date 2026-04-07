@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grade 2 · Mock Assessment 1 · Reading &amp; Speaking</title>
+<style>
+:root{
+  --bg:#f0f5ff;--white:#fff;--primary:#3a72c0;--primary-dk:#2a5499;
+  --teal:#1a9070;--amber:#d98c18;--green:#1e8a4a;--red:#c93535;
+  --text:#1e2e42;--mid:#5a7090;--light:#e4edf8;--border:#c0d0e4;
+  --shadow-sm:0 2px 8px rgba(30,46,66,.07);--shadow-md:0 5px 20px rgba(30,46,66,.12);--r:12px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:"Book Antiqua","Palatino Linotype",Georgia,serif;font-size:16px;background:var(--bg);color:var(--text);line-height:1.7}
+.screen{display:none}.screen.active{display:block}
+#cover{min-height:100vh;background:linear-gradient(150deg,#ddeaff 0%,#f0f5ff 55%,#d4f0e8 100%);display:none;align-items:center;justify-content:center;padding:40px 20px}
+#cover.active{display:flex}
+.cover-card{background:var(--white);border-radius:20px;padding:48px 40px;max-width:560px;width:100%;box-shadow:var(--shadow-md)}
+.resume-banner{background:#fff8e1;border:2px solid var(--amber);border-radius:12px;padding:16px 18px;margin-bottom:22px;display:none}
+.resume-banner p{font-size:.88rem;color:#6b4800;margin-bottom:10px}
+.resume-btns{display:flex;gap:10px}
+.btn-resume{padding:8px 18px;border-radius:8px;font-family:inherit;font-size:.85rem;font-weight:700;cursor:pointer;border:2px solid;transition:all .2s}
+.btn-resume.yes{background:var(--amber);color:#fff;border-color:var(--amber)}
+.btn-resume.no{background:var(--white);color:var(--mid);border-color:var(--border)}
+.mock-badge{background:var(--amber);color:#fff;font-weight:700;font-size:.72rem;letter-spacing:1.5px;text-transform:uppercase;padding:4px 16px;border-radius:20px;display:inline-block;margin-bottom:18px}
+.cover-card h1{font-size:2rem;color:var(--primary-dk);margin-bottom:4px;line-height:1.2}
+.cover-sub{color:var(--mid);font-size:.92rem;margin-bottom:28px}
+.info-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:28px}
+.info-item{background:var(--light);border-radius:10px;padding:12px;text-align:center}
+.info-item .lbl{font-size:.65rem;font-weight:700;color:var(--mid);text-transform:uppercase;letter-spacing:.5px}
+.info-item .val{font-weight:700;color:var(--primary-dk);font-size:.95rem;margin-top:3px}
+.field-group{margin-bottom:16px}
+.field-group label{display:block;font-weight:700;font-size:.85rem;margin-bottom:6px;color:var(--text)}
+.field-group input{width:100%;border:2px solid var(--border);border-radius:8px;padding:11px 14px;font-family:inherit;font-size:1rem;color:var(--text);outline:none;transition:border .2s;background:var(--white)}
+.field-group input:focus{border-color:var(--primary)}
+.notice{background:#fffbe8;border:2px solid #f5d888;border-radius:10px;padding:14px 16px;font-size:.85rem;color:#6b4800;margin-bottom:24px;line-height:1.6}
+.btn-start{width:100%;background:var(--primary);color:white;border:none;border-radius:10px;padding:15px;font-family:inherit;font-weight:700;font-size:1rem;cursor:pointer;transition:all .2s}
+.btn-start:hover{background:var(--primary-dk);transform:translateY(-1px)}
+#test{min-height:100vh;display:none;flex-direction:column}
+#test.active{display:flex}
+.t-header{background:var(--primary);color:white;display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:58px;position:sticky;top:0;z-index:200;box-shadow:0 2px 12px rgba(30,46,66,.2)}
+.t-header-left h2{font-size:.95rem;line-height:1}
+.t-header-left .sub{font-size:.68rem;color:rgba(255,255,255,.65);margin-top:2px}
+.t-timer{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.15);border-radius:8px;padding:6px 14px;transition:background .3s}
+#timer-display{font-size:1.3rem;letter-spacing:2px;color:white;min-width:60px;text-align:center}
+.t-timer.warn{background:var(--red)!important;animation:blink 1s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.6}}
+.q-counter{font-size:.78rem;color:rgba(255,255,255,.8);font-weight:700}
+.prog-bar{height:4px;background:rgba(255,255,255,.15)}.prog-fill{height:100%;background:var(--amber);transition:width .4s}
+.t-body{flex:1;max-width:840px;width:100%;margin:0 auto;padding:28px 16px 110px}
+.sec-hd{display:flex;align-items:flex-start;gap:14px;background:var(--white);border-radius:var(--r);padding:20px 22px;margin-bottom:18px;box-shadow:var(--shadow-sm);border-left:5px solid var(--teal)}
+.sec-icon{font-size:1.8rem;flex-shrink:0;margin-top:2px}
+.sec-hd h3{font-size:1.05rem;color:var(--primary-dk)}
+.sec-ccss{font-size:.68rem;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:.5px;margin-top:3px}
+.sec-desc{font-size:.82rem;color:var(--mid);margin-top:3px}
+.passage{background:var(--white);border-radius:var(--r);padding:24px;margin-bottom:18px;box-shadow:var(--shadow-sm);border:1px solid var(--border)}
+.passage-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:10px}
+.passage-title{font-size:1.05rem;color:var(--primary-dk);font-weight:700}
+.tts-btn{display:flex;align-items:center;gap:6px;background:var(--light);border:2px solid var(--teal);color:var(--teal);border-radius:8px;padding:6px 12px;font-size:.78rem;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s}
+.tts-btn:hover{background:var(--teal);color:white}
+.tts-btn.speaking{background:var(--red);border-color:var(--red);color:white}
+.passage-text{font-size:.95rem;line-height:1.95;color:#253548}
+.passage-text p{margin-bottom:10px}
+.q-card{background:var(--white);border-radius:var(--r);padding:22px;margin-bottom:12px;box-shadow:var(--shadow-sm);border:1px solid var(--border);transition:box-shadow .2s}
+.q-card:hover{box-shadow:var(--shadow-md)}
+.q-meta{display:flex;gap:8px;align-items:center;margin-bottom:8px;flex-wrap:wrap}
+.q-badge{font-size:.67rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;padding:2px 9px;border-radius:20px}
+.q-badge.num{background:var(--primary);color:white}
+.q-badge.ccss{background:var(--light);color:var(--teal)}
+.q-badge.dom{background:#fef3e2;color:#9a6000}
+.q-text{font-size:.95rem;font-weight:700;color:var(--text);line-height:1.55;margin-bottom:16px}
+.options{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media(max-width:540px){.options{grid-template-columns:1fr}}
+.opt{display:flex;align-items:center;gap:10px;background:var(--light);border:2px solid transparent;border-radius:9px;padding:11px 14px;cursor:pointer;transition:all .15s;font-size:.9rem;text-align:left;font-family:inherit;width:100%}
+.opt:hover:not(.locked){border-color:var(--teal);background:#d4ede6}
+.opt.selected{border-color:var(--teal);background:#c8e8e0}
+.opt.correct{border-color:var(--green);background:#d4f0e4;cursor:default}
+.opt.wrong{border-color:var(--red);background:#fde4e4;cursor:default}
+.opt-letter{width:26px;height:26px;border-radius:50%;background:var(--mid);color:white;font-weight:700;font-size:.78rem;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.opt.selected .opt-letter{background:var(--teal)}
+.opt.correct .opt-letter{background:var(--green)}
+.opt.wrong .opt-letter{background:var(--red)}
+.q-feedback{margin-top:10px;padding:9px 13px;border-radius:8px;font-size:.83rem;display:none}
+.q-feedback.correct{background:#d4f0e4;color:#145c30;display:block}
+.q-feedback.wrong{background:#fde4e4;color:#8c1c1c;display:block}
+.oral-box{background:var(--white);border-radius:var(--r);padding:28px;margin-bottom:12px;box-shadow:var(--shadow-sm);border:2px solid var(--primary)}
+.oral-box h4{font-size:1rem;color:var(--primary-dk);margin-bottom:12px}
+.oral-instr{font-size:.88rem;color:var(--mid);margin-bottom:16px;line-height:1.6;background:var(--light);padding:12px 14px;border-radius:8px}
+.rec-controls{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.rec-btn{display:flex;align-items:center;gap:7px;padding:10px 18px;border-radius:9px;font-family:inherit;font-weight:700;font-size:.85rem;border:2px solid transparent;cursor:pointer;transition:all .2s}
+.rec-btn.record{background:var(--red);color:white}
+.rec-btn.stop{background:var(--mid);color:white}
+.rec-btn.play{background:var(--teal);color:white}
+.rec-btn.dl{background:var(--green);color:white}
+#rec-status{font-size:.8rem;color:var(--mid);margin-top:8px;min-height:20px}
+.bottom-bar{position:fixed;bottom:0;left:0;right:0;background:var(--white);border-top:2px solid var(--border);padding:14px 24px;display:flex;justify-content:space-between;align-items:center;gap:12px;box-shadow:0 -4px 16px rgba(30,46,66,.08);z-index:150}
+.btn-submit{background:var(--green);color:white;border:none;border-radius:9px;padding:12px 28px;font-family:inherit;font-weight:700;font-size:.95rem;cursor:pointer;transition:background .2s}
+.btn-submit:hover{background:#157038}
+.unanswered{font-size:.82rem;color:var(--mid)}
+#results{display:none;min-height:100vh;background:var(--bg);padding:40px 20px}
+#results.active{display:block}
+.res-card{max-width:720px;margin:0 auto;background:var(--white);border-radius:20px;padding:40px;box-shadow:var(--shadow-md)}
+.res-hdr{background:linear-gradient(135deg,var(--primary),var(--teal));border-radius:14px;padding:28px;text-align:center;color:white;margin-bottom:28px}
+.res-hdr h2{font-size:1.5rem;margin-bottom:4px}
+.res-hdr .sub{font-size:.85rem;opacity:.8}
+.big-score{text-align:center;margin-bottom:24px}
+.big-score .num{font-size:3.2rem;color:var(--primary-dk);font-weight:700}
+.grade-pill{display:inline-block;padding:4px 18px;border-radius:20px;font-weight:700;font-size:.95rem;margin-top:6px}
+.gA{background:#d4f0e4;color:#145c30}.gB{background:#d4e8ff;color:#1a4a8a}.gC{background:#fff0cc;color:#7a5500}.gD{background:#fde4e4;color:#8c1c1c}
+.dom-table{width:100%;border-collapse:collapse;font-size:.88rem;margin-bottom:22px}
+.dom-table th{background:var(--primary);color:white;padding:9px 12px;text-align:left;font-size:.78rem}
+.dom-table td{padding:9px 12px;border-bottom:1px solid var(--light)}
+.dom-table tr:nth-child(even) td{background:var(--bg)}
+.dl-btns{display:flex;gap:12px;flex-wrap:wrap;margin-top:20px}
+.dl-btn{flex:1;min-width:180px;padding:13px;border-radius:9px;font-family:inherit;font-weight:700;font-size:.88rem;border:none;cursor:pointer;transition:all .2s;text-align:center}
+.dl-btn.score{background:var(--primary);color:white}.dl-btn.score:hover{background:var(--primary-dk)}
+.dl-btn.audio{background:var(--teal);color:white}.dl-btn.audio:hover{background:#157a5c}
+</style>
+</head>
+<body>
+<div id="cover" class="screen active">
+  <div class="cover-card">
+    <div class="resume-banner" id="resume-banner">
+      <p>📂 You have a saved test in progress for <strong id="saved-name-display"></strong>. Resume where you left off?</p>
+      <div class="resume-btns">
+        <button class="btn-resume yes" onclick="resumeSaved()">▶ Resume Test</button>
+        <button class="btn-resume no" onclick="discardSaved()">✕ Start Fresh</button>
+      </div>
+    </div>
+    <div class="mock-badge">📝 Practice Test</div>
+    <h1>Grade 2 Assessment 1</h1>
+    <p class="cover-sub">Reading &amp; Speaking &nbsp;·&nbsp; Weeks 1–11</p>
+    <div class="info-strip">
+      <div class="info-item"><div class="lbl">Questions</div><div class="val">50</div></div>
+      <div class="info-item"><div class="lbl">Time</div><div class="val">90 min</div></div>
+      <div class="info-item"><div class="lbl">Type</div><div class="val">Mock</div></div>
+    </div>
+    <div class="field-group">
+      <label for="student-name">Student Name <span style="color:var(--red)">*</span></label>
+      <input type="text" id="student-name" placeholder="Enter your full name">
+    </div>
+    <div class="field-group">
+      <label for="teacher-name">Teacher Name</label>
+      <input type="text" id="teacher-name" placeholder="Enter teacher's name">
+    </div>
+    <div class="field-group">
+      <label>Date</label>
+      <input type="text" id="test-date" readonly>
+    </div>
+    <div class="notice"><strong>📚 Practice Test.</strong><br>You will see right away if each answer is correct. Your teacher does <em>not</em> receive these results — use this to practise!</div>
+    <button class="btn-start" onclick="startTest()">Begin Practice Test →</button>
+  </div>
+</div>
+
+<div id="test" class="screen">
+  <header class="t-header">
+    <div class="t-header-left">
+      <h2>Grade 2 · Reading &amp; Speaking</h2>
+      <div class="sub">Mock Assessment 1 · Practice</div>
+    </div>
+    <div class="t-timer" id="t-timer">⏱ <span id="timer-display">90:00</span></div>
+    <span class="q-counter" id="q-counter">0 / 50</span>
+  </header>
+  <div class="prog-bar"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
+  <div class="t-body" id="t-body"></div>
+  <div class="bottom-bar">
+    <span class="unanswered" id="unanswered-msg">50 questions remaining</span>
+    <button class="btn-submit" onclick="submitTest()">Submit Test →</button>
+  </div>
+</div>
+
+<div id="results" class="screen">
+  <div class="res-card" id="res-card"></div>
+</div>
+
+<script>
+const SAVE_KEY='gr2_rs_mock_v2';
+let studentName='',teacherName='',testDate='';
+let answers={};
+let timerSec=5400,timerInt=null;
+let recState='idle',mediaRec=null,audioChunks=[],audioBlob=null;
+
+// ── Date fill & saved-progress check ──────────────────────────────
+window.addEventListener('DOMContentLoaded',()=>{
+  const d=new Date();
+  const mo=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  document.getElementById('test-date').value=mo[d.getMonth()]+' '+d.getDate()+', '+d.getFullYear();
+  const sv=loadSaved();
+  if(sv&&sv.started){
+    document.getElementById('saved-name-display').textContent=sv.studentName||'Student';
+    document.getElementById('resume-banner').style.display='block';
+    window._saved=sv;
+  }
+});
+
+function loadSaved(){try{const s=localStorage.getItem(SAVE_KEY);return s?JSON.parse(s):null;}catch(e){return null;}}
+function saveProg(){
+  try{localStorage.setItem(SAVE_KEY,JSON.stringify({studentName,teacherName,testDate,answers,timerSec,started:true}));}catch(e){}
+}
+function clearSaved(){localStorage.removeItem(SAVE_KEY);}
+
+function resumeSaved(){
+  const sv=window._saved;
+  if(!sv)return;
+  studentName=sv.studentName||'';
+  teacherName=sv.teacherName||'';
+  testDate=sv.testDate||'';
+  timerSec=sv.timerSec||5400;
+  document.getElementById('student-name').value=studentName;
+  document.getElementById('teacher-name').value=teacherName;
+  document.getElementById('test-date').value=testDate;
+  document.getElementById('cover').classList.remove('active');
+  document.getElementById('test').classList.add('active');
+  buildTest();
+  restoreAnswers(sv.answers||{});
+  startTimer();
+}
+function discardSaved(){clearSaved();document.getElementById('resume-banner').style.display='none';window._saved=null;}
+
+// ── SECTIONS ──────────────────────────────────────────────────────
+const SECTIONS=[
+{id:'s1',icon:'🔤',title:'Decoding Vowel Sounds',ccss:'RF.2.3a',domain:'Reading Foundations',
+ desc:'Distinguish long and short vowel sounds in one-syllable words.',
+ questions:[
+  {id:'q1',text:'Which word has a SHORT vowel sound?',opts:['cake','cat','gate','pale'],ans:1},
+  {id:'q2',text:'Which word has a LONG vowel sound?',opts:['hop','sit','home','big'],ans:2},
+  {id:'q3',text:'The letter "i" in the word "bike" makes a ________ sound.',opts:['short i','long i','short e','long e'],ans:1},
+  {id:'q4',text:'Which word rhymes with "lake"?',opts:['back','luck','cake','lick'],ans:2},
+  {id:'q5',text:'Which word has the SAME vowel sound as "sun"?',opts:['tune','run','bone','June'],ans:1},
+]},
+{id:'s2',icon:'📖',title:'Reading for Key Details',ccss:'RL.2.1',domain:'Reading Literature',
+ desc:'Ask and answer who, what, where, when, why, and how questions about a story.',
+ passage:{title:'The Big Red Kite',
+  text:`<p>Sam had a big red kite. One day, the wind blew hard. Sam ran to the park with his dad. They let the kite fly up, up, up into the sky. The kite went so high that Sam had to hold on tight. When it was time to go, Sam pulled the kite back down. He smiled all the way home.</p>`},
+ questions:[
+  {id:'q6',text:'WHO has the big red kite?',opts:["Sam's mom","Sam","Sam's sister","Sam's teacher"],ans:1},
+  {id:'q7',text:'WHERE did Sam go to fly his kite?',opts:['to school','to the beach','to the park','to the backyard'],ans:2},
+  {id:'q8',text:'WHEN did Sam fly his kite?',opts:['on a rainy day','on a windy day','on a cold day','on a snowy day'],ans:1},
+  {id:'q9',text:'WHAT did Sam do when it was time to go?',opts:['He cut the string','He left the kite','He pulled the kite down','He tied it to a tree'],ans:2},
+  {id:'q10',text:'WHY did Sam have to hold on tight?',opts:['The kite was heavy','The kite went very high','The string was long','His dad told him to'],ans:1},
+  {id:'q11',text:'HOW did Sam feel on the way home?',opts:['sad','angry','tired','happy'],ans:3},
+]},
+{id:'s3',icon:'🔡',title:'Less Common Vowel Teams',ccss:'RF.2.3b',domain:'Reading Foundations',
+ desc:'Know spelling-sound correspondences for common vowel teams.',
+ questions:[
+  {id:'q12',text:'The letters "oa" in "boat" make which vowel sound?',opts:['/ô/ as in "off"','/ō/ as in "go"','/ou/ as in "out"','/ŭ/ as in "up"'],ans:1},
+  {id:'q13',text:'Which word has a vowel TEAM (two vowels together)?',opts:['bat','hip','rain','cup'],ans:2},
+  {id:'q14',text:'The word "feet" uses which vowel team?',opts:['ee','ea','oo','ai'],ans:0},
+  {id:'q15',text:'Which word has the same vowel team sound as "sleep"?',opts:['step','steep','stop','strip'],ans:1},
+  {id:'q16',text:'Which vowel team makes the vowel sound in "food"?',opts:['oa','ai','oo','ee'],ans:2},
+]},
+{id:'s4',icon:'👤',title:'Analyzing Characters',ccss:'RL.2.3',domain:'Reading Literature',
+ desc:'Describe how characters respond to major events and challenges.',
+ passage:{title:"Mia's Big Moment",
+  text:`<p>Mia was afraid to go on stage. Her hands shook and her heart beat fast. When she heard the music start, she took a deep breath. She walked out and began to sing. Her voice was soft at first, but it got louder. When the song was over, everyone clapped. Mia smiled the biggest smile of her life.</p>`},
+ questions:[
+  {id:'q17',text:'At the START of the story, how did Mia feel?',opts:['excited','bored','afraid','angry'],ans:2},
+  {id:'q18',text:'What did Mia do to help herself feel brave?',opts:['She ran away','She took a deep breath','She asked for help','She sat down'],ans:1},
+  {id:'q19',text:'How did Mia\'s voice change as she sang?',opts:['It got quieter','It got faster','It got louder','It stayed the same'],ans:2},
+  {id:'q20',text:'What CHALLENGE did Mia face in this story?',opts:['She forgot the words','She was afraid to go on stage','She missed the music','She lost her shoes'],ans:1},
+  {id:'q21',text:'At the END of the story, how did Mia feel?',opts:['scared','proud and happy','very tired','confused'],ans:1},
+]},
+{id:'s5',icon:'🔢',title:'Multi-syllabic Words',ccss:'RF.2.3c',domain:'Reading Foundations',
+ desc:'Decode regularly spelled two-syllable words with long vowels.',
+ questions:[
+  {id:'q22',text:'How many syllables does "sunlight" have?',opts:['1','2','3','4'],ans:1},
+  {id:'q23',text:'Which word has TWO syllables AND a long vowel sound?',opts:['bat','smile','robot','sit'],ans:2},
+  {id:'q24',text:'Clap the syllables in "cupcake." How many claps?',opts:['1','2','3','4'],ans:1},
+  {id:'q25',text:'Which word has a two-syllable long "i" sound?',opts:['kitten','spider','happy','basket'],ans:1},
+  {id:'q26',text:'"Rainfall" splits into syllables as...',opts:['rai-nfall','rain-fall','r-ainfall','rainf-all'],ans:1},
+]},
+{id:'s6',icon:'🎵',title:'Story Language — Rhyme &amp; Rhythm',ccss:'RL.2.4',domain:'Reading Literature',
+ desc:'Describe how words and phrases supply rhythm and meaning in a story or poem.',
+ passage:{title:'Buzzy Bee (a poem)',
+  text:`<p style="font-style:italic;line-height:2.1">"Buzzy bee, buzzy bee,<br>Flying so free.<br>Over the flowers,<br>Over the tree.<br>Buzz, buzz, buzzy bee,<br>Come fly with me!"</p>`},
+ questions:[
+  {id:'q27',text:'Which two words in the poem RHYME?',opts:['"bee" and "free"','"buzz" and "bee"','"fly" and "free"','"over" and "flowers"'],ans:0},
+  {id:'q28',text:'"Buzzy bee" is an example of...',opts:['rhyme','alliteration (same beginning sounds)','repeated lines','a made-up word'],ans:1},
+  {id:'q29',text:'Which phrase is REPEATED in the poem?',opts:['"Over the tree"','"Buzzy bee"','"Come fly with me!"','"Flying so free"'],ans:1},
+  {id:'q30',text:'The word "buzz" imitates...',opts:["the bee's name","the real sound a bee makes","the name of a flower","the name of a tree"],ans:1},
+  {id:'q31',text:'What does the poem invite the bee to do at the very end?',opts:['Sit on a flower','Go to sleep','Fly together with the speaker','Find honey'],ans:2},
+]},
+{id:'s7',icon:'📑',title:'Analyzing Text Structure',ccss:'RL.2.5',domain:'Reading Literature',
+ desc:'Describe how the beginning introduces and the ending concludes a story.',
+ passage:{title:'Lost Dog',
+  text:`<p>Jake found a small brown dog sitting by the road. The dog looked hungry and sad. Jake brought the dog home and gave it water and food. He made a sign that said "Found Dog" and put it on a telephone pole. The next day, a family called. They were so happy to find their dog! Jake felt good because he had helped someone.</p>`},
+ questions:[
+  {id:'q32',text:'How does this story BEGIN?',opts:['Jake calls a family','Jake finds a small dog by the road','Jake makes a sign','A family calls Jake'],ans:1},
+  {id:'q33',text:'What happens in the MIDDLE of the story?',opts:['Jake finds the dog','Jake makes a sign and puts it up','The family calls','Jake feels happy'],ans:1},
+  {id:'q34',text:'How does the story END?',opts:['Jake keeps the dog','The dog runs away','A family calls and gets their dog back','Jake makes another sign'],ans:2},
+  {id:'q35',text:'What is the PROBLEM in the story?',opts:['Jake is hungry','A dog is lost and alone','Jake cannot make a sign','The family is lost'],ans:1},
+  {id:'q36',text:'What is the SOLUTION to the problem?',opts:['Jake finds food for himself','Jake makes a sign and the family finds their dog','The dog finds its own way home','Jake keeps the dog forever'],ans:1},
+]},
+{id:'s8',icon:'📚',title:'Recounting Stories — Fables',ccss:'RL.2.2',domain:'Reading Literature',
+ desc:'Recount fables and folktales; determine the central message or moral.',
+ passage:{title:'The Ant and the Grasshopper (retold)',
+  text:`<p>All summer, the ant worked hard to store food for winter. The grasshopper played and sang all day. When winter came, the grasshopper had no food and was cold and hungry. He asked the ant to share. Because the ant had worked hard, she had plenty of food. She kindly shared some with the grasshopper. The grasshopper learned that it is important to plan ahead.</p>`},
+ questions:[
+  {id:'q37',text:'Who worked hard all summer to store food?',opts:['The grasshopper','The ant','Both of them','Neither of them'],ans:1},
+  {id:'q38',text:'What did the grasshopper do all summer?',opts:['stored water','helped the ant','played and sang','built a warm home'],ans:2},
+  {id:'q39',text:'What happened to the grasshopper in winter?',opts:['He had plenty of food','He stayed warm','He had no food and was hungry','He moved to a warm place'],ans:2},
+  {id:'q40',text:'What is the MORAL of this fable?',opts:['Singing is more important than working','Winter is always hard','Always plan ahead and be prepared','Ants are unkind'],ans:2},
+  {id:'q41',text:'Who shared food in the story?',opts:['The grasshopper','The ant','A farmer','Another ant'],ans:1},
+]},
+{id:'s9',icon:'🔍',title:'Unusually Spelled Words',ccss:'RF.2.3f',domain:'Reading Foundations',
+ desc:'Recognise and read grade-appropriate irregularly spelled words.',
+ questions:[
+  {id:'q42',text:'Which word is spelled CORRECTLY?',opts:['frend','friend','frriend','freind'],ans:1},
+  {id:'q43',text:'Which sentence uses the CORRECT spelling?',opts:['"I wuz happy."','"I was happy."','"I wos happy."','"I waz happy."'],ans:1},
+  {id:'q44',text:'The word "people" is tricky to spell because...',opts:['it has a silent letter','it does not follow common spelling rules',"its letters don\'t match its sounds","all of the above"],ans:3},
+]},
+{id:'s10',icon:'👁️',title:'Point of View',ccss:'RL.2.6',domain:'Reading Literature',
+ desc:'Acknowledge differences in points of view of characters.',
+ passage:{title:'Which Point of View?',
+  text:`<p><strong>Passage A:</strong> <em>"I ran to the store as fast as I could. I was so excited!"</em></p>
+        <p><strong>Passage B:</strong> <em>"She ran to the store as fast as she could. She was so excited!"</em></p>`},
+ questions:[
+  {id:'q45',text:'Passage A is written from which POINT OF VIEW?',opts:['first person (I / me / my)','second person (you / your)','third person (he / she / they)','fourth person'],ans:0},
+  {id:'q46',text:'Passage B is written from which point of view?',opts:['first person','second person','third person','no point of view'],ans:2},
+  {id:'q47',text:'In a story told from FIRST PERSON, which word appears most often?',opts:['he','she','I','they'],ans:2},
+]},
+{id:'s11',icon:'🖼️',title:'Visual Information',ccss:'RL.2.7',domain:'Reading Literature',
+ desc:'Use information from illustrations and words to demonstrate understanding.',
+ questions:[
+  {id:'q48',text:'When you look at an illustration in a story, what information can it give you?',opts:['Only what the characters say','Details about the setting, characters, and what is happening','The author\'s name','How long the story is'],ans:1},
+  {id:'q49',text:'An illustration shows a girl holding an umbrella under dark clouds. What does this MOST LIKELY tell you?',opts:['The girl is happy','It is probably going to rain','The girl is at school','It is a sunny day'],ans:1},
+  {id:'q50',text:'In a picture book, the words say "the house was old." The illustration shows a broken window and a crooked door. What does the illustration HELP you understand?',opts:['The house has a big garden','The house is very old and run-down','The house is new','The house has many rooms'],ans:1},
+]},
+{id:'s_oral',icon:'🎤',title:'Speaking Task',ccss:'SL.2.2',domain:'Speaking & Listening',
+ desc:'Listen to a short story; share key details in your own spoken words.',oral:true}
+];
+
+function startTest(){
+  const nm=document.getElementById('student-name').value.trim();
+  if(!nm){alert('Please enter your name before starting.');return;}
+  studentName=nm;
+  teacherName=document.getElementById('teacher-name').value.trim();
+  testDate=document.getElementById('test-date').value;
+  timerSec=5400;
+  document.getElementById('cover').classList.remove('active');
+  document.getElementById('test').classList.add('active');
+  buildTest();
+  startTimer();
+  saveProg();
+}
+
+function buildTest(){
+  const body=document.getElementById('t-body');
+  body.innerHTML='';
+  let qNum=0;
+  SECTIONS.forEach(sec=>{
+    const hd=document.createElement('div');hd.className='sec-hd';
+    hd.innerHTML=`<div class="sec-icon">${sec.icon}</div><div><h3>${sec.title}</h3><div class="sec-ccss">${sec.ccss} · ${sec.domain}</div><div class="sec-desc">${sec.desc}</div></div>`;
+    body.appendChild(hd);
+    if(sec.passage){
+      const p=document.createElement('div');p.className='passage';
+      p.innerHTML=`<div class="passage-top"><div class="passage-title">📄 ${sec.passage.title}</div><button class="tts-btn" onclick="readText(this,'pt-${sec.id}')">🔊 Listen</button></div><div class="passage-text" id="pt-${sec.id}">${sec.passage.text}</div>`;
+      body.appendChild(p);
+    }
+    if(!sec.oral&&sec.questions){
+      sec.questions.forEach(q=>{
+        qNum++;
+        const c=document.createElement('div');c.className='q-card';c.id='card-'+q.id;
+        c.innerHTML=`<div class="q-meta"><span class="q-badge num">#${qNum}</span><span class="q-badge ccss">${sec.ccss}</span><span class="q-badge dom">${sec.domain}</span></div>
+        <div class="q-text">${q.text}</div>
+        <div class="options" id="opts-${q.id}">${q.opts.map((o,i)=>`<button class="opt" onclick="pick('${q.id}',${i},${q.ans})"><div class="opt-letter">${'ABCD'[i]}</div><span>${o}</span></button>`).join('')}</div>
+        <div class="q-feedback" id="fb-${q.id}"></div>`;
+        body.appendChild(c);
+      });
+    }
+    if(sec.oral){
+      const box=document.createElement('div');box.className='oral-box';
+      box.innerHTML=`<h4>🎤 Speaking Task — ${sec.ccss} · ${sec.domain}</h4>
+        <div class="oral-instr"><strong>Instructions:</strong> Click "Listen to Story" to hear the story read aloud. Then record yourself answering:<br><br><em>"Tell 2–3 key details from the story. Describe what happened at the beginning, middle, and end."</em></div>
+        <div class="passage"><div class="passage-top"><div class="passage-title">📄 The Little Seed (read-aloud story)</div><button class="tts-btn" id="tts-oral" onclick="readOral(this)">🔊 Listen to Story</button></div>
+        <div class="passage-text"><p>A tiny seed sat in the dark soil. Rain fell and the seed began to grow. First, a small green shoot pushed through the dirt. Then leaves opened up and reached for the sun. Finally, a bright yellow flower bloomed. A butterfly landed on the flower. The little seed had become something beautiful.</p></div></div>
+        <div class="rec-controls">
+          <button class="rec-btn record" id="btn-rec" onclick="startRec()">🔴 Record My Answer</button>
+          <button class="rec-btn stop" id="btn-stop" style="display:none" onclick="stopRec()">⏹ Stop Recording</button>
+          <button class="rec-btn play" id="btn-play" style="display:none" onclick="playRec()">▶ Play Back</button>
+          <button class="rec-btn dl" id="btn-dl-audio" style="display:none" onclick="downloadAudio()">⬇ Save Recording</button>
+        </div>
+        <audio id="my-audio"></audio><div id="rec-status"></div>`;
+      body.appendChild(box);
+    }
+  });
+}
+
+function restoreAnswers(saved){
+  const allQ=SECTIONS.flatMap(s=>s.questions||[]);
+  Object.entries(saved).forEach(([qId,chosen])=>{
+    const q=allQ.find(x=>x.id===qId);
+    if(!q)return;
+    answers[qId]=chosen;
+    const opts=document.querySelectorAll('#opts-'+qId+' .opt');
+    if(!opts.length)return;
+    opts.forEach((o,i)=>{
+      o.classList.add('locked');
+      if(i===q.ans)o.classList.add('correct');
+      else if(i===chosen&&chosen!==q.ans)o.classList.add('wrong');
+    });
+    const fb=document.getElementById('fb-'+qId);
+    if(fb){
+      if(chosen===q.ans){fb.className='q-feedback correct';fb.textContent='✅ Correct!';}
+      else{fb.className='q-feedback wrong';fb.textContent='❌ Not quite. The correct answer is '+'ABCD'[q.ans]+'.';}
+    }
+  });
+  refreshProgress();
+}
+
+function pick(qid,idx,correct){
+  const opts=document.querySelectorAll('#opts-'+qid+' .opt');
+  if(opts[0].classList.contains('locked'))return;
+  opts.forEach((o,i)=>{o.classList.add('locked');if(i===correct)o.classList.add('correct');else if(i===idx&&idx!==correct)o.classList.add('wrong');});
+  answers[qid]=idx;
+  const fb=document.getElementById('fb-'+qid);
+  if(idx===correct){fb.className='q-feedback correct';fb.textContent='✅ Correct!';}
+  else{fb.className='q-feedback wrong';fb.textContent='❌ Not quite. The correct answer is '+'ABCD'[correct]+': '+SECTIONS.flatMap(s=>s.questions||[]).find(q=>q.id===qid).opts[correct]+'.';}
+  refreshProgress();
+  saveProg();
+}
+
+function refreshProgress(){
+  const allQ=SECTIONS.flatMap(s=>s.questions||[]);
+  const done=allQ.filter(q=>answers[q.id]!==undefined).length;
+  document.getElementById('q-counter').textContent=done+' / 50';
+  document.getElementById('prog-fill').style.width=(done/50*100)+'%';
+  const rem=50-done;
+  document.getElementById('unanswered-msg').textContent=rem===0?'All questions answered ✓':rem+' question'+(rem!==1?'s':'')+' remaining';
+}
+
+function startTimer(){
+  timerInt=setInterval(()=>{
+    timerSec--;
+    if(timerSec%10===0)saveProg();
+    const m=Math.floor(timerSec/60),s=timerSec%60;
+    document.getElementById('timer-display').textContent=(m<10?'0':'')+m+':'+(s<10?'0':'')+s;
+    if(timerSec<=300)document.getElementById('t-timer').classList.add('warn');
+    if(timerSec<=0){clearInterval(timerInt);submitTest();}
+  },1000);
+}
+
+function readText(btn,elId){
+  if(window.speechSynthesis.speaking){window.speechSynthesis.cancel();btn.className='tts-btn';btn.innerHTML='🔊 Listen';return;}
+  const txt=document.getElementById(elId).innerText;
+  const u=new SpeechSynthesisUtterance(txt);u.rate=0.85;
+  u.onend=()=>{btn.className='tts-btn';btn.innerHTML='🔊 Listen';};
+  btn.className='tts-btn speaking';btn.innerHTML='⏹ Stop';
+  window.speechSynthesis.speak(u);
+}
+function readOral(btn){
+  if(window.speechSynthesis.speaking){window.speechSynthesis.cancel();btn.className='tts-btn';btn.innerHTML='🔊 Listen to Story';return;}
+  const txt='A tiny seed sat in the dark soil. Rain fell and the seed began to grow. First, a small green shoot pushed through the dirt. Then leaves opened up and reached for the sun. Finally, a bright yellow flower bloomed. A butterfly landed on the flower. The little seed had become something beautiful.';
+  const u=new SpeechSynthesisUtterance(txt);u.rate=0.82;
+  u.onend=()=>{btn.className='tts-btn';btn.innerHTML='🔊 Listen to Story';};
+  btn.className='tts-btn speaking';btn.innerHTML='⏹ Stop';
+  window.speechSynthesis.speak(u);
+}
+async function startRec(){
+  try{
+    const stream=await navigator.mediaDevices.getUserMedia({audio:true});
+    audioChunks=[];mediaRec=new MediaRecorder(stream);
+    mediaRec.ondataavailable=e=>{if(e.data.size>0)audioChunks.push(e.data);};
+    mediaRec.onstop=()=>{
+      audioBlob=new Blob(audioChunks,{type:'audio/webm'});
+      const url=URL.createObjectURL(audioBlob);
+      document.getElementById('my-audio').src=url;
+      document.getElementById('btn-play').style.display='flex';
+      document.getElementById('btn-dl-audio').style.display='flex';
+      document.getElementById('rec-status').textContent='✅ Recording saved. You can play it back or save it.';
+    };
+    mediaRec.start();recState='recording';
+    document.getElementById('btn-rec').style.display='none';
+    document.getElementById('btn-stop').style.display='flex';
+    document.getElementById('rec-status').textContent='🔴 Recording… speak clearly.';
+  }catch(e){document.getElementById('rec-status').textContent='⚠️ Microphone not available. Ask your teacher for help.';}
+}
+function stopRec(){if(mediaRec&&recState==='recording'){mediaRec.stop();recState='stopped';document.getElementById('btn-stop').style.display='none';document.getElementById('btn-rec').style.display='flex';}}
+function playRec(){const a=document.getElementById('my-audio');if(a&&a.src)a.play();}
+function downloadAudio(){
+  if(!audioBlob){alert('No recording found.');return;}
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(audioBlob);
+  a.download=(studentName||'Student').replace(/\s+/g,'_')+'_Grade2_RS_Mock_Speaking.webm';
+  a.click();
+}
+
+function submitTest(){
+  clearInterval(timerInt);
+  clearSaved();
+  let correct=0;
+  const domScores={};
+  SECTIONS.forEach(sec=>{
+    if(!sec.questions)return;
+    let sc=0;
+    sec.questions.forEach(q=>{if(answers[q.id]===q.ans)sc++;});
+    domScores[sec.ccss]={title:sec.title,sc,tot:sec.questions.length};
+    correct+=sc;
+  });
+  const pct=Math.round(correct/50*100);
+  let grade,gCls,msg;
+  if(pct>=90){grade='A';gCls='gA';msg='Outstanding! 🌟';}
+  else if(pct>=75){grade='B';gCls='gB';msg='Great job! 👍';}
+  else if(pct>=60){grade='C';gCls='gC';msg='Good effort. Keep practising! 📚';}
+  else{grade='D';gCls='gD';msg='Keep trying — you can do it! 💪';}
+  let domRows='';
+  Object.entries(domScores).forEach(([ccss,d])=>{
+    const p=Math.round(d.sc/d.tot*100);
+    const bar=`<div style="background:#e0e8f0;border-radius:4px;height:7px;margin-top:4px"><div style="width:${p}%;background:${p>=75?'var(--green)':p>=60?'var(--amber)':'var(--red)'};height:100%;border-radius:4px"></div></div>`;
+    domRows+=`<tr><td>${ccss}</td><td>${d.title}</td><td>${d.sc}/${d.tot}</td><td>${p}%${bar}</td></tr>`;
+  });
+  document.getElementById('test').classList.remove('active');
+  document.getElementById('res-card').innerHTML=`
+    <div class="res-hdr"><h2>Practice Results</h2><div class="sub">Grade 2 · Reading & Speaking · Mock Assessment 1</div></div>
+    <div style="background:var(--light);border-radius:10px;padding:14px 18px;margin-bottom:20px;font-size:.88rem">
+      <strong>Student:</strong> ${studentName} &nbsp;|&nbsp; <strong>Teacher:</strong> ${teacherName||'—'} &nbsp;|&nbsp; <strong>Date:</strong> ${testDate}</div>
+    <div class="big-score"><div class="num">${correct} / 50</div>
+      <div style="font-size:.88rem;color:var(--mid);margin-top:4px">${pct}% &nbsp;·&nbsp; <span class="grade-pill ${gCls}">Grade ${grade}</span></div>
+      <div style="margin-top:8px;font-size:.9rem;color:var(--mid)">${msg}</div></div>
+    <table class="dom-table"><thead><tr><th>Standard</th><th>Topic</th><th>Score</th><th>Progress</th></tr></thead><tbody>${domRows}</tbody></table>
+    <div style="background:var(--light);border-radius:10px;padding:14px;font-size:.85rem;margin-bottom:20px">🎤 <strong>Speaking Task:</strong> Ask your teacher to listen to your recording and give feedback.</div>
+    <div class="dl-btns">
+      <button class="dl-btn score" onclick="downloadScoreCard(${correct},${pct},'${grade}')">⬇️ Download Score Card</button>
+      <button class="dl-btn audio" onclick="downloadAudio()">⬇️ Save Recording</button>
+    </div>`;
+  document.getElementById('results').classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function downloadScoreCard(correct,pct,grade){
+  let domRows2='';
+  SECTIONS.forEach(sec=>{
+    if(!sec.questions)return;
+    let sc=0;
+    sec.questions.forEach(q=>{if(answers[q.id]===q.ans)sc++;});
+    const p=Math.round(sc/sec.questions.length*100);
+    domRows2+=`<tr><td style="padding:8px 10px;border-bottom:1px solid #e0e8f0">${sec.ccss}</td><td style="padding:8px 10px;border-bottom:1px solid #e0e8f0">${sec.title}</td><td style="padding:8px 10px;border-bottom:1px solid #e0e8f0;text-align:center">${sc}/${sec.questions.length}</td><td style="padding:8px 10px;border-bottom:1px solid #e0e8f0;text-align:center">${p}%</td></tr>`;
+  });
+  const html=`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Score Card</title><script>window.onload=function(){window.print()}<\/script></head><body style="font-family:'Book Antiqua',Georgia,serif;padding:32px;max-width:680px;margin:0 auto;color:#1e2e42">
+<h1 style="font-size:1.4rem;color:#2a5499;margin-bottom:4px">Grade 2 Reading & Speaking — Mock Assessment 1</h1>
+<p style="color:#5a7090;font-size:.85rem;margin-bottom:20px">Practice Score Card</p>
+<table style="width:100%;border-collapse:collapse;margin-bottom:16px">
+<tr><td style="padding:6px 10px;background:#f0f5ff"><strong>Student:</strong></td><td style="padding:6px 10px">${studentName}</td><td style="padding:6px 10px;background:#f0f5ff"><strong>Teacher:</strong></td><td style="padding:6px 10px">${teacherName||'—'}</td></tr>
+<tr><td style="padding:6px 10px;background:#f0f5ff"><strong>Date:</strong></td><td colspan="3" style="padding:6px 10px">${testDate}</td></tr>
+</table>
+<div style="background:#3a72c0;color:white;border-radius:10px;padding:20px;text-align:center;margin-bottom:20px"><div style="font-size:2.4rem;font-weight:700">${correct}/50</div><div style="font-size:1rem;opacity:.85">${pct}% · Grade ${grade}</div></div>
+<table style="width:100%;border-collapse:collapse;font-size:.88rem;margin-bottom:20px"><thead><tr style="background:#3a72c0;color:white"><th style="padding:8px 10px;text-align:left">Standard</th><th style="padding:8px 10px;text-align:left">Topic</th><th style="padding:8px 10px;text-align:center">Score</th><th style="padding:8px 10px;text-align:center">%</th></tr></thead><tbody>${domRows2}</tbody></table>
+</body></html>`;
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([html],{type:'text/html'}));
+  a.download=(studentName||'Student').replace(/\s+/g,'_')+'_Grade2_RS_Mock_ScoreCard.html';
+  a.click();
+}
+</script>
+</body>
+</html>
