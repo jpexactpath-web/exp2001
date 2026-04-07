@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grade 2 · Exact Path · Assessment 1</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #12264a;
+  --blue: #2a5499;
+  --sky: #4a90d9;
+  --teal: #1a9070;
+  --mint: #d4f0e8;
+  --amber: #d98c18;
+  --gold: #f5c842;
+  --cream: #faf8f4;
+  --white: #ffffff;
+  --mid: #6a7e9a;
+  --light: #e8f0fb;
+  --border: #c8d8ee;
+  --shadow: 0 8px 40px rgba(18,38,74,.13);
+  --shadow-hover: 0 20px 60px rgba(18,38,74,.22);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Lato', sans-serif;
+  background: var(--cream);
+  color: var(--navy);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── BACKGROUND ── */
+.bg-layer {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse 80% 60% at 10% 10%, rgba(42,84,153,.07) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 80% at 90% 80%, rgba(26,144,112,.06) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 40% at 50% 50%, rgba(217,140,24,.04) 0%, transparent 70%);
+}
+.bg-dots {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background-image: radial-gradient(circle, rgba(42,84,153,.08) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* ── WRAPPER ── */
+.wrapper {
+  position: relative; z-index: 1;
+  max-width: 1040px; margin: 0 auto;
+  padding: 64px 24px 80px;
+}
+
+/* ── HERO ── */
+.hero {
+  text-align: center;
+  margin-bottom: 64px;
+  animation: fadeUp .8s ease both;
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--navy); color: var(--gold);
+  font-size: .72rem; font-weight: 700; letter-spacing: 2px;
+  text-transform: uppercase; padding: 6px 18px;
+  border-radius: 40px; margin-bottom: 24px;
+}
+.hero-badge .dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--gold); animation: pulse 2s infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.6)} }
+
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.6rem, 6vw, 4rem);
+  font-weight: 900; color: var(--navy);
+  line-height: 1.1; margin-bottom: 14px;
+  letter-spacing: -.02em;
+}
+.hero h1 em { font-style: italic; color: var(--blue); }
+.hero p {
+  font-size: 1.05rem; color: var(--mid);
+  font-weight: 300; letter-spacing: .02em;
+  max-width: 520px; margin: 0 auto 32px;
+  line-height: 1.75;
+}
+
+.hero-meta {
+  display: inline-flex; gap: 0; border: 2px solid var(--border);
+  border-radius: 14px; overflow: hidden; background: var(--white);
+  box-shadow: 0 2px 16px rgba(18,38,74,.07);
+}
+.hero-meta-item {
+  padding: 14px 24px; text-align: center;
+  border-right: 2px solid var(--border);
+}
+.hero-meta-item:last-child { border-right: none; }
+.hero-meta-item .hm-label {
+  font-size: .63rem; font-weight: 700; color: var(--mid);
+  text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;
+}
+.hero-meta-item .hm-val {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem; font-weight: 700; color: var(--navy);
+}
+
+/* ── DIVIDER ── */
+.divider {
+  display: flex; align-items: center; gap: 16px;
+  margin-bottom: 28px;
+  animation: fadeUp .8s .2s ease both;
+}
+.divider-line { flex: 1; height: 1px; background: var(--border); }
+.divider-label {
+  font-size: .7rem; font-weight: 700; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--mid);
+  white-space: nowrap;
+}
+
+/* ── TEST GRID ── */
+.test-group { margin-bottom: 48px; }
+.test-group-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem; color: var(--navy);
+  margin-bottom: 20px; font-weight: 700;
+  animation: fadeUp .8s .3s ease both;
+}
+.test-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+@media (max-width: 640px) { .test-grid { grid-template-columns: 1fr; } }
+
+/* ── CARD ── */
+.card {
+  background: var(--white);
+  border-radius: 20px;
+  padding: 32px 28px;
+  box-shadow: var(--shadow);
+  border: 2px solid transparent;
+  text-decoration: none;
+  color: inherit;
+  display: flex; flex-direction: column;
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  cursor: pointer;
+  position: relative; overflow: hidden;
+  animation: fadeUp .8s ease both;
+}
+.card:nth-child(1) { animation-delay: .35s; }
+.card:nth-child(2) { animation-delay: .45s; }
+
+.card::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0) 60%, rgba(74,144,217,.04) 100%);
+  pointer-events: none;
+}
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-hover);
+}
+
+/* Mock card */
+.card.mock { border-top: 4px solid var(--amber); }
+.card.mock:hover { border-color: var(--amber); }
+.card-stripe.mock-stripe {
+  position: absolute; top: 0; left: 0; right: 0; height: 4px;
+  background: linear-gradient(90deg, var(--amber), var(--gold));
+}
+
+/* Official card */
+.card.official { border-top: 4px solid var(--blue); }
+.card.official:hover { border-color: var(--blue); }
+.card-stripe.off-stripe {
+  position: absolute; top: 0; left: 0; right: 0; height: 4px;
+  background: linear-gradient(90deg, var(--navy), var(--blue));
+}
+
+.card-icon {
+  font-size: 2.4rem; margin-bottom: 16px;
+  display: block; line-height: 1;
+}
+.card-type {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: .66rem; font-weight: 700; letter-spacing: 1.5px;
+  text-transform: uppercase; padding: 3px 12px;
+  border-radius: 30px; margin-bottom: 14px;
+}
+.card-type.mock-type { background: #fff4dd; color: #9a6000; }
+.card-type.off-type  { background: var(--light); color: var(--blue); }
+.card-type .type-dot { width: 5px; height: 5px; border-radius: 50%; }
+.mock-type .type-dot  { background: var(--amber); }
+.off-type .type-dot   { background: var(--blue); }
+
+.card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.25rem; font-weight: 700; color: var(--navy);
+  margin-bottom: 8px; line-height: 1.25;
+}
+.card p {
+  font-size: .85rem; color: var(--mid); line-height: 1.65;
+  flex: 1; margin-bottom: 22px; font-weight: 300;
+}
+
+.card-meta {
+  display: flex; gap: 10px; flex-wrap: wrap;
+  margin-bottom: 22px;
+}
+.card-pill {
+  font-size: .7rem; font-weight: 700; padding: 4px 11px;
+  border-radius: 20px; background: var(--light); color: var(--mid);
+  letter-spacing: .3px;
+}
+
+.card-btn {
+  width: 100%; padding: 13px;
+  border: none; border-radius: 11px;
+  font-family: 'Lato', sans-serif;
+  font-weight: 700; font-size: .9rem;
+  cursor: pointer; transition: all .2s;
+  letter-spacing: .3px; text-align: center;
+  text-decoration: none; display: block;
+}
+.card-btn.mock-btn {
+  background: var(--amber); color: #fff;
+}
+.card-btn.mock-btn:hover { background: #c07a10; }
+.card-btn.off-btn {
+  background: var(--navy); color: #fff;
+}
+.card-btn.off-btn:hover { background: #0e1e38; }
+
+/* ── FEATURES BAR ── */
+.features {
+  display: flex; gap: 12px; flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 52px;
+  animation: fadeUp .8s .6s ease both;
+}
+.feature-item {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--white); border: 2px solid var(--border);
+  border-radius: 40px; padding: 8px 16px;
+  font-size: .78rem; font-weight: 700; color: var(--mid);
+  box-shadow: 0 2px 8px rgba(18,38,74,.05);
+}
+.feature-item span { font-size: 1rem; }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+<body>
+
+<div class="bg-layer"></div>
+<div class="bg-dots"></div>
+
+<div class="wrapper">
+
+    <header class="hero">
+    <div class="hero-badge">
+      <div class="dot"></div>
+      Exact Path Programme
+    </div>
+    <h1>Grade 2<br><em>Assessment 1</em></h1>
+    <p>Covering Weeks 1–11 · Reading, Speaking, Language &amp; Writing · 50 questions per test · 90 minutes</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <div class="hm-label">Tests</div>
+        <div class="hm-val">4</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="hm-label">Questions Each</div>
+        <div class="hm-val">50</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="hm-label">Duration</div>
+        <div class="hm-val">90 min</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="hm-label">Grade</div>
+        <div class="hm-val">2</div>
+      </div>
+    </div>
+  </header>
+
+    <div class="features">
+    <div class="feature-item"><span></span> Progress auto-saved</div>
+    <div class="feature-item"><span></span> Text-to-speech on passages</div>
+    <div class="feature-item"><span></span> Speaking task recording</div>
+    <div class="feature-item"><span></span> Downloadable score card</div>
+    <div class="feature-item"><span></span> Official results sent to teacher</div>
+    <div class="feature-item"><span></span> Works on any device</div>
+  </div>
+
+    <div class="test-group">
+    <div class="divider">
+      <div class="divider-line"></div>
+      <div class="divider-label">Reading &amp; Speaking</div>
+      <div class="divider-line"></div>
+    </div>
+
+    <div class="test-grid">
+
+            <a class="card mock" href="Grade2_Assessment1_ReadingSpeaking_MOCK.html">
+        <div class="card-stripe mock-stripe"></div>
+        <span class="card-icon"></span>
+        <span class="card-type mock-type"><span class="type-dot"></span>Practice Test</span>
+        <h3>Reading &amp; Speaking<br>Mock Test</h3>
+        <p>Practise at your own pace with instant right/wrong feedback after each question. Use this to prepare before your official test.</p>
+        <div class="card-meta">
+          <span class="card-pill">Set A Questions</span>
+          <span class="card-pill">Instant Feedback</span>
+          <span class="card-pill">Speaking Task</span>
+        </div>
+        <span class="card-btn mock-btn">Open Practice Test →</span>
+      </a>
+
+            <a class="card official" href="Grade2_Assessment1_ReadingSpeaking_OFFICIAL.html">
+        <div class="card-stripe off-stripe"></div>
+        <span class="card-icon"></span>
+        <span class="card-type off-type"><span class="type-dot"></span>Official Test</span>
+        <h3>Reading &amp; Speaking<br>Official Test</h3>
+        <p>Complete this test on your own. No feedback is shown during the test. Results are sent directly to your teacher when you submit.</p>
+        <div class="card-meta">
+          <span class="card-pill">Set B Questions</span>
+          <span class="card-pill">Honor Pledge</span>
+          <span class="card-pill">Sent to Teacher</span>
+        </div>
+        <span class="card-btn off-btn">Open Official Test →</span>
+      </a>
+
+    </div>
+  </div>
+
+    <div class="test-group">
+    <div class="divider">
+      <div class="divider-line"></div>
+      <div class="divider-label">Language &amp; Writing</div>
+      <div class="divider-line"></div>
+    </div>
+
+    <div class="test-grid">
+
+            <a class="card mock" href="Grade2_LangWriting_Assessment1_MOCK.html">
+        <div class="card-stripe mock-stripe"></div>
+        <span class="card-icon"></span>
+        <span class="card-type mock-type"><span class="type-dot"></span>Practice Test</span>
+        <h3>Language &amp; Writing<br>Mock Test</h3>
+        <p>Practise grammar, spelling, and written expression with immediate feedback. Includes 3 writing prompts to complete.</p>
+        <div class="card-meta">
+          <span class="card-pill">Set A Questions</span>
+          <span class="card-pill">Instant Feedback</span>
+          <span class="card-pill">3 Writing Prompts</span>
+        </div>
+        <span class="card-btn mock-btn">Open Practice Test →</span>
+      </a>
+
+            <a class="card official" href="Grade2_LangWriting_Assessment1_OFFICIAL.html">
+        <div class="card-stripe off-stripe"></div>
+        <span class="card-icon"></span>
+        <span class="card-type off-type"><span class="type-dot"></span>Official Test</span>
+        <h3>Language &amp; Writing<br>Official Test</h3>
+        <p>Complete this test independently. Your multiple-choice answers and all written responses are submitted to your teacher.</p>
+        <div class="card-meta">
+          <span class="card-pill">Set B Questions</span>
+          <span class="card-pill">Honor Pledge</span>
+          <span class="card-pill">Writing Submitted</span>
+        </div>
+        <span class="card-btn off-btn">Open Official Test →</span>
+      </a>
+
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
