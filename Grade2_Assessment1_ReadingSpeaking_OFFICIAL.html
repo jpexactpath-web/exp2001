@@ -1,1 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grade 2 · Official Assessment 1 · Reading & Speaking</title>
+<style>
+:root{
+  --bg:#f0f5ff;--white:#fff;--primary:#3a72c0;--primary-dk:#2a5499;
+  --teal:#1a9070;--amber:#d98c18;--green:#1e8a4a;--red:#c93535;
+  --text:#1e2e42;--mid:#5a7090;--light:#e4edf8;--border:#c0d0e4;
+  --shadow-sm:0 2px 8px rgba(30,46,66,.07);
+  --shadow-md:0 5px 20px rgba(30,46,66,.12);--r:12px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:"Book Antiqua","Palatino Linotype",Georgia,serif;font-size:16px;background:var(--bg);color:var(--text);line-height:1.7}
+.screen{display:none}.screen.active{display:block}
 
+/* COVER */
+#cover{min-height:100vh;background:linear-gradient(150deg,#c8daff 0%,#e8f2ff 55%,#c8e8d8 100%);display:none;align-items:center;justify-content:center;padding:40px 20px}
+#cover.active{display:flex}
+.cover-card{background:var(--white);border-radius:20px;padding:48px 40px;max-width:560px;width:100%;box-shadow:var(--shadow-md)}
+.official-seal{display:flex;align-items:center;gap:12px;background:var(--primary-dk);color:white;border-radius:12px;padding:14px 18px;margin-bottom:24px}
+.seal-icon{font-size:1.8rem}
+.seal-text .line1{font-weight:700;font-size:.85rem;letter-spacing:.5px}
+.seal-text .line2{font-size:.72rem;color:rgba(255,255,255,.7);letter-spacing:.3px;margin-top:2px}
+.cover-card h1{font-size:2rem;color:var(--primary-dk);margin-bottom:4px;line-height:1.2}
+.cover-sub{color:var(--mid);font-size:.92rem;margin-bottom:28px}
+.info-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:28px}
+.info-item{background:var(--light);border-radius:10px;padding:12px;text-align:center}
+.info-item .lbl{font-size:.65rem;font-weight:700;color:var(--mid);text-transform:uppercase;letter-spacing:.5px}
+.info-item .val{font-weight:700;color:var(--primary-dk);font-size:.95rem;margin-top:3px}
+.field-group{margin-bottom:16px}
+.field-group label{display:block;font-weight:700;font-size:.85rem;margin-bottom:6px;color:var(--text)}
+.field-group input{width:100%;border:2px solid var(--border);border-radius:8px;padding:11px 14px;font-family:inherit;font-size:1rem;color:var(--text);outline:none;transition:border .2s;background:var(--white)}
+.field-group input:focus{border-color:var(--primary)}
+.rules-box{background:#fff5f5;border:2px solid #f5c8c8;border-radius:10px;padding:16px;margin-bottom:20px}
+.rules-box h4{font-weight:700;font-size:.88rem;color:#8c2020;margin-bottom:10px}
+.rules-box ul{padding-left:20px;font-size:.85rem;color:#5a2020;line-height:2}
+.checkbox-row{display:flex;align-items:center;gap:10px;margin-bottom:20px;padding:12px 14px;background:var(--light);border-radius:10px;cursor:pointer}
+.checkbox-row input[type=checkbox]{width:18px;height:18px;accent-color:var(--primary);cursor:pointer;flex-shrink:0}
+.checkbox-row label{font-size:.85rem;font-weight:600;color:var(--text);cursor:pointer}
+.btn-start{width:100%;background:var(--primary-dk);color:white;border:none;border-radius:10px;padding:15px;font-family:inherit;font-weight:700;font-size:1rem;cursor:pointer;transition:all .2s;letter-spacing:.3px}
+.btn-start:hover:not(:disabled){background:var(--primary);transform:translateY(-1px)}
+.btn-start:disabled{opacity:.45;cursor:not-allowed}
+
+/* TEST SHELL */
+#test{min-height:100vh;display:none;flex-direction:column}
+#test.active{display:flex}
+.t-header{background:var(--primary-dk);color:white;display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:58px;position:sticky;top:0;z-index:200;box-shadow:0 2px 12px rgba(30,46,66,.2)}
+.t-header-left h2{font-size:.95rem;line-height:1}
+.t-header-left .sub{font-size:.68rem;color:rgba(255,255,255,.65);margin-top:2px}
+.t-timer{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.15);border-radius:8px;padding:6px 14px;transition:background .3s}
+#timer-display{font-size:1.3rem;letter-spacing:2px;color:white;min-width:60px;text-align:center}
+.t-timer.warn{background:var(--red)!important;animation:blink 1s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.6}}
+.q-counter{font-size:.78rem;color:rgba(255,255,255,.8);font-weight:700}
+.prog-bar{height:4px;background:rgba(255,255,255,.15)}.prog-fill{height:100%;background:var(--amber);transition:width .4s}
+.t-body{flex:1;max-width:840px;width:100%;margin:0 auto;padding:28px 16px 110px}
+
+/* SECTION HEADER */
+.sec-hd{display:flex;align-items:flex-start;gap:14px;background:var(--white);border-radius:var(--r);padding:20px 22px;margin-bottom:18px;box-shadow:var(--shadow-sm);border-left:5px solid var(--primary-dk)}
+.sec-icon{font-size:1.8rem;flex-shrink:0;margin-top:2px}
+.sec-hd h3{font-size:1.05rem;color:var(--primary-dk)}
+.sec-ccss{font-size:.68rem;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:.5px;margin-top:3px}
+.sec-desc{font-size:.82rem;color:var(--mid);margin-top:3px}
+
+/* PASSAGE */
+.passage{background:var(--white);border-radius:var(--r);padding:24px;margin-bottom:18px;box-shadow:var(--shadow-sm);border:1px solid var(--border)}
+.passage-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:10px}
+.passage-title{font-size:1.05rem;color:var(--primary-dk);font-weight:700}
+.tts-btn{display:flex;align-items:center;gap:6px;background:var(--light);border:2px solid var(--primary-dk);color:var(--primary-dk);border-radius:8px;padding:6px 12px;font-size:.78rem;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s}
+.tts-btn:hover{background:var(--primary-dk);color:white}
+.tts-btn.speaking{background:var(--red);border-color:var(--red);color:white}
+.passage-text{font-size:.95rem;line-height:1.95;color:#253548}
+.passage-text p{margin-bottom:10px}
+
+/* QUESTION CARD */
+.q-card{background:var(--white);border-radius:var(--r);padding:22px;margin-bottom:12px;box-shadow:var(--shadow-sm);border:1px solid var(--border);transition:box-shadow .2s}
+.q-card:hover{box-shadow:var(--shadow-md)}
+.q-meta{display:flex;gap:8px;align-items:center;margin-bottom:8px;flex-wrap:wrap}
+.q-badge{font-size:.67rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;padding:2px 9px;border-radius:20px}
+.q-badge.num{background:var(--primary-dk);color:white}
+.q-badge.ccss{background:var(--light);color:var(--teal)}
+.q-badge.dom{background:#fef3e2;color:#9a6000}
+.q-text{font-size:.95rem;font-weight:700;color:var(--text);line-height:1.55;margin-bottom:16px}
+.options{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media(max-width:540px){.options{grid-template-columns:1fr}}
+.opt{display:flex;align-items:center;gap:10px;background:var(--light);border:2px solid transparent;border-radius:9px;padding:11px 14px;cursor:pointer;transition:all .15s;font-size:.9rem;text-align:left}
+.opt:hover:not(.selected){border-color:var(--primary);background:#dce8f8}
+.opt.selected{border-color:var(--primary-dk);background:#c8d8f0}
+.opt-letter{width:26px;height:26px;border-radius:50%;background:var(--mid);color:white;font-weight:700;font-size:.78rem;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.opt.selected .opt-letter{background:var(--primary-dk)}
+
+/* ORAL TASK */
+.oral-box{background:var(--white);border-radius:var(--r);padding:28px;margin-bottom:12px;box-shadow:var(--shadow-sm);border:2px solid var(--primary-dk)}
+.oral-box h4{font-size:1rem;color:var(--primary-dk);margin-bottom:12px}
+.oral-instr{font-size:.88rem;color:var(--mid);margin-bottom:16px;line-height:1.6;background:var(--light);padding:12px 14px;border-radius:8px}
+.rec-controls{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.rec-btn{display:flex;align-items:center;gap:7px;padding:10px 18px;border-radius:9px;font-family:inherit;font-weight:700;font-size:.85rem;border:2px solid transparent;cursor:pointer;transition:all .2s}
+.rec-btn.record{background:var(--red);color:white}
+.rec-btn.stop{background:var(--mid);color:white}
+.rec-btn.play{background:var(--teal);color:white}
+.rec-btn.dl{background:var(--green);color:white}
+#rec-status{font-size:.8rem;color:var(--mid);margin-top:8px;min-height:20px}
+
+/* BOTTOM BAR */
+.bottom-bar{position:fixed;bottom:0;left:0;right:0;background:var(--white);border-top:2px solid var(--border);padding:14px 24px;display:flex;justify-content:space-between;align-items:center;gap:12px;box-shadow:0 -4px 16px rgba(30,46,66,.08);z-index:150}
+.btn-submit{background:var(--primary-dk);color:white;border:none;border-radius:9px;padding:12px 28px;font-family:inherit;font-weight:700;font-size:.95rem;cursor:pointer;transition:background .2s}
+.btn-submit:hover{background:var(--primary)}
+.unanswered{font-size:.82rem;color:var(--mid)}
+.btn-nav{display:flex;align-items:center;gap:6px;background:var(--light);border:2px solid var(--primary-dk);color:var(--primary-dk);border-radius:9px;padding:10px 18px;font-family:inherit;font-weight:700;font-size:.88rem;cursor:pointer;transition:all .2s}
+.btn-nav:hover{background:var(--primary-dk);color:white}
+.sec-progress{font-size:.78rem;font-weight:700;color:rgba(255,255,255,.8);background:rgba(255,255,255,.15);border-radius:8px;padding:6px 12px;white-space:nowrap}
+
+/* RESULTS */
+#results{display:none;min-height:100vh;background:var(--bg);padding:40px 20px}
+#results.active{display:block}
+.res-card{max-width:720px;margin:0 auto;background:var(--white);border-radius:20px;padding:40px;box-shadow:var(--shadow-md)}
+.res-hdr{background:linear-gradient(135deg,var(--primary-dk),var(--primary));border-radius:14px;padding:28px;text-align:center;color:white;margin-bottom:28px}
+.res-hdr h2{font-size:1.5rem;margin-bottom:4px}
+.res-hdr .sub{font-size:.85rem;opacity:.8}
+.big-score{text-align:center;margin-bottom:24px}
+.big-score .num{font-size:3rem;color:var(--primary-dk);font-weight:700}
+.grade-pill{display:inline-block;padding:4px 18px;border-radius:20px;font-weight:700;font-size:.95rem;margin-top:6px}
+.gA{background:#d4f0e4;color:#145c30}.gB{background:#d4e8ff;color:#1a4a8a}.gC{background:#fff0cc;color:#7a5500}.gD{background:#fde4e4;color:#8c1c1c}
+.dom-table{width:100%;border-collapse:collapse;font-size:.88rem;margin-bottom:22px}
+.dom-table th{background:var(--primary-dk);color:white;padding:9px 12px;text-align:left;font-size:.78rem}
+.dom-table td{padding:9px 12px;border-bottom:1px solid var(--light)}
+.dom-table tr:nth-child(even) td{background:var(--bg)}
+.submit-status{padding:16px;border-radius:10px;font-size:.88rem;margin-bottom:16px;display:none}
+.submit-status.ok{background:#d4f0e4;color:#145c30;display:block}
+.submit-status.err{background:#fde4e4;color:#8c1c1c;display:block}
+.dl-btns{display:flex;gap:12px;flex-wrap:wrap;margin-top:16px}
+.dl-btn{flex:1;min-width:180px;padding:13px;border-radius:9px;font-family:inherit;font-weight:700;font-size:.88rem;border:none;cursor:pointer;transition:all .2s;text-align:center}
+.dl-btn.score{background:var(--primary-dk);color:white}.dl-btn.score:hover{background:var(--primary)}
+.dl-btn.audio{background:var(--teal);color:white}.dl-btn.audio:hover{background:#157a5c}
+</style>
+</head>
+<body>
+
+<!-- ══ COVER ══ -->
+<div id="cover" class="screen active">
+  <div class="cover-card">
+    <div class="official-seal">
+      <div class="seal-icon">🏫</div>
+      <div class="seal-text">
+        <div class="line1">OFFICIAL ASSESSMENT</div>
+        <div class="line2">Exact Path Program · Grade 2</div>
+      </div>
+    </div>
+    <h1>Grade 2 Assessment 1</h1>
+    <p class="cover-sub">Reading &amp; Speaking &nbsp;·&nbsp; Weeks 1–11</p>
+    <div class="info-strip">
+      <div class="info-item"><div class="lbl">Questions</div><div class="val">50</div></div>
+      <div class="info-item"><div class="lbl">Time</div><div class="val">90 min</div></div>
+      <div class="info-item"><div class="lbl">Type</div><div class="val">Official</div></div>
+    </div>
+    <div class="field-group">
+      <label for="student-name">Student Name <span style="color:var(--red)">*</span></label>
+      <input type="text" id="student-name" placeholder="Enter your full name" required oninput="checkReady()">
+    </div>
+    <div class="field-group">
+      <label for="teacher-name">Teacher Name</label>
+      <input type="text" id="teacher-name" placeholder="Enter teacher's name">
+    </div>
+    <div class="field-group">
+      <label for="test-date">Date</label>
+      <input type="text" id="test-date" readonly>
+    </div>
+    <div class="rules-box">
+      <h4>📋 Test Rules</h4>
+      <ul>
+        <li>Work on your own — no help from others</li>
+        <li>You have 90 minutes</li>
+        <li>Answer all 50 questions before time runs out</li>
+        <li>Complete the Speaking Task by recording your answer</li>
+        <li>Your results will be sent to your teacher</li>
+      </ul>
+    </div>
+    <div class="checkbox-row" onclick="toggleHonor()">
+      <input type="checkbox" id="honor-check" onchange="checkReady()">
+      <label for="honor-check">I understand the rules and will complete this test honestly.</label>
+    </div>
+    <button class="btn-start" id="btn-start" onclick="startTest()" disabled>Begin Official Test →</button>
+  </div>
+</div>
+
+<!-- ══ TEST ══ -->
+<div id="test" class="screen">
+  <header class="t-header">
+    <div class="t-header-left">
+      <h2>Grade 2 · Reading &amp; Speaking</h2>
+      <div class="sub">Official Assessment 1</div>
+    </div>
+    <div class="t-timer" id="t-timer"><span>⏱</span><span id="timer-display">90:00</span></div>
+    <div class="t-right" style="display:flex;align-items:center;gap:10px"><span class="sec-progress" id="sec-progress">Section 1 of 11</span><span class="q-counter" id="q-counter">0 / 50</span></div>
+  </header>
+  <div class="prog-bar"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
+  <div class="t-body" id="t-body"></div>
+  <div class="bottom-bar">
+    <button class="btn-nav" id="btn-prev" onclick="prevSection()" style="display:none">← Previous</button>
+    <span class="unanswered" id="unanswered-msg">50 questions remaining</span>
+    <div style="display:flex;gap:8px;align-items:center">
+      <button class="btn-nav" id="btn-next" onclick="nextSection()">Next Section →</button>
+      <button class="btn-submit" id="btn-submit-final" style="display:none" onclick="submitTest()">Submit &amp; Send Results →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ RESULTS ══ -->
+<div id="results" class="screen">
+  <div class="res-card" id="res-card"></div>
+</div>
+
+<script>
+(function(){
+  const d=new Date();
+  const mo=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  document.getElementById('test-date').value=mo[d.getMonth()]+' '+d.getDate()+', '+d.getFullYear();
+})();
+
+function toggleHonor(){const c=document.getElementById('honor-check');c.checked=!c.checked;checkReady();}
+function checkReady(){
+  const n=document.getElementById('student-name').value.trim();
+  const h=document.getElementById('honor-check').checked;
+  document.getElementById('btn-start').disabled=!(n&&h);
+}
+
+const SECTIONS=[
+  {id:'s1',icon:'🔤',title:'Decoding Vowel Sounds',ccss:'RF.2.3a',domain:'Reading Foundations',
+   desc:'Distinguish long and short vowel sounds in one-syllable words.',
+   questions:[
+    {id:'q1',text:'Which word has a SHORT vowel sound?',opts:['cake','cat','gate','pale'],ans:1},
+    {id:'q2',text:'Which word has a LONG vowel sound?',opts:['hop','sit','home','big'],ans:2},
+    {id:'q3',text:'The letter "i" in the word "bike" makes a ________ sound.',opts:['short i','long i','short e','long e'],ans:1},
+    {id:'q4',text:'Which word rhymes with "lake"?',opts:['back','luck','cake','lick'],ans:2},
+    {id:'q5',text:'The word "pet" has a ________ vowel sound.',opts:['long e','short e','long a','short a'],ans:1},
+    {id:'q6',text:'Which word has the same vowel sound as "sun"?',opts:['tune','run','bone','June'],ans:1},
+  ]},
+  {id:'s2',icon:'📖',title:'Reading for Key Details',ccss:'RL.2.1',domain:'Reading Literature',
+   desc:'Ask and answer who, what, where, when, why, and how questions about a story.',
+   passage:{title:'The Big Red Kite',
+    text:`<p>Sam had a big red kite. One day, the wind blew hard. Sam ran to the park with his dad. They let the kite fly up, up, up into the sky. The kite went so high that Sam had to hold on tight. When it was time to go, Sam pulled the kite back down. He smiled all the way home.</p>`},
+   questions:[
+    {id:'q7',text:'WHO has the big red kite?',opts:["Sam's mom","Sam","Sam's sister","Sam's teacher"],ans:1},
+    {id:'q8',text:'WHERE did Sam go to fly his kite?',opts:['the school','the beach','the park','the backyard'],ans:2},
+    {id:'q9',text:'WHEN did Sam fly his kite?',opts:['on a rainy day','on a windy day','on a cold day','on a snowy day'],ans:1},
+    {id:'q10',text:'WHAT did Sam do when it was time to go?',opts:['He cut the string','He left the kite','He pulled the kite down','He tied the kite to a tree'],ans:2},
+    {id:'q11',text:'WHY did Sam have to hold on tight?',opts:['The kite was heavy','The kite went very high','The string was long','His dad told him to'],ans:1},
+    {id:'q12',text:'HOW did Sam feel on the way home?',opts:['sad','angry','tired','happy'],ans:3},
+    {id:'q13',text:'What is this story MAINLY about?',opts:['Going to the park','Sam flying a kite with his dad','Strong winds','Making a red kite'],ans:1},
+  ]},
+  {id:'s3',icon:'🔡',title:'Less Common Vowel Teams',ccss:'RF.2.3b',domain:'Reading Foundations',
+   desc:'Know spelling-sound correspondences for common vowel teams.',
+   questions:[
+    {id:'q14',text:'The letters "oa" in "boat" make which vowel sound?',opts:['/ô/ as in "off"','/ō/ as in "go"','/ou/ as in "out"','/ŭ/ as in "up"'],ans:1},
+    {id:'q15',text:'Which word has a vowel TEAM (two vowels together)?',opts:['bat','hip','rain','cup'],ans:2},
+    {id:'q16',text:'The word "feet" uses which vowel team?',opts:['ee','ea','oo','ai'],ans:0},
+    {id:'q17',text:'Which word has the same vowel team sound as "sleep"?',opts:['step','steep','stop','strip'],ans:1},
+    {id:'q18',text:'Which vowel team makes the vowel sound in "food"?',opts:['oa','ai','oo','ee'],ans:2},
+  ]},
+  {id:'s4',icon:'👤',title:'Analyzing Characters',ccss:'RL.2.3',domain:'Reading Literature',
+   desc:'Describe how characters respond to major events and challenges.',
+   passage:{title:"Mia's Big Moment",
+    text:`<p>Mia was afraid to go on stage. Her hands shook and her heart beat fast. When she heard the music start, she took a deep breath. She walked out and began to sing. Her voice was soft at first, but it got louder. When the song was over, everyone clapped. Mia smiled the biggest smile of her life.</p>`},
+   questions:[
+    {id:'q19',text:'At the START of the story, how did Mia feel?',opts:['excited','bored','afraid','angry'],ans:2},
+    {id:'q20',text:'What did Mia do to help herself feel brave?',opts:['She ran away','She took a deep breath','She asked for help','She sat down'],ans:1},
+    {id:'q21',text:'How did Mia\'s voice change as she sang?',opts:['It got quieter','It got faster','It got louder','It stayed the same'],ans:2},
+    {id:'q22',text:'What CHALLENGE did Mia face in this story?',opts:['She forgot the words','She was afraid to go on stage','She missed the music','She lost her shoes'],ans:1},
+    {id:'q23',text:'At the END of the story, how did Mia feel?',opts:['scared','proud and happy','very tired','confused'],ans:1},
+  ]},
+  {id:'s5',icon:'🔢',title:'Multi-syllabic Words',ccss:'RF.2.3c',domain:'Reading Foundations',
+   desc:'Decode regularly spelled two-syllable words with long vowels.',
+   questions:[
+    {id:'q24',text:'How many syllables does the word "sunlight" have?',opts:['1','2','3','4'],ans:1},
+    {id:'q25',text:'Which word has TWO syllables AND a long vowel sound?',opts:['bat','smile','robot','sit'],ans:2},
+    {id:'q26',text:'Clap the syllables in "cupcake." How many claps do you make?',opts:['1','2','3','4'],ans:1},
+    {id:'q27',text:'Which is a two-syllable word with a long "i" sound?',opts:['kitten','spider','happy','basket'],ans:1},
+    {id:'q28',text:'The word "rainfall" can be split into syllables as...',opts:['rai-nfall','rain-fall','r-ainfall','rainf-all'],ans:1},
+  ]},
+  {id:'s6',icon:'🎵',title:'Story Language — Rhyme & Rhythm',ccss:'RL.2.4',domain:'Reading Literature',
+   desc:'Describe how words and phrases supply rhythm and meaning in poems and stories.',
+   passage:{title:'Buzzy Bee (a poem)',
+    text:`<p style="font-style:italic;line-height:2.1">"Buzzy bee, buzzy bee,<br>Flying so free.<br>Over the flowers,<br>Over the tree.<br>Buzz, buzz, buzzy bee,<br>Come fly with me!"</p>`},
+   questions:[
+    {id:'q29',text:'Which two words in the poem RHYME?',opts:['"bee" and "free"','"buzz" and "bee"','"fly" and "free"','"over" and "flowers"'],ans:0},
+    {id:'q30',text:'"Buzzy bee" is an example of...',opts:['rhyme','alliteration (same beginning sounds)','repeated lines','a made-up word'],ans:1},
+    {id:'q31',text:'Which phrase is REPEATED in the poem?',opts:['"Over the tree"','"Buzzy bee"','"Come fly with me!"','"Flying so free"'],ans:1},
+    {id:'q32',text:'The word "buzz" in the poem imitates...',opts:["the bee's name","the real sound a bee makes","the name of a flower","the name of a tree"],ans:1},
+    {id:'q33',text:'What does the poem invite the bee to do at the very end?',opts:['Sit on a flower','Go to sleep','Fly together with the speaker','Find honey'],ans:2},
+  ]},
+  {id:'s7',icon:'📑',title:'Analyzing Text Structure',ccss:'RL.2.5',domain:'Reading Literature',
+   desc:'Describe how the beginning introduces a story and the ending concludes the action.',
+   passage:{title:'Lost Dog',
+    text:`<p>Jake found a small brown dog sitting by the road. The dog looked hungry and sad. Jake brought the dog home and gave it water and food. He made a sign that said "Found Dog" and put it on a telephone pole. The next day, a family called. They were so happy to find their dog! Jake felt good because he had helped someone.</p>`},
+   questions:[
+    {id:'q34',text:'How does this story BEGIN?',opts:['Jake calls a family','Jake finds a small dog by the road','Jake makes a sign','A family calls Jake'],ans:1},
+    {id:'q35',text:'What event happens in the MIDDLE of the story?',opts:['Jake finds the dog','Jake makes a "Found Dog" sign and puts it up','The family calls','Jake feels happy'],ans:1},
+    {id:'q36',text:'How does the story END?',opts:['Jake keeps the dog','The dog runs away','A family calls and gets their dog back','Jake makes another sign'],ans:2},
+    {id:'q37',text:'What is the PROBLEM in the story?',opts:['Jake is hungry','A dog is lost and alone','Jake cannot make a sign','The family is lost'],ans:1},
+    {id:'q38',text:'What is the SOLUTION to the problem?',opts:['Jake finds food for himself','Jake makes a sign and the family finds the dog','The dog finds its own way home','Jake keeps the dog forever'],ans:1},
+  ]},
+  {id:'s8',icon:'📚',title:'Recounting Stories — Fables & Folktales',ccss:'RL.2.2',domain:'Reading Literature',
+   desc:'Recount fables and folktales; determine the central message or moral.',
+   passage:{title:'The Ant and the Grasshopper (retold)',
+    text:`<p>All summer, the ant worked hard to store food for winter. The grasshopper played and sang all day. When winter came, the grasshopper had no food and was cold and hungry. He asked the ant to share. Because the ant had worked hard, she had plenty of food. She kindly shared some with the grasshopper. The grasshopper learned that it is important to plan ahead.</p>`},
+   questions:[
+    {id:'q39',text:'Who worked hard all summer to store food?',opts:['The grasshopper','The ant','Both of them','Neither of them'],ans:1},
+    {id:'q40',text:'What did the grasshopper do all summer instead of storing food?',opts:['stored water','helped the ant','played and sang','built a warm home'],ans:2},
+    {id:'q41',text:'What happened to the grasshopper when winter came?',opts:['He had plenty of food','He stayed warm and happy','He had no food and was hungry','He moved to a warm place'],ans:2},
+    {id:'q42',text:'What is the MORAL (lesson) of this fable?',opts:['Singing is more important than working','Winter is always hard for everyone','Always plan ahead and be prepared','Ants are unkind to grasshoppers'],ans:2},
+    {id:'q43',text:'Who shared food in the story?',opts:['The grasshopper','The ant','A farmer','Another ant'],ans:1},
+  ]},
+  {id:'s9',icon:'🔍',title:'Unusually Spelled Words',ccss:'RF.2.3f',domain:'Reading Foundations',
+   desc:'Recognize and read grade-appropriate irregularly spelled words.',
+   questions:[
+    {id:'q44',text:'Which word is spelled CORRECTLY?',opts:['frend','friend','frriend','freind'],ans:1},
+    {id:'q45',text:'Which of these is an IRREGULARLY spelled word — one you have to memorise?',opts:['cat','mat','said','bit'],ans:2},
+    {id:'q46',text:'Which sentence uses the CORRECT spelling?',opts:['"I wuz happy."','"I was happy."','"I wos happy."','"I waz happy."'],ans:1},
+    {id:'q47',text:'The word "people" is tricky to spell because...',opts:['it has a silent letter','it does not follow common spelling rules',"its letters don't match its sounds","all of the above"],ans:3},
+  ]},
+  {id:'s10',icon:'👁️',title:'Point of View',ccss:'RL.2.6',domain:'Reading Literature',
+   desc:'Acknowledge differences in points of view of characters.',
+   passage:{title:'Which Point of View?',
+    text:`<p><strong>Passage A:</strong> <em>"I ran to the store as fast as I could. I was so excited!"</em></p>
+          <p><strong>Passage B:</strong> <em>"She ran to the store as fast as she could. She was so excited!"</em></p>`},
+   questions:[
+    {id:'q48',text:'Passage A is written from which POINT OF VIEW?',opts:['first person  (I / me / my)','second person (you / your)','third person (he / she / they)','fourth person'],ans:0},
+    {id:'q49',text:'Passage B is written from which point of view?',opts:['first person','second person','third person','no point of view'],ans:2},
+    {id:'q50',text:'In a story told from FIRST PERSON point of view, which word appears most often?',opts:['he','she','I','they'],ans:2},
+  ]},
+  {id:'s_oral',icon:'🎤',title:'Speaking Task',ccss:'SL.2.2',domain:'Speaking & Listening',
+   desc:'Listen to a short story; share key details in spoken words.',oral:true}
+];
+
+const answers={};
+let timerSec=5400, timerInt=null, recState='idle', mediaRec=null, audioChunks=[], currentSection=0;
+
+function startTest(){
+  const n=document.getElementById('student-name').value.trim();
+  if(!n){alert('Please enter your name.');return;}
+  if(!document.getElementById('honor-check').checked){alert('Please check the honour box.');return;}
+  document.getElementById('cover').classList.remove('active');
+  document.getElementById('test').classList.add('active');
+  currentSection=0; showSection(0); startTimer();
+}
+
+function showSection(idx){
+  currentSection=idx;
+  const body=document.getElementById('t-body'); body.innerHTML='';
+  const sec=SECTIONS[idx];
+  let qNum=0;
+  SECTIONS.slice(0,idx).forEach(s=>{if(!s.oral&&s.questions)qNum+=s.questions.length;});
+
+  const hd=document.createElement('div'); hd.className='sec-hd';
+  hd.innerHTML=`<div class="sec-icon">${sec.icon}</div><div>
+    <h3>${sec.title}</h3>
+    <div class="sec-ccss">${sec.ccss} · ${sec.domain}</div>
+    <div class="sec-desc">${sec.desc}</div></div>`;
+  body.appendChild(hd);
+
+  if(sec.passage){
+    const p=document.createElement('div'); p.className='passage';
+    p.innerHTML=`<div class="passage-top">
+      <div class="passage-title">📄 ${sec.passage.title}</div>
+      <button class="tts-btn" onclick="readText(this,'pt-${sec.id}')">🔊 Listen</button>
+    </div><div class="passage-text" id="pt-${sec.id}">${sec.passage.text}</div>`;
+    body.appendChild(p);
+  }
+
+  if(!sec.oral&&sec.questions){
+    sec.questions.forEach(q=>{
+      qNum++;
+      const c=document.createElement('div'); c.className='q-card'; c.id='card-'+q.id;
+      c.innerHTML=`<div class="q-meta">
+        <span class="q-badge num">#${qNum}</span>
+        <span class="q-badge ccss">${sec.ccss}</span>
+        <span class="q-badge dom">${sec.domain}</span>
+      </div>
+      <div class="q-text">${q.text}</div>
+      <div class="options" id="opts-${q.id}">
+        ${q.opts.map((o,i)=>`<div class="opt${answers[q.id]===i?' selected':''}" onclick="pick('${q.id}',${i})">
+          <div class="opt-letter">${'ABCD'[i]}</div><span>${o}</span></div>`).join('')}
+      </div>`;
+      body.appendChild(c);
+    });
+  }
+
+  if(sec.oral){
+    const box=document.createElement('div'); box.className='oral-box';
+    box.innerHTML=`<h4>🎤 Speaking Task — ${sec.ccss} · ${sec.domain}</h4>
+      <div class="oral-instr">
+        <strong>Instructions:</strong> Click "Listen to Story" to hear a short story read aloud. Then record yourself answering:<br><br>
+        <em>"Tell 2–3 key details from the story. Describe what happened at the beginning, middle, and end."</em>
+      </div>
+      <div class="passage">
+        <div class="passage-top">
+          <div class="passage-title">📄 The Little Seed (read-aloud story)</div>
+          <button class="tts-btn" onclick="readOral(this)">🔊 Listen to Story</button>
+        </div>
+        <div class="passage-text">
+          <p>A tiny seed sat in the dark soil. Rain fell and the seed began to grow. First, a small green shoot pushed through the dirt. Then leaves opened up and reached for the sun. Finally, a bright yellow flower bloomed. A butterfly landed on the flower. The little seed had become something beautiful.</p>
+        </div>
+      </div>
+      <div class="rec-controls">
+        <button class="rec-btn record" id="btn-rec" onclick="startRec()">🔴 Record My Answer</button>
+        <button class="rec-btn stop" id="btn-stop" style="display:none" onclick="stopRec()">⏹ Stop Recording</button>
+        <button class="rec-btn play" id="btn-play" style="display:none" onclick="playRec()">▶ Play Back</button>
+        <button class="rec-btn dl" id="btn-dl-audio" style="display:none" onclick="downloadAudio()">⬇ Save Recording</button>
+      </div>
+      <audio id="my-audio"></audio>
+      <div id="rec-status"></div>`;
+    body.appendChild(box);
+  }
+
+  updateNav();
+  window.scrollTo(0,0);
+}
+
+function nextSection(){
+  if(currentSection<SECTIONS.length-1){showSection(currentSection+1);}
+}
+function prevSection(){
+  if(currentSection>0){showSection(currentSection-1);}
+}
+
+function updateNav(){
+  const total=SECTIONS.length;
+  const isFirst=currentSection===0;
+  const isLast=currentSection===total-1;
+  document.getElementById('btn-prev').style.display=isFirst?'none':'flex';
+  document.getElementById('btn-next').style.display=isLast?'none':'flex';
+  document.getElementById('btn-submit-final').style.display=isLast?'flex':'none';
+  document.getElementById('sec-progress').textContent='Section '+(currentSection+1)+' of '+total;
+}
+
+function buildTest(){showSection(0);}
+
+
+function pick(qid,idx){
+  const opts=document.querySelectorAll('#opts-'+qid+' .opt');
+  opts.forEach(o=>o.classList.remove('selected'));
+  opts[idx].classList.add('selected');
+  answers[qid]=idx;
+  refreshProgress();
+}
+
+function refreshProgress(){
+  const all=SECTIONS.flatMap(s=>s.questions||[]);
+  const done=all.filter(q=>answers[q.id]!==undefined).length;
+  document.getElementById('q-counter').textContent=done+' / 50';
+  document.getElementById('prog-fill').style.width=(done/50*100)+'%';
+  const rem=50-done;
+  document.getElementById('unanswered-msg').textContent=rem===0?'All questions answered ✓':rem+' question'+(rem!==1?'s':'')+' remaining';
+}
+
+function startTimer(){
+  timerInt=setInterval(()=>{
+    timerSec--;
+    const m=Math.floor(timerSec/60), s=timerSec%60;
+    document.getElementById('timer-display').textContent=m+':'+(s<10?'0'+s:s);
+    if(timerSec<=300) document.getElementById('t-timer').classList.add('warn');
+    if(timerSec<=0){clearInterval(timerInt);submitTest();}
+  },1000);
+}
+
+let curU=null;
+function readText(btn,elId){
+  if(curU){speechSynthesis.cancel();curU=null;document.querySelectorAll('.tts-btn').forEach(b=>{b.className='tts-btn';b.innerHTML='🔊 Listen';});return;}
+  const el=document.getElementById(elId); if(!el) return;
+  const u=new SpeechSynthesisUtterance(el.innerText||el.textContent);
+  u.rate=0.85; btn.className='tts-btn speaking'; btn.innerHTML='⏹ Stop';
+  u.onend=()=>{btn.className='tts-btn';btn.innerHTML='🔊 Listen';curU=null;}; curU=u; speechSynthesis.speak(u);
+}
+function readOral(btn){
+  if(curU){speechSynthesis.cancel();curU=null;btn.className='tts-btn';btn.innerHTML='🔊 Listen to Story';return;}
+  const text="A tiny seed sat in the dark soil. Rain fell and the seed began to grow. First, a small green shoot pushed through the dirt. Then leaves opened up and reached for the sun. Finally, a bright yellow flower bloomed. A butterfly landed on the flower. The little seed had become something beautiful.";
+  const u=new SpeechSynthesisUtterance(text); u.rate=0.82;
+  btn.className='tts-btn speaking'; btn.innerHTML='⏹ Stop';
+  u.onend=()=>{btn.className='tts-btn';btn.innerHTML='🔊 Listen to Story';curU=null;}; curU=u; speechSynthesis.speak(u);
+}
+
+async function startRec(){
+  try{
+    const stream=await navigator.mediaDevices.getUserMedia({audio:true});
+    audioChunks=[]; mediaRec=new MediaRecorder(stream);
+    mediaRec.ondataavailable=e=>audioChunks.push(e.data);
+    mediaRec.onstop=()=>{
+      const blob=new Blob(audioChunks,{type:'audio/webm'});
+      document.getElementById('my-audio').src=URL.createObjectURL(blob);
+      document.getElementById('btn-play').style.display='flex';
+      document.getElementById('btn-dl-audio').style.display='flex';
+      recState='done'; document.getElementById('rec-status').textContent='✅ Recording saved!';
+    };
+    mediaRec.start(); recState='recording';
+    document.getElementById('btn-rec').style.display='none';
+    document.getElementById('btn-stop').style.display='flex';
+    document.getElementById('rec-status').textContent='🔴 Recording…';
+  }catch(e){document.getElementById('rec-status').textContent='❌ Microphone not available: '+e.message;}
+}
+function stopRec(){if(mediaRec&&recState==='recording'){mediaRec.stop();recState='stopped';document.getElementById('btn-stop').style.display='none';document.getElementById('btn-rec').style.display='flex';}}
+function playRec(){const a=document.getElementById('my-audio');if(a&&a.src)a.play();}
+function downloadAudio(){
+  const a=document.getElementById('my-audio');
+  if(!a||!a.src||a.src===window.location.href){alert('No recording found. Please record first.');return;}
+  const n=(document.getElementById('student-name').value||'Student').replace(/\s+/g,'_');
+  const lk=document.createElement('a'); lk.href=a.src; lk.download=n+'_Official_ReadingSpeaking_Recording.webm'; lk.click();
+}
+
+async function submitTest(){
+  clearInterval(timerInt);
+  const all=SECTIONS.flatMap(s=>s.questions||[]);
+  const rem=all.filter(q=>answers[q.id]===undefined).length;
+  if(rem>0&&!confirm('You have '+rem+' unanswered question(s). Submit anyway?')) return;
+
+  const correct=all.filter(q=>answers[q.id]===q.ans).length;
+  const pct=Math.round(correct/all.length*100);
+  const name=document.getElementById('student-name').value||'Student';
+  const teacher=document.getElementById('teacher-name').value||'—';
+  const date=document.getElementById('test-date').value;
+
+  const doms={};
+  all.forEach(q=>{
+    const sec=SECTIONS.find(s=>s.questions&&s.questions.includes(q));
+    const d=sec?sec.domain:'Other';
+    if(!doms[d])doms[d]={c:0,t:0};
+    doms[d].t++; if(answers[q.id]===q.ans)doms[d].c++;
+  });
+  let domSummary='';for(const[d,v] of Object.entries(doms)) domSummary+=d+': '+v.c+'/'+v.t+' ('+Math.round(v.c/v.t*100)+'%)  ';
+  let answerDetail='';let n=0;
+  SECTIONS.forEach(sec=>{if(!sec.oral&&sec.questions)sec.questions.forEach(q=>{
+    n++; answerDetail+='Q'+n+' ('+sec.ccss+'): Student chose '+('ABCD'[answers[q.id]]||'—')+', Correct: '+('ABCD'[q.ans])+'  ';
+  });});
+
+  const payload={
+    student_name:name, teacher_name:teacher, test_date:date,
+    test_type:'Official Assessment 1 – Reading & Speaking',
+    grade:'Grade 2', score:correct+'/'+all.length, percentage:pct+'%',
+    letter_grade:pct>=90?'A':pct>=80?'B':pct>=70?'C':'D',
+    domain_summary:domSummary, answer_detail:answerDetail,
+    speaking_task:recState==='done'?'Student recorded audio — please ask them to submit the file.':'Student did NOT complete a spoken recording.',
+    _subject:'[Grade 2] Assessment 1 Reading & Speaking — '+name+' — '+pct+'%'
+  };
+
+  document.getElementById('test').classList.remove('active');
+  document.getElementById('results').classList.add('active');
+  document.getElementById('res-card').innerHTML='<div style="text-align:center;padding:60px 20px"><div style="font-size:2rem;margin-bottom:16px">⏳</div><div style="font-size:1rem;color:var(--mid)">Submitting your results…</div></div>';
+
+  try{
+    const res=await fetch('https://formspree.io/f/mdapkdel',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(payload)});
+    const data=await res.json();
+    if(data.ok||res.ok) showResults(correct,all.length,pct,name,teacher,date,doms,true);
+    else showResults(correct,all.length,pct,name,teacher,date,doms,false,'Formspree error: '+JSON.stringify(data));
+  }catch(err){showResults(correct,all.length,pct,name,teacher,date,doms,false,err.message);}
+}
+
+function showResults(correct,total,pct,name,teacher,date,doms,submitted,errMsg){
+  const grade=pct>=90?'A':pct>=80?'B':pct>=70?'C':'D';
+  let domRows='';for(const[d,v] of Object.entries(doms)) domRows+=`<tr><td>${d}</td><td>${v.c}/${v.t}</td><td>${Math.round(v.c/v.t*100)}%</td></tr>`;
+  const statusHtml=submitted
+    ?`<div class="submit-status ok">✅ Results submitted successfully to your teacher.</div>`
+    :`<div class="submit-status err">⚠️ Submission failed (${errMsg||'unknown error'}). Please download your score card and send it to your teacher manually.</div>`;
+  document.getElementById('res-card').innerHTML=`
+    <div class="res-hdr"><h2>✅ Official Test Submitted</h2><div class="sub">Grade 2 · Reading &amp; Speaking · Assessment 1</div></div>
+    ${statusHtml}
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px">
+      <div style="background:var(--light);border-radius:9px;padding:14px"><div style="font-size:.68rem;font-weight:700;color:var(--mid);text-transform:uppercase">Student</div><div style="font-weight:700;margin-top:3px">${name}</div></div>
+      <div style="background:var(--light);border-radius:9px;padding:14px"><div style="font-size:.68rem;font-weight:700;color:var(--mid);text-transform:uppercase">Date</div><div style="font-weight:700;margin-top:3px">${date}</div></div>
+    </div>
+    <div class="big-score">
+      <div class="num">${correct} / ${total}</div>
+      <div style="font-size:.88rem;color:var(--mid);margin:4px 0">${pct}% correct</div>
+      <div class="grade-pill g${grade}">Grade ${grade}</div>
+    </div>
+    <h3 style="font-size:.95rem;margin-bottom:10px">Score by Domain</h3>
+    <table class="dom-table"><thead><tr><th>Domain</th><th>Score</th><th>%</th></tr></thead><tbody>${domRows}</tbody></table>
+    <div style="background:#e4f4ff;border:2px solid var(--primary-dk);border-radius:10px;padding:16px;font-size:.88rem;margin-bottom:16px">
+      <strong>🎤 Speaking Task:</strong> ${recState==='done'?'Your recording was saved. Please save and submit it to your teacher.':'You did not complete a recording. Please let your teacher know.'}
+    </div>
+    <div class="dl-btns">
+      <button class="dl-btn score" onclick="downloadScoreCard(${correct},${total},${pct},'${name.replace(/'/g,"\\'")}','${teacher.replace(/'/g,"\\'")}','${date}')">⬇ Download Score Card</button>
+      <button class="dl-btn audio" onclick="downloadAudio()">⬇ Save Recording</button>
+    </div>`;
+}
+
+function downloadScoreCard(correct,total,pct,name,teacher,date){
+  if(correct===undefined){
+    const all=SECTIONS.flatMap(s=>s.questions||[]);
+    correct=all.filter(q=>answers[q.id]===q.ans).length;
+    total=all.length; pct=Math.round(correct/total*100);
+    name=document.getElementById('student-name').value||'Student';
+    teacher=document.getElementById('teacher-name').value||'—';
+    date=document.getElementById('test-date').value;
+  }
+  const grade=pct>=90?'A':pct>=80?'B':pct>=70?'C':'D';
+  const all=SECTIONS.flatMap(s=>s.questions||[]);
+  const doms={};
+  all.forEach(q=>{
+    const sec=SECTIONS.find(s=>s.questions&&s.questions.includes(q));
+    const d=sec?sec.domain:'Other';
+    if(!doms[d])doms[d]={c:0,t:0};
+    doms[d].t++; if(answers[q.id]===q.ans)doms[d].c++;
+  });
+  let domRows='';for(const[d,v] of Object.entries(doms)) domRows+=`<tr><td>${d}</td><td>${v.c}/${v.t}</td><td>${Math.round(v.c/v.t*100)}%</td></tr>`;
+  let qRows='';let n=0;
+  SECTIONS.forEach(sec=>{if(!sec.oral&&sec.questions)sec.questions.forEach(q=>{
+    n++;const ok=answers[q.id]===q.ans;
+    qRows+=`<tr><td>${n}</td><td>${sec.ccss}</td><td class="${ok?'ok':'no'}">${ok?'✓ Correct':'✗ Incorrect'}</td><td>${q.opts[q.ans]}</td></tr>`;
+  });});
+  const html=`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Score Card – ${name}</title>
+<style>*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Book Antiqua","Palatino Linotype",Georgia,serif;font-size:14px;background:#f0f5ff;padding:24px;color:#1e2e42}
+.card{background:white;border-radius:14px;padding:36px;max-width:660px;margin:0 auto;box-shadow:0 4px 20px rgba(0,0,0,.1)}
+.hdr{background:linear-gradient(135deg,#2a5499,#3a72c0);color:white;border-radius:10px;padding:24px;text-align:center;margin-bottom:22px}
+.hdr h1{font-size:1.4rem;margin-bottom:4px}.badge{background:#1a9070;color:white;font-weight:700;font-size:.65rem;letter-spacing:1px;padding:3px 12px;border-radius:20px;display:inline-block;margin-bottom:10px}
+.meta{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px}
+.mi{background:#e4edf8;border-radius:8px;padding:11px}
+.mi .l{font-size:.63rem;font-weight:700;color:#5a7090;text-transform:uppercase;letter-spacing:.5px}
+.mi .v{font-weight:700;font-size:.92rem;margin-top:3px}
+.big{text-align:center;margin-bottom:18px}.big .n{font-size:2.8rem;color:#2a5499;font-weight:700}
+table{width:100%;border-collapse:collapse;font-size:.82rem;margin-bottom:16px}
+th{background:#2a5499;color:white;padding:7px 10px;text-align:left;font-size:.73rem}
+td{padding:7px 10px;border-bottom:1px solid #e4edf8}
+tr:nth-child(even) td{background:#f0f5ff}
+.ok{color:#145c30;font-weight:700}.no{color:#8c1c1c;font-weight:700}
+.footer{text-align:center;font-size:.7rem;color:#5a7090;margin-top:16px;padding-top:12px;border-top:1px solid #e4edf8}
+@media print{body{background:white;padding:0}.card{box-shadow:none;border-radius:0}}</style>
+</head><body><div class="card">
+<div class="hdr"><div class="badge">🏫 OFFICIAL TEST</div><h1>Grade 2 Assessment 1</h1><p style="opacity:.8;font-size:.83rem">Reading &amp; Speaking · Weeks 1–11</p></div>
+<div class="meta">
+  <div class="mi"><div class="l">Student</div><div class="v">${name}</div></div>
+  <div class="mi"><div class="l">Date</div><div class="v">${date}</div></div>
+  <div class="mi"><div class="l">Teacher</div><div class="v">${teacher}</div></div>
+  <div class="mi"><div class="l">Test Type</div><div class="v">Official Assessment</div></div>
+</div>
+<div class="big"><div class="n">${correct} / ${total}</div>
+<div style="font-size:.83rem;color:#5a7090;margin:4px 0">${pct}% correct</div>
+<div style="display:inline-block;padding:4px 14px;border-radius:20px;font-weight:700;font-size:.88rem;margin-top:4px;background:#d4e8ff;color:#1a4a8a">Grade ${grade}</div></div>
+<h3 style="font-size:.9rem;margin-bottom:10px">Score by Domain</h3>
+<table><thead><tr><th>Domain</th><th>Score</th><th>%</th></tr></thead><tbody>${domRows}</tbody></table>
+<h3 style="font-size:.9rem;margin-bottom:10px">Question Review</h3>
+<table><thead><tr><th>#</th><th>Standard</th><th>Result</th><th>Correct Answer</th></tr></thead><tbody>${qRows}</tbody></table>
+<div style="background:#e4edf8;border-radius:8px;padding:13px;font-size:.82rem;margin-bottom:12px"><strong>🎤 Speaking Task (10 pts):</strong> To be scored by teacher from student's audio recording.</div>
+<div class="footer">Grade 2 Language Arts · Exact Path Program · Official Assessment · Generated ${date}</div>
+</div><script>window.onload=()=>window.print()<\/script></body></html>`;
+  const blob=new Blob([html],{type:'text/html'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url; a.download=name.replace(/\s+/g,'_')+'_Grade2_Official_ReadingSpeaking_ScoreCard.html'; a.click();
+  setTimeout(()=>URL.revokeObjectURL(url),5000);
+}
+</script>
+</body>
+</html>
