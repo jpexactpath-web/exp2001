@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Grade 2 — Official Assessment 1 — Language and Writing</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
 <style>
 :root{
   --bg:#f0f5ff;--white:#fff;--primary:#2a5499;--primary-dk:#1e3d7a;
@@ -713,7 +715,7 @@ async function submitTest() {
     '<div style="text-align:center;padding:18px 0 10px"><div style="font-size:2.8rem;font-weight:700;color:var(--primary-dk)">' + correct + ' / ' + TOTAL_MCQ + '</div><div style="margin-top:6px;font-size:.9rem;color:var(--mid)">' + pct + '% — Multiple-choice score. Your teacher will also mark your written work separately.</div></div>' +
     '<table class="dom-table" style="margin-top:20px"><thead><tr><th>Standard</th><th>Topic</th><th>Score</th><th>%</th></tr></thead><tbody>' + domRows + '</tbody></table>' +
     '<div style="background:var(--light);border-radius:10px;padding:14px;font-size:.85rem;color:var(--mid);margin-bottom:4px;line-height:1.6">Your five written responses have been included in the submission. Your teacher will review and return feedback.</div>' +
-    '<button class="dl-btn" onclick="downloadScoreCard(' + correct + ',' + pct + ')">Download Score Card</button>';
+    '<button class="dl-btn" onclick="downloadScoreCard(' + correct + ',' + pct + ')">Download PDF Score Card</button>';
 
   document.getElementById('results').classList.add('active');
   window.scrollTo(0, 0);
@@ -731,41 +733,187 @@ async function submitTest() {
   }
 }
 
-// ── SCORE CARD ────────────────────────────────────────────────────
+// ── SCORE CARD (PDF) ──────────────────────────────────────────────
 function downloadScoreCard(correct, pct) {
-  var mcRows = '';
+  var jsPDF = window.jspdf.jsPDF;
+  var doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+
+  var pageW = 210, pageH = 297, margin = 16;
+  var contentW = pageW - margin * 2;
+  var y = margin;
+
+  // colour palettes [R,G,B]
+  var cNavy  = [30, 61, 122];
+  var cTeal  = [26, 144, 112];
+  var cLight = [228, 237, 248];
+  var cBg    = [240, 245, 255];
+  var cMid   = [90, 112, 144];
+  var cWhite = [255, 255, 255];
+  var cText  = [30, 46, 66];
+  var cAmber = [217, 140, 24];
+
+  function setFill(c)   { doc.setFillColor(c[0], c[1], c[2]); }
+  function setStroke(c) { doc.setDrawColor(c[0], c[1], c[2]); }
+  function setColor(c)  { doc.setTextColor(c[0], c[1], c[2]); }
+
+  function addPage() {
+    doc.addPage();
+    y = margin + 4;
+    setStroke(cNavy); doc.setLineWidth(0.4);
+    doc.line(margin, margin - 1, pageW - margin, margin - 1);
+    setColor(cMid); doc.setFontSize(7); doc.setFont('times','normal');
+    doc.text('Grade 2  —  Language and Writing  —  Official Assessment 1  —  ' + studentName, margin, margin + 3);
+    y = margin + 8;
+  }
+
+  function checkY(needed) { if (y + needed > pageH - 14) { addPage(); } }
+
+  // ── PAGE 1 HEADER ──────────────────────────────────────────────
+  setFill(cNavy); doc.rect(0, 0, pageW, 28, 'F');
+  setFill(cAmber); doc.rect(0, 28, pageW, 2.5, 'F');
+
+  setColor(cWhite); doc.setFont('times','bold'); doc.setFontSize(15);
+  doc.text('Grade 2  \u2014  Language and Writing', margin, 11);
+  doc.setFont('times','normal'); doc.setFontSize(8.5);
+  doc.text('Official Assessment 1   \u00B7   Score Card   \u00B7   For Teacher Review', margin, 19);
+  doc.setTextColor(245, 200, 66); doc.setFontSize(7.5);
+  doc.text('OFFICIAL TEST', pageW - margin, 11, { align: 'right' });
+  y = 36;
+
+  // ── STUDENT INFO ───────────────────────────────────────────────
+  setFill(cLight); doc.roundedRect(margin, y, contentW, 21, 2, 2, 'F');
+  setColor(cText); doc.setFontSize(8.5);
+  var col2 = margin + contentW / 2 + 4;
+
+  doc.setFont('times','bold');  doc.text('Student:',    margin + 4, y + 7);
+  doc.setFont('times','normal'); doc.text(studentName,  margin + 24, y + 7);
+  doc.setFont('times','bold');  doc.text('Date:',       col2, y + 7);
+  doc.setFont('times','normal'); doc.text(testDate,     col2 + 13, y + 7);
+  doc.setFont('times','bold');  doc.text('Teacher:',    margin + 4, y + 15);
+  doc.setFont('times','normal'); doc.text(teacherName || '\u2014', margin + 24, y + 15);
+  doc.setFont('times','bold');  doc.text('Assessment:', col2, y + 15);
+  doc.setFont('times','normal'); doc.text('Language and Writing \u2014 Official', col2 + 30, y + 15);
+  y += 27;
+
+  // ── SCORE BOX ──────────────────────────────────────────────────
+  setFill(cNavy); doc.roundedRect(margin, y, contentW, 22, 2, 2, 'F');
+  setColor(cWhite); doc.setFont('times','bold'); doc.setFontSize(22);
+  doc.text(correct + ' / ' + TOTAL_MCQ, pageW / 2, y + 13, { align: 'center' });
+  doc.setFont('times','normal'); doc.setFontSize(7.5);
+  doc.text(pct + '%  \u00B7  Multiple-choice score  \u00B7  Written work will be marked separately by teacher', pageW / 2, y + 19, { align: 'center' });
+  y += 28;
+
+  // ── STANDARDS TABLE ────────────────────────────────────────────
+  setColor(cNavy); doc.setFont('times','bold'); doc.setFontSize(9);
+  doc.text('Score by Standard', margin, y);
+  y += 3;
+
+  var tableRows = [];
   PARTS.forEach(function(part) {
     part.sections.forEach(function(sec) {
       var sc = 0;
       sec.questions.forEach(function(q) { if (answers[q.id] === q.ans) sc++; });
       var p = Math.round(sc / sec.questions.length * 100);
-      mcRows += '<tr><td style="padding:7px 10px;border-bottom:1px solid #e0e8f0">Part ' + part.part + '</td><td style="padding:7px 10px;border-bottom:1px solid #e0e8f0">' + sec.ccss + '</td><td style="padding:7px 10px;border-bottom:1px solid #e0e8f0">' + sec.title + '</td><td style="padding:7px 10px;border-bottom:1px solid #e0e8f0;text-align:center">' + sc + '/' + sec.questions.length + '</td><td style="padding:7px 10px;border-bottom:1px solid #e0e8f0;text-align:center">' + p + '%</td></tr>';
+      tableRows.push(['Part ' + part.part, sec.ccss, sec.title, sc + '/' + sec.questions.length, p + '%']);
     });
   });
 
-  var writingHtml = '';
-  WRITING_TASKS.forEach(function(wp) {
-    var val = ((document.getElementById('wp' + wp.num) || {}).value || '').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-    if (val) {
-      writingHtml += '<div style="background:#f0f5ff;border-radius:8px;padding:14px 16px;margin-bottom:12px;page-break-inside:avoid"><div style="font-size:.68rem;font-weight:700;color:#1a9070;text-transform:uppercase;letter-spacing:.6px;margin-bottom:5px">Task ' + wp.num + ' — ' + wp.title + ' (' + wp.ccss + ')</div><div style="font-size:.87rem;line-height:1.7;white-space:pre-wrap">' + val + '</div></div>';
+  doc.autoTable({
+    startY: y,
+    head: [['Part','Standard','Topic','Score','%']],
+    body: tableRows,
+    margin: { left: margin, right: margin },
+    styles: { font: 'times', fontSize: 8.5, cellPadding: [2.5, 3], textColor: cText, lineColor: [210, 220, 235], lineWidth: 0.15 },
+    headStyles: { fillColor: cNavy, textColor: cWhite, fontStyle: 'bold', fontSize: 8, cellPadding: [3, 3] },
+    alternateRowStyles: { fillColor: cBg },
+    columnStyles: {
+      0: { cellWidth: 14 },
+      1: { cellWidth: 20 },
+      2: { cellWidth: 'auto' },
+      3: { cellWidth: 16, halign: 'center' },
+      4: { cellWidth: 13, halign: 'center' }
     }
   });
 
-  var html = '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Score Card — ' + studentName + '</title><script>window.onload=function(){window.print()}<\/script><style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:"Book Antiqua","Palatino Linotype",Georgia,serif;padding:32px;max-width:740px;margin:0 auto;color:#1e2e42;font-size:14px}@media print{body{padding:16px}}</style></head><body>'
-    + '<h1 style="font-size:1.3rem;color:#1e3d7a;margin-bottom:2px">Grade 2 — Language and Writing — Official Assessment 1</h1>'
-    + '<p style="color:#5a7090;font-size:.8rem;margin-bottom:18px">Official Score Card — For Teacher Review</p>'
-    + '<table style="width:100%;border-collapse:collapse;margin-bottom:16px;font-size:.86rem"><tr><td style="padding:7px 10px;background:#f0f5ff;width:20%"><strong>Student</strong></td><td style="padding:7px 10px">' + studentName + '</td><td style="padding:7px 10px;background:#f0f5ff;width:20%"><strong>Teacher</strong></td><td style="padding:7px 10px">' + (teacherName || '—') + '</td></tr><tr><td style="padding:7px 10px;background:#f0f5ff"><strong>Date</strong></td><td colspan="3" style="padding:7px 10px">' + testDate + '</td></tr></table>'
-    + '<div style="background:#1e3d7a;color:white;border-radius:10px;padding:18px;text-align:center;margin-bottom:18px"><div style="font-size:2rem;font-weight:700">' + correct + ' / ' + TOTAL_MCQ + '</div><div style="font-size:.9rem;opacity:.8;margin-top:3px">' + pct + '% — Multiple-choice score</div></div>'
-    + '<h3 style="font-size:.82rem;color:#1e3d7a;margin-bottom:8px;text-transform:uppercase;letter-spacing:.8px">Score by Standard</h3>'
-    + '<table style="width:100%;border-collapse:collapse;font-size:.83rem;margin-bottom:22px"><thead><tr style="background:#1e3d7a;color:white"><th style="padding:7px 10px;text-align:left">Part</th><th style="padding:7px 10px;text-align:left">Standard</th><th style="padding:7px 10px;text-align:left">Topic</th><th style="padding:7px 10px;text-align:center">Score</th><th style="padding:7px 10px;text-align:center">%</th></tr></thead><tbody>' + mcRows + '</tbody></table>'
-    + (writingHtml ? '<h3 style="font-size:.82rem;color:#1e3d7a;margin-bottom:10px;text-transform:uppercase;letter-spacing:.8px">Written Assignments — For Teacher Marking</h3>' + writingHtml : '')
-    + '<p style="font-size:.72rem;color:#a0b0c4;margin-top:22px;padding-top:14px;border-top:1px solid #e0e8f0;text-align:center">Grade 2 Exact Path Programme — Assessment 1 — Generated ' + testDate + '</p>'
-    + '</body></html>';
+  y = doc.lastAutoTable.finalY + 10;
 
-  var a = document.createElement('a');
-  a.href = URL.createObjectURL(new Blob([html], { type: 'text/html' }));
-  a.download = (studentName || 'Student').replace(/\s+/g, '_') + '_Grade2_LW_Official_ScoreCard.html';
-  a.click();
+  // ── WRITING SECTION HEADER ─────────────────────────────────────
+  checkY(16);
+  setFill(cNavy); doc.rect(margin, y, contentW, 11, 'F');
+  setColor(cWhite); doc.setFont('times','bold'); doc.setFontSize(10);
+  doc.text('Part E  \u2014  Written Assignments', margin + 4, y + 7.5);
+  doc.setFont('times','normal'); doc.setFontSize(7.5);
+  doc.text('For Teacher Marking', pageW - margin - 3, y + 7.5, { align: 'right' });
+  y += 15;
+
+  // ── WRITING TASKS ──────────────────────────────────────────────
+  WRITING_TASKS.forEach(function(wp) {
+    var rawVal = ((document.getElementById('wp' + wp.num) || {}).value || '').trim();
+
+    doc.setFontSize(8);
+    var promptLines = doc.splitTextToSize('Prompt: ' + wp.prompt, contentW - 8);
+    var promptH = promptLines.length * 4.5 + 7;
+
+    doc.setFontSize(10.5);
+    var respLines = rawVal ? doc.splitTextToSize(rawVal, contentW - 8) : [];
+    var respH = rawVal ? Math.max(respLines.length * 5.4 + 8, 16) : 14;
+
+    var needed = 10 + promptH + 5 + respH + 5 + 22 + 6;
+    checkY(needed);
+
+    // Task title bar (teal)
+    setFill(cTeal); doc.roundedRect(margin, y, contentW, 9, 1, 1, 'F');
+    setColor(cWhite); doc.setFont('times','bold'); doc.setFontSize(8.5);
+    doc.text('Task ' + wp.num + ' of 5  \u2014  ' + wp.title, margin + 4, y + 6);
+    doc.setFont('times','normal'); doc.setFontSize(7.5);
+    doc.text(wp.ccss, pageW - margin - 3, y + 6, { align: 'right' });
+    y += 12;
+
+    // Prompt box (light blue)
+    setFill(cBg); doc.roundedRect(margin, y, contentW, promptH, 1, 1, 'F');
+    setColor(cMid); doc.setFont('times','italic'); doc.setFontSize(8);
+    doc.text(promptLines, margin + 4, y + 5);
+    y += promptH + 4;
+
+    // Student response box
+    checkY(respH + 5);
+    setFill(cWhite); setStroke(cNavy); doc.setLineWidth(0.3);
+    doc.roundedRect(margin, y, contentW, respH, 1, 1, 'FD');
+
+    if (rawVal) {
+      setColor(cText); doc.setFont('times','normal'); doc.setFontSize(10.5);
+      doc.text(respLines, margin + 4, y + 6);
+    } else {
+      doc.setTextColor(180, 60, 60); doc.setFont('times','italic'); doc.setFontSize(8.5);
+      doc.text('No response was entered for this task.', margin + 4, y + 6);
+    }
+    y += respH + 5;
+
+    // Teacher marking box
+    checkY(22);
+    setFill([248, 250, 255]); setStroke([190, 205, 228]); doc.setLineWidth(0.2);
+    doc.roundedRect(margin, y, contentW, 20, 1, 1, 'FD');
+    setColor(cMid); doc.setFont('times','italic'); doc.setFontSize(7.5);
+    doc.text('Teacher mark: _____ / _____', margin + 4, y + 7);
+    doc.text('Teacher comments:', margin + 4, y + 14);
+    setStroke([200, 212, 230]); doc.setLineDash([1, 1.5]);
+    doc.line(margin + 46, y + 15, pageW - margin - 3, y + 15);
+    doc.setLineDash([]);
+    y += 25;
+  });
+
+  // ── FOOTER ON ALL PAGES ────────────────────────────────────────
+  var totalPages = doc.internal.getNumberOfPages();
+  for (var i = 1; i <= totalPages; i++) {
+    doc.setPage(i);
+    setColor(cMid); setStroke(cMid); doc.setLineWidth(0.2);
+    doc.line(margin, pageH - 10, pageW - margin, pageH - 10);
+    doc.setFont('times','normal'); doc.setFontSize(7);
+    doc.text('Grade 2 Exact Path Programme  \u00B7  Assessment 1  \u00B7  Generated ' + testDate, margin, pageH - 6);
+    doc.text('Page ' + i + ' of ' + totalPages, pageW - margin, pageH - 6, { align: 'right' });
+  }
+
+  doc.save((studentName || 'Student').replace(/\s+/g, '_') + '_Grade2_LW_Official_ScoreCard.pdf');
 }
 </script>
 </body>
