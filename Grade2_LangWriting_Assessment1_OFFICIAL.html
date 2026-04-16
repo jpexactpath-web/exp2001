@@ -3,400 +3,769 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Grade 2 · Official Assessment 1 · Language &amp; Writing</title>
+<title>Grade 2 — Official Assessment 1 — Language and Writing</title>
 <style>
-:root{--bg:#f0f5ff;--white:#fff;--primary:#2a5499;--primary-dk:#1e3d7a;--teal:#1a9070;--amber:#d98c18;--green:#1e8a4a;--red:#c93535;--text:#1e2e42;--mid:#5a7090;--light:#e4edf8;--border:#c0d0e4;--shadow-sm:0 2px 8px rgba(30,46,66,.07);--shadow-md:0 5px 20px rgba(30,46,66,.12);--r:12px;}
-*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+:root{
+  --bg:#f0f5ff;--white:#fff;--primary:#2a5499;--primary-dk:#1e3d7a;
+  --teal:#1a9070;--amber:#d98c18;--green:#1e8a4a;--red:#c93535;
+  --text:#1e2e42;--mid:#5a7090;--light:#e4edf8;--border:#c0d0e4;
+  --shadow-sm:0 2px 8px rgba(30,46,66,.07);--shadow-md:0 5px 20px rgba(30,46,66,.12);--r:12px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
 body{font-family:"Book Antiqua","Palatino Linotype",Georgia,serif;font-size:16px;background:var(--bg);color:var(--text);line-height:1.7}
 .screen{display:none}.screen.active{display:block}
+
+/* ── COVER ─────────────────────────────────────────────────────── */
 #cover{min-height:100vh;background:linear-gradient(150deg,#c8d8f0 0%,#e4edf8 55%,#c8e4dc 100%);display:none;align-items:center;justify-content:center;padding:40px 20px}
 #cover.active{display:flex}
-.cover-card{background:var(--white);border-radius:20px;padding:48px 40px;max-width:560px;width:100%;box-shadow:var(--shadow-md)}
+.cover-card{background:var(--white);border-radius:20px;padding:48px 40px;max-width:600px;width:100%;box-shadow:var(--shadow-md)}
 .resume-banner{background:#fff8e1;border:2px solid var(--amber);border-radius:12px;padding:16px 18px;margin-bottom:22px;display:none}
-.resume-banner p{font-size:.88rem;color:#6b4800;margin-bottom:10px}
+.resume-banner p{font-size:.88rem;color:#6b4800;margin-bottom:10px;line-height:1.55}
 .resume-btns{display:flex;gap:10px}
 .btn-resume{padding:8px 18px;border-radius:8px;font-family:inherit;font-size:.85rem;font-weight:700;cursor:pointer;border:2px solid;transition:all .2s}
 .btn-resume.yes{background:var(--amber);color:#fff;border-color:var(--amber)}
 .btn-resume.no{background:var(--white);color:var(--mid);border-color:var(--border)}
-.official-badge{background:var(--primary-dk);color:#fff;font-weight:700;font-size:.72rem;letter-spacing:1.5px;text-transform:uppercase;padding:4px 16px;border-radius:20px;display:inline-block;margin-bottom:18px}
-.cover-card h1{font-size:2rem;color:var(--primary-dk);margin-bottom:4px}
+.official-badge{background:var(--primary-dk);color:#fff;font-weight:700;font-size:.7rem;letter-spacing:2px;text-transform:uppercase;padding:5px 18px;border-radius:20px;display:inline-block;margin-bottom:20px}
+.cover-card h1{font-size:1.9rem;color:var(--primary-dk);margin-bottom:4px;line-height:1.2}
 .cover-sub{color:var(--mid);font-size:.92rem;margin-bottom:28px}
-.info-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:28px}
+.info-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:28px}
 .info-item{background:var(--light);border-radius:10px;padding:12px;text-align:center}
-.info-item .lbl{font-size:.65rem;font-weight:700;color:var(--mid);text-transform:uppercase;letter-spacing:.5px}
-.info-item .val{font-weight:700;color:var(--primary-dk);font-size:.95rem;margin-top:3px}
+.info-item .lbl{font-size:.62rem;font-weight:700;color:var(--mid);text-transform:uppercase;letter-spacing:.5px}
+.info-item .val{font-weight:700;color:var(--primary-dk);font-size:.92rem;margin-top:3px}
 .field-group{margin-bottom:16px}
 .field-group label{display:block;font-weight:700;font-size:.85rem;margin-bottom:6px;color:var(--text)}
 .field-group input{width:100%;border:2px solid var(--border);border-radius:8px;padding:11px 14px;font-family:inherit;font-size:1rem;color:var(--text);outline:none;transition:border .2s;background:var(--white)}
 .field-group input:focus{border-color:var(--primary)}
-.honor-box{background:#f0f5ff;border:2px solid var(--border);border-radius:10px;padding:16px 18px;margin-bottom:22px}
-.honor-box label{display:flex;align-items:flex-start;gap:10px;font-size:.88rem;color:var(--text);cursor:pointer;line-height:1.5}
+.honor-box{background:var(--light);border:2px solid var(--border);border-radius:10px;padding:16px 18px;margin-bottom:22px}
+.honor-box label{display:flex;align-items:flex-start;gap:10px;font-size:.88rem;color:var(--text);cursor:pointer;line-height:1.6}
 .honor-box input[type=checkbox]{margin-top:3px;width:18px;height:18px;flex-shrink:0;accent-color:var(--primary)}
-.notice{background:#e8f0ff;border:2px solid #a8c0e8;border-radius:10px;padding:14px 16px;font-size:.85rem;color:#1e3060;margin-bottom:24px;line-height:1.6}
-.btn-start{width:100%;background:var(--primary-dk);color:white;border:none;border-radius:10px;padding:15px;font-family:inherit;font-weight:700;font-size:1rem;cursor:pointer;transition:all .2s}
+.notice{background:#e8f0ff;border:2px solid #a8c0e8;border-radius:10px;padding:14px 16px;font-size:.85rem;color:#1e3060;margin-bottom:24px;line-height:1.65}
+.btn-start{width:100%;background:var(--primary-dk);color:white;border:none;border-radius:10px;padding:15px;font-family:inherit;font-weight:700;font-size:1rem;cursor:pointer;transition:all .2s;letter-spacing:.3px}
 .btn-start:hover:not(:disabled){background:#14306a;transform:translateY(-1px)}
 .btn-start:disabled{background:#90a8c8;cursor:not-allowed}
+
+/* ── TEST SHELL ─────────────────────────────────────────────────── */
 #test{min-height:100vh;display:none;flex-direction:column}
 #test.active{display:flex}
-.t-header{background:var(--primary-dk);color:white;display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:58px;position:sticky;top:0;z-index:200;box-shadow:0 2px 12px rgba(30,46,66,.3)}
-.t-header-left h2{font-size:.95rem;line-height:1}
-.t-header-left .sub{font-size:.68rem;color:rgba(255,255,255,.65);margin-top:2px}
-.t-timer{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.15);border-radius:8px;padding:6px 14px}
-#timer-display{font-size:1.3rem;letter-spacing:2px;color:white;min-width:60px;text-align:center}
+
+.t-header{background:var(--primary-dk);color:white;display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:58px;position:sticky;top:0;z-index:300;box-shadow:0 2px 12px rgba(30,46,66,.3)}
+.t-header-left h2{font-size:.93rem;line-height:1;font-weight:700}
+.t-header-left .sub{font-size:.65rem;color:rgba(255,255,255,.6);margin-top:2px}
+.t-timer{display:flex;align-items:center;gap:7px;background:rgba(255,255,255,.15);border-radius:8px;padding:6px 14px}
+.timer-label{font-size:.62rem;color:rgba(255,255,255,.55);text-transform:uppercase;letter-spacing:.5px}
+#timer-display{font-size:1.25rem;letter-spacing:2px;color:white;min-width:60px;text-align:center}
 .t-timer.warn{background:var(--red)!important;animation:blink 1s infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.6}}
-.q-counter{font-size:.78rem;color:rgba(255,255,255,.8);font-weight:700}
-.prog-bar{height:4px;background:rgba(255,255,255,.15)}.prog-fill{height:100%;background:var(--amber);transition:width .4s}
-.t-body{flex:1;max-width:840px;width:100%;margin:0 auto;padding:28px 16px 110px}
-.sec-hd{display:flex;align-items:flex-start;gap:14px;background:var(--white);border-radius:var(--r);padding:20px 22px;margin-bottom:18px;box-shadow:var(--shadow-sm);border-left:5px solid var(--primary)}
-.sec-icon{font-size:1.8rem;flex-shrink:0;margin-top:2px}
-.sec-hd h3{font-size:1.05rem;color:var(--primary-dk)}
-.sec-ccss{font-size:.68rem;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:.5px;margin-top:3px}
-.sec-desc{font-size:.82rem;color:var(--mid);margin-top:3px}
-.q-card{background:var(--white);border-radius:var(--r);padding:22px;margin-bottom:12px;box-shadow:var(--shadow-sm);border:1px solid var(--border);transition:box-shadow .2s}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.5}}
+.q-counter{font-size:.75rem;color:rgba(255,255,255,.8);font-weight:700;text-align:right;line-height:1.4}
+
+/* part navigation tabs */
+.part-nav{
+  background:var(--primary);display:flex;align-items:stretch;
+  position:sticky;top:58px;z-index:200;
+  border-bottom:2px solid rgba(255,255,255,.1);
+}
+.pn-tab{
+  flex:1;padding:11px 8px;text-align:center;cursor:pointer;
+  font-size:.75rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;
+  color:rgba(255,255,255,.6);border:none;background:transparent;
+  font-family:inherit;transition:all .2s;border-bottom:3px solid transparent;
+  line-height:1.3;
+}
+.pn-tab:hover{color:white;background:rgba(255,255,255,.08)}
+.pn-tab.active{color:white;border-bottom-color:var(--amber);background:rgba(255,255,255,.1)}
+.pn-tab .tab-part{font-size:.85rem;display:block}
+.pn-tab .tab-title{font-size:.6rem;opacity:.75;display:block;margin-top:1px}
+
+.prog-bar{height:4px;background:rgba(30,46,66,.1)}
+.prog-fill{height:100%;background:var(--amber);transition:width .4s}
+
+/* pages */
+.t-body{flex:1;max-width:860px;width:100%;margin:0 auto;padding:28px 18px 110px}
+.part-page{display:none}.part-page.active{display:block}
+
+/* part hero banner */
+.part-banner{
+  background:linear-gradient(135deg,var(--primary-dk),var(--primary));
+  color:white;border-radius:var(--r);padding:22px 26px;
+  margin-bottom:24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;
+}
+.pb-left .pb-part{font-size:.65rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;opacity:.7;margin-bottom:4px}
+.pb-left .pb-title{font-size:1.2rem;font-weight:700;line-height:1.2}
+.pb-left .pb-std{font-size:.72rem;opacity:.7;margin-top:4px}
+.pb-right{text-align:right}
+.pb-count{font-size:2rem;font-weight:700;line-height:1}
+.pb-count-label{font-size:.68rem;opacity:.65;text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
+
+/* section header */
+.sec-hd{
+  display:flex;align-items:flex-start;gap:12px;
+  background:var(--white);border-radius:var(--r);
+  padding:16px 20px;margin-bottom:12px;
+  box-shadow:var(--shadow-sm);border-left:4px solid var(--teal);
+}
+.sec-num{
+  width:34px;height:34px;border-radius:50%;
+  background:var(--primary-dk);color:white;
+  font-weight:700;font-size:.8rem;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;
+}
+.sec-hd h3{font-size:.98rem;color:var(--primary-dk);margin-bottom:1px}
+.sec-ccss{font-size:.65rem;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:.6px;margin-top:2px}
+.sec-desc{font-size:.8rem;color:var(--mid);margin-top:2px;line-height:1.5}
+
+/* question card */
+.q-card{background:var(--white);border-radius:var(--r);padding:20px 22px;margin-bottom:10px;box-shadow:var(--shadow-sm);border:1px solid var(--border);transition:box-shadow .2s}
 .q-card:hover{box-shadow:var(--shadow-md)}
-.q-meta{display:flex;gap:8px;align-items:center;margin-bottom:8px;flex-wrap:wrap}
-.q-badge{font-size:.67rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;padding:2px 9px;border-radius:20px}
+.q-meta{display:flex;gap:8px;align-items:center;margin-bottom:7px;flex-wrap:wrap}
+.q-badge{font-size:.63rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;padding:2px 9px;border-radius:20px}
 .q-badge.num{background:var(--primary-dk);color:white}
 .q-badge.ccss{background:var(--light);color:var(--teal)}
 .q-badge.dom{background:#fef3e2;color:#9a6000}
-.q-text{font-size:.95rem;font-weight:700;color:var(--text);line-height:1.55;margin-bottom:16px}
+.q-text{font-size:.93rem;font-weight:700;color:var(--text);line-height:1.55;margin-bottom:14px}
 .options{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 @media(max-width:540px){.options{grid-template-columns:1fr}}
-.opt{display:flex;align-items:center;gap:10px;background:var(--light);border:2px solid transparent;border-radius:9px;padding:11px 14px;cursor:pointer;transition:all .15s;font-size:.9rem;text-align:left;font-family:inherit;width:100%}
+.opt{
+  display:flex;align-items:center;gap:10px;
+  background:var(--light);border:2px solid transparent;border-radius:9px;
+  padding:11px 14px;cursor:pointer;transition:all .15s;
+  font-size:.88rem;text-align:left;font-family:inherit;width:100%;
+}
 .opt:hover:not(.selected){border-color:var(--primary);background:#d8e8f8}
 .opt.selected{border-color:var(--primary-dk);background:#c8d8f0}
-.opt-letter{width:26px;height:26px;border-radius:50%;background:var(--mid);color:white;font-weight:700;font-size:.78rem;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.opt-letter{width:25px;height:25px;border-radius:50%;background:var(--mid);color:white;font-weight:700;font-size:.75rem;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .opt.selected .opt-letter{background:var(--primary-dk)}
-.writing-section{background:var(--white);border-radius:var(--r);padding:26px;margin-bottom:14px;box-shadow:var(--shadow-sm);border:2px solid var(--primary-dk)}
-.writing-section h4{font-size:1rem;color:var(--primary-dk);margin-bottom:6px}
-.writing-prompt{background:var(--light);border-radius:9px;padding:14px 16px;font-size:.9rem;color:var(--text);margin-bottom:10px;line-height:1.65}
-.writing-tip{font-size:.78rem;color:var(--teal);margin-bottom:10px;font-style:italic}
-.writing-area{width:100%;min-height:130px;border:2px solid var(--border);border-radius:8px;padding:12px;font-family:inherit;font-size:.95rem;color:var(--text);resize:vertical;outline:none;transition:border .2s;background:var(--white);line-height:1.7}
+
+/* writing part (Part E) */
+.writing-banner{background:linear-gradient(135deg,#0d3060,var(--teal));color:white;border-radius:var(--r);padding:22px 26px;margin-bottom:0;border-radius:var(--r) var(--r) 0 0}
+.writing-banner h3{font-size:1.15rem;font-weight:700;margin-bottom:4px}
+.writing-banner p{font-size:.82rem;opacity:.75;line-height:1.55}
+.writing-block{background:var(--white);border:2px solid var(--border);border-top:none;border-radius:0 0 var(--r) var(--r);margin-bottom:16px;overflow:hidden}
+.writing-task{padding:24px;border-bottom:2px solid var(--light)}
+.writing-task:last-child{border-bottom:none}
+.task-header{display:flex;align-items:baseline;gap:12px;margin-bottom:8px;flex-wrap:wrap}
+.task-num-badge{font-size:.65rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:white;background:var(--primary);padding:3px 11px;border-radius:20px;white-space:nowrap}
+.task-ccss-tag{font-size:.65rem;font-weight:700;color:var(--teal);letter-spacing:.5px}
+.task-title{font-size:.96rem;font-weight:700;color:var(--primary-dk);margin-bottom:8px}
+.task-prompt{background:var(--light);border-radius:9px;padding:13px 16px;font-size:.88rem;color:var(--text);margin-bottom:8px;line-height:1.7;border-left:3px solid var(--primary)}
+.task-guidance{font-size:.76rem;color:var(--teal);margin-bottom:11px;line-height:1.55;font-style:italic}
+.writing-area{width:100%;min-height:150px;border:2px solid var(--border);border-radius:8px;padding:12px 14px;font-family:inherit;font-size:.93rem;color:var(--text);resize:vertical;outline:none;transition:border .2s;background:var(--white);line-height:1.75}
 .writing-area:focus{border-color:var(--primary)}
-.word-count{font-size:.75rem;color:var(--mid);text-align:right;margin-top:4px}
-.bottom-bar{position:fixed;bottom:0;left:0;right:0;background:var(--white);border-top:2px solid var(--border);padding:14px 24px;display:flex;justify-content:space-between;align-items:center;gap:12px;box-shadow:0 -4px 16px rgba(30,46,66,.08);z-index:150}
-.btn-submit{background:var(--primary-dk);color:white;border:none;border-radius:9px;padding:12px 28px;font-family:inherit;font-weight:700;font-size:.95rem;cursor:pointer;transition:background .2s}
-.btn-submit:hover{background:#14306a}
-.unanswered{font-size:.82rem;color:var(--mid)}
+.word-count{font-size:.72rem;color:var(--mid);text-align:right;margin-top:4px}
+
+/* bottom bar */
+.bottom-bar{position:fixed;bottom:0;left:0;right:0;background:var(--white);border-top:2px solid var(--border);padding:12px 24px;display:flex;justify-content:space-between;align-items:center;gap:10px;box-shadow:0 -4px 16px rgba(30,46,66,.08);z-index:200}
+.btn-nav{background:var(--light);color:var(--primary-dk);border:2px solid var(--border);border-radius:9px;padding:10px 20px;font-family:inherit;font-weight:700;font-size:.88rem;cursor:pointer;transition:all .2s}
+.btn-nav:hover:not(:disabled){background:var(--light);border-color:var(--primary);color:var(--primary)}
+.btn-nav:disabled{opacity:.35;cursor:not-allowed}
+.part-pill{background:var(--light);border:1px solid var(--border);border-radius:20px;padding:6px 18px;font-size:.78rem;font-weight:700;color:var(--primary-dk);white-space:nowrap}
+.btn-submit-nav{background:var(--primary-dk);color:white;border:none;border-radius:9px;padding:10px 24px;font-family:inherit;font-weight:700;font-size:.88rem;cursor:pointer;transition:background .2s;display:none}
+.btn-submit-nav:hover{background:#14306a}
+
+/* results */
 #results{display:none;min-height:100vh;background:var(--bg);padding:40px 20px}
 #results.active{display:block}
 .res-card{max-width:720px;margin:0 auto;background:var(--white);border-radius:20px;padding:40px;box-shadow:var(--shadow-md)}
 .res-hdr{background:linear-gradient(135deg,var(--primary-dk),var(--teal));border-radius:14px;padding:28px;text-align:center;color:white;margin-bottom:28px}
 .res-hdr h2{font-size:1.5rem;margin-bottom:4px}
 .res-hdr .sub{font-size:.85rem;opacity:.8}
-.submit-status{padding:14px 18px;border-radius:10px;font-size:.88rem;margin-bottom:18px}
-.submit-status.ok{background:#d4f0e4;color:#145c30;border:2px solid #8cd4b0}
-.submit-status.err{background:#fde4e4;color:#8c1c1c;border:2px solid #f0a0a0}
-.submit-status.pending{background:#fffbe8;border:2px solid #f5d888;color:#6b4800}
-.dl-btn{padding:13px 28px;border-radius:9px;font-family:inherit;font-weight:700;font-size:.88rem;border:none;cursor:pointer;transition:all .2s;background:var(--primary-dk);color:white;margin-top:20px}
+.submit-status{padding:14px 18px;border-radius:10px;font-size:.88rem;margin-bottom:18px;line-height:1.55;border:2px solid}
+.submit-status.ok{background:#d4f0e4;color:#145c30;border-color:#8cd4b0}
+.submit-status.err{background:#fde4e4;color:#8c1c1c;border-color:#f0a0a0}
+.submit-status.pending{background:#fffbe8;border-color:#f5d888;color:#6b4800}
+.dom-table{width:100%;border-collapse:collapse;font-size:.86rem;margin-bottom:22px}
+.dom-table th{background:var(--primary-dk);color:white;padding:9px 12px;text-align:left;font-size:.76rem}
+.dom-table td{padding:9px 12px;border-bottom:1px solid var(--light)}
+.dom-table tr:nth-child(even) td{background:var(--bg)}
+.dl-btn{padding:13px 28px;border-radius:9px;font-family:inherit;font-weight:700;font-size:.88rem;border:none;cursor:pointer;background:var(--primary-dk);color:white;margin-top:20px;display:inline-block;transition:background .2s}
 .dl-btn:hover{background:#14306a}
 </style>
 </head>
 <body>
+
+<!-- COVER ─────────────────────────────────────────────────────── -->
 <div id="cover" class="screen active">
   <div class="cover-card">
     <div class="resume-banner" id="resume-banner">
-      <p>📂 You have a saved test in progress for <strong id="saved-name-display"></strong>. Resume where you left off?</p>
+      <p>You have a saved test in progress for <strong id="saved-name-display"></strong>. Resume where you left off?</p>
       <div class="resume-btns">
-        <button class="btn-resume yes" onclick="resumeSaved()">▶ Resume Test</button>
-        <button class="btn-resume no" onclick="discardSaved()">✕ Start Fresh</button>
+        <button class="btn-resume yes" onclick="resumeSaved()">Resume Test</button>
+        <button class="btn-resume no" onclick="discardSaved()">Start Fresh</button>
       </div>
     </div>
-    <div class="official-badge">🏫 Official Test</div>
-    <h1>Grade 2 Assessment 1</h1>
-    <p class="cover-sub">Language &amp; Writing &nbsp;·&nbsp; Weeks 1–11</p>
+    <div class="official-badge">Official Test</div>
+    <h1>Grade 2 — Assessment 1</h1>
+    <p class="cover-sub">Language and Writing &nbsp;·&nbsp; Weeks 1–11</p>
     <div class="info-strip">
-      <div class="info-item"><div class="lbl">Questions</div><div class="val">50</div></div>
+      <div class="info-item"><div class="lbl">MC Questions</div><div class="val">70</div></div>
+      <div class="info-item"><div class="lbl">Writing Tasks</div><div class="val">5</div></div>
       <div class="info-item"><div class="lbl">Time</div><div class="val">90 min</div></div>
-      <div class="info-item"><div class="lbl">Type</div><div class="val">Official</div></div>
+      <div class="info-item"><div class="lbl">Parts</div><div class="val">A — E</div></div>
     </div>
-    <div class="field-group"><label for="student-name">Student Name <span style="color:var(--red)">*</span></label><input type="text" id="student-name" placeholder="Enter your full name" oninput="checkReady()"></div>
-    <div class="field-group"><label for="teacher-name">Teacher Name</label><input type="text" id="teacher-name" placeholder="Enter teacher's name"></div>
-    <div class="field-group"><label>Date</label><input type="text" id="test-date" readonly></div>
+    <div class="field-group">
+      <label for="student-name">Student Name <span style="color:var(--red)">*</span></label>
+      <input type="text" id="student-name" placeholder="Enter your full name" oninput="checkReady()">
+    </div>
+    <div class="field-group">
+      <label for="teacher-name">Teacher Name</label>
+      <input type="text" id="teacher-name" placeholder="Enter teacher's name">
+    </div>
+    <div class="field-group">
+      <label>Date</label>
+      <input type="text" id="test-date" readonly>
+    </div>
     <div class="honor-box">
-      <label><input type="checkbox" id="honor-check" onchange="checkReady()">
-      <span>I pledge to complete this test on my own without help from others or outside resources. I understand this is an official assessment.</span></label>
+      <label>
+        <input type="checkbox" id="honor-check" onchange="checkReady()">
+        <span>I pledge to complete this assessment on my own without help from others or outside resources. I understand this is an official test and my answers will be sent to my teacher.</span>
+      </label>
     </div>
-    <div class="notice"><strong>🏫 Official Test.</strong><br>Answers and writing are sent to your teacher when you finish. You will not see correct answers during the test. Do your best!</div>
-    <button class="btn-start" id="btn-start" onclick="startTest()" disabled>Begin Official Test →</button>
+    <div class="notice">
+      <strong>Official Assessment — Five Parts.</strong><br>
+      Parts A through D are multiple-choice (70 questions total). Part E contains five written assignments. Each part is shown on its own page. You may move freely between parts. No answer feedback is shown during the test. All work is submitted to your teacher when you click Submit.
+    </div>
+    <button class="btn-start" id="btn-start" onclick="startTest()" disabled>Begin Official Test</button>
   </div>
 </div>
+
+<!-- TEST ─────────────────────────────────────────────────────── -->
 <div id="test" class="screen">
   <header class="t-header">
-    <div class="t-header-left"><h2>Grade 2 · Language &amp; Writing</h2><div class="sub">Official Assessment 1</div></div>
-    <div class="t-timer" id="t-timer">⏱ <span id="timer-display">90:00</span></div>
-    <span class="q-counter" id="q-counter">0 / 50</span>
+    <div class="t-header-left">
+      <h2>Grade 2 — Language and Writing</h2>
+      <div class="sub" id="header-sub">Official Assessment 1 — Part A: Grammar</div>
+    </div>
+    <div class="t-timer" id="t-timer">
+      <span class="timer-label">Time</span>
+      <span id="timer-display">90:00</span>
+    </div>
+    <div class="q-counter" id="q-counter">0 / 70<br><span style="font-size:.58rem;opacity:.55">answered</span></div>
   </header>
+
+  <!-- Part navigation tabs -->
+  <nav class="part-nav" id="part-nav"></nav>
+
   <div class="prog-bar"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
-  <div class="t-body" id="t-body"></div>
+
+  <div class="t-body">
+    <div id="pages-container"></div>
+  </div>
+
   <div class="bottom-bar">
-    <span class="unanswered" id="unanswered-msg">50 questions remaining</span>
-    <button class="btn-submit" onclick="confirmSubmit()">Submit Test →</button>
+    <button class="btn-nav" id="btn-prev" onclick="prevPart()" disabled>Previous Part</button>
+    <span class="part-pill" id="part-pill">Part A of E</span>
+    <div style="display:flex;gap:10px;align-items:center">
+      <button class="btn-nav" id="btn-next" onclick="nextPart()">Next Part</button>
+      <button class="btn-submit-nav" id="btn-submit" onclick="confirmSubmit()">Submit Test</button>
+    </div>
   </div>
 </div>
-<div id="results" class="screen"><div class="res-card" id="res-card"></div></div>
+
+<!-- RESULTS ─────────────────────────────────────────────────────── -->
+<div id="results" class="screen">
+  <div class="res-card" id="res-card"></div>
+</div>
 
 <script>
-const SAVE_KEY='gr2_lw_off_v2';
-let studentName='',teacherName='',testDate='';
-let answers={};
-let timerSec=5400,timerInt=null;
+const SAVE_KEY = 'gr2_lw_off_v3';
+const TOTAL_MCQ = 70;
+let studentName = '', teacherName = '', testDate = '';
+let answers = {};
+let timerSec = 5400, timerInt = null;
+let currentPart = 0;
 
-window.addEventListener('DOMContentLoaded',()=>{
-  const d=new Date();
-  const mo=['January','February','March','April','May','June','July','August','September','October','November','December'];
-  document.getElementById('test-date').value=mo[d.getMonth()]+' '+d.getDate()+', '+d.getFullYear();
-  const sv=loadSaved();
-  if(sv&&sv.started){document.getElementById('saved-name-display').textContent=sv.studentName||'Student';document.getElementById('resume-banner').style.display='block';window._saved=sv;}
+// ── Init ──────────────────────────────────────────────────────────
+window.addEventListener('DOMContentLoaded', function() {
+  var d = new Date();
+  var mo = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  document.getElementById('test-date').value = mo[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear();
+  var sv = loadSaved();
+  if (sv && sv.started) {
+    document.getElementById('saved-name-display').textContent = sv.studentName || 'Student';
+    document.getElementById('resume-banner').style.display = 'block';
+    window._saved = sv;
+  }
 });
-function loadSaved(){try{const s=localStorage.getItem(SAVE_KEY);return s?JSON.parse(s):null;}catch(e){return null;}}
-function saveProg(){
-  const writing={};
-  [1,2,3].forEach(n=>{const el=document.getElementById('wp'+n);if(el)writing['wp'+n]=el.value;});
-  try{localStorage.setItem(SAVE_KEY,JSON.stringify({studentName,teacherName,testDate,answers,writing,timerSec,started:true}));}catch(e){}
-}
-function clearSaved(){localStorage.removeItem(SAVE_KEY);}
-function checkReady(){
-  const nm=document.getElementById('student-name').value.trim();
-  const ch=document.getElementById('honor-check').checked;
-  document.getElementById('btn-start').disabled=!(nm&&ch);
-}
-function resumeSaved(){
-  const sv=window._saved;if(!sv)return;
-  studentName=sv.studentName||'';teacherName=sv.teacherName||'';testDate=sv.testDate||'';timerSec=sv.timerSec||5400;
-  document.getElementById('student-name').value=studentName;document.getElementById('teacher-name').value=teacherName;document.getElementById('test-date').value=testDate;
-  document.getElementById('cover').classList.remove('active');document.getElementById('test').classList.add('active');
-  buildTest();restoreState(sv);startTimer();
-}
-function discardSaved(){clearSaved();document.getElementById('resume-banner').style.display='none';window._saved=null;}
 
-// ── SECTIONS — SET B (completely different from Mock Set A) ────────
-const SECTIONS=[
-{id:'s1',icon:'👥',title:'Collective Nouns',ccss:'L.2.1a',domain:'Language',desc:'Use collective nouns (e.g., a group of animals).',
- questions:[
-  {id:'q1',text:'What is the collective noun for a group of lions?',opts:['pack','pride','flock','herd'],ans:1},
-  {id:'q2',text:'What is the collective noun for a group of sheep?',opts:['pack','pride','flock','team'],ans:2},
-  {id:'q3',text:'A ___ of grapes hung on the vine.',opts:['bunch','pile','team','school'],ans:0},
-  {id:'q4',text:'Which sentence uses a collective noun?',opts:['The dog barked loudly.','A pod of whales swam past.','She ran very fast.','He ate his lunch.'],ans:1},
-  {id:'q5',text:'"Orchestra" is a collective noun. It names...',opts:['one musician','a group of musicians who play together','a type of music','a place to sit'],ans:1},
-]},
-{id:'s2',icon:'📝',title:'Irregular Plural Nouns',ccss:'L.2.1b',domain:'Language',desc:'Form and use frequently occurring irregular plural nouns.',
- questions:[
-  {id:'q6',text:'What is the plural of "goose"?',opts:['gooses','geeses','geese','goosies'],ans:2},
-  {id:'q7',text:'What is the plural of "woman"?',opts:['womans','womens','woman','women'],ans:3},
-  {id:'q8',text:'Which sentence uses the CORRECT plural?',opts:['"The gooses flew south."','"The geese flew south."','"The gooses flyed south."','"The geese flewed south."'],ans:1},
-  {id:'q9',text:'What is the plural of "ox"?',opts:['oxes','ox','oxen','oxs'],ans:2},
-  {id:'q10',text:'Which word is NOT an irregular plural?',opts:['geese','dogs','mice','men'],ans:1},
-]},
-{id:'s3',icon:'🔁',title:'Reflexive Pronouns',ccss:'L.2.1c',domain:'Language',desc:'Use reflexive pronouns (e.g., myself, ourselves).',
- questions:[
-  {id:'q11',text:'He hurt ___ when he fell off the bike.',opts:['him','his','himself','he'],ans:2},
-  {id:'q12',text:'We made the whole birthday cake ___.',opts:['us','ourselves','ours','we'],ans:1},
-  {id:'q13',text:'The reflexive pronoun for "you" (one person) is...',opts:['yourself','yourselves','yours','you'],ans:0},
-  {id:'q14',text:'"She taught ___ to ride a bike."',opts:['herself','hers','her','she'],ans:0},
-  {id:'q15',text:'Which sentence uses a reflexive pronoun correctly?',opts:['He saw himself in the mirror.','He saw him in the mirror.','He saw his in the mirror.','He saw he in the mirror.'],ans:0},
-]},
-{id:'s4',icon:'🔗',title:'Compound Sentences',ccss:'L.2.1f',domain:'Language',desc:'Produce, expand, and rearrange complete simple and compound sentences.',
- questions:[
-  {id:'q16',text:'Which word best completes: "I like pizza, ___ I also like pasta."',opts:['but','the','run','and'],ans:3},
-  {id:'q17',text:'"The sun is hot." Is this simple or compound?',opts:['compound','simple','neither','both'],ans:1},
-  {id:'q18',text:'In "She was tired, so she went to bed," what joins the two sentences?',opts:['a period','"tired"','a comma and "so"','a capital letter'],ans:2},
-  {id:'q19',text:'Combine: "He plays soccer." + "She plays tennis." Which is correct?',opts:['"He plays soccer and she plays tennis" (no comma)','"He plays soccer, and she plays tennis."','"He plays soccer. And she plays tennis."','"He and she plays soccer tennis."'],ans:1},
-  {id:'q20',text:'"The door was open, but nobody was home." What is the conjunction?',opts:['door','open','but','nobody'],ans:2},
-]},
-{id:'s5',icon:'🕰️',title:'Irregular Past-Tense Verbs',ccss:'L.2.1d',domain:'Language',desc:'Form and use the past tense of frequently occurring irregular verbs.',
- questions:[
-  {id:'q21',text:'What is the past tense of "eat"?',opts:['eated','ate','eating','eats'],ans:1},
-  {id:'q22',text:'What is the past tense of "see"?',opts:['seed','sawed','saw','sees'],ans:2},
-  {id:'q23',text:'"She ___ a beautiful rainbow yesterday."',opts:['seed','see','saw','seen'],ans:2},
-  {id:'q24',text:'"They ___ all the birthday cake at the party."',opts:['eated','ate','eating','eat'],ans:1},
-  {id:'q25',text:'What is the past tense of "give"?',opts:['gived','gives','gave','giving'],ans:2},
-]},
-{id:'s6',icon:'🔠',title:'Capitalisation',ccss:'L.2.2a',domain:'Language',desc:'Capitalise holidays, product names, and geographic names.',
- questions:[
-  {id:'q26',text:'Which sentence uses capitals CORRECTLY?',opts:['"I love christmas."','"I love Christmas."','"i love Christmas."','"I love christmas Day."'],ans:1},
-  {id:'q27',text:'Which of these is a geographic name that needs a capital?',opts:['table','window','Pacific Ocean','pencil'],ans:2},
-  {id:'q28',text:'"My friend lives in paris." Which word needs a capital?',opts:['My','friend','lives','Paris'],ans:3},
-  {id:'q29',text:'Which sentence capitalises the product name correctly?',opts:['"She drank a coke."','"she drank a Coke."','"She drank a Coke."','"she drank a coke."'],ans:2},
-  {id:'q30',text:'Which sentence uses capitalisation correctly?',opts:['"I went to new york city."','"I went to New York City."','"i went to New York city."','"I went to New york city."'],ans:1},
-]},
-{id:'s7',icon:"✏️",title:'Apostrophes',ccss:'L.2.2c',domain:'Language',desc:'Use apostrophes to form contractions and frequently occurring possessives.',
- questions:[
-  {id:'q31',text:'One dog has a bowl. Which shows this correctly?',opts:["dog bowl","dogs bowl","dog's bowl","dogs' bowl"],ans:2},
-  {id:'q32',text:'"cannot" = ?',opts:["ca'nt","can't","cant'","c'ant"],ans:1},
-  {id:'q33',text:'"The boy jacket was red." Fix it:',opts:['"The boys jacket was red."','"The boy\'s jacket was red."','"The boys\' jacket was red."','"The boyes jacket was red."'],ans:1},
-  {id:'q34',text:'"I am" shortened with an apostrophe = ?',opts:['Im',"I'am","I'm","Im'"],ans:2},
-  {id:'q35',text:'Two dogs share one bone. Which shows this correctly?',opts:["the dogs bone","the dog's bone","the dogs' bone","dogs bone"],ans:2},
-]},
-{id:'s8',icon:'🗣️',title:'Discussion Skills',ccss:'SL.2.1',domain:'Speaking & Listening',desc:'Participate in collaborative conversations with diverse partners.',
- questions:[
-  {id:'q36',text:'"Building on others\' ideas" in a discussion means...',opts:['ignoring what others say','disagreeing with everyone','adding to or connecting with what someone else said','repeating the same idea over and over'],ans:2},
-  {id:'q37',text:'How should you share an idea during a group discussion?',opts:['interrupt when you think of it','wait, then share when it is your turn','whisper only to the person next to you','write it down but never say it aloud'],ans:1},
-  {id:'q38',text:'"Agreed-upon rules" for a discussion means...',opts:['rules only the teacher made','rules that nobody follows','rules everyone in the group agreed to follow','rules written in a book'],ans:2},
-  {id:'q39',text:'How can you politely DISAGREE with a classmate?',opts:['Say "You\'re wrong!"','Ignore them','Say "I see it differently because..."','Leave the group'],ans:2},
-  {id:'q40',text:'What shows you are a good listener during a discussion?',opts:['drawing pictures','thinking about lunch','making eye contact with the speaker','tapping on your desk'],ans:2},
-]},
-{id:'s9',icon:'👂',title:'Listening Actively',ccss:'SL.2.2',domain:'Speaking & Listening',desc:'Recount or describe key ideas or details from a text read aloud.',
- questions:[
-  {id:'q41',text:'After listening to a read-aloud, what should you be able to recall?',opts:['the colour of the book','key ideas and details from the text','how long the text was','what page number it was on'],ans:1},
-  {id:'q42',text:'Which is a key DETAIL (not a main idea)?',opts:['The story is about friendship.','The dog hid under the bed during the storm.','The book is long.','It was a good read.'],ans:1},
-  {id:'q43',text:'How do you show you are actively listening?',opts:['talking to a neighbour','looking out the window','sitting up, facing the speaker, and not talking','thinking about recess'],ans:2},
-  {id:'q44',text:'When recounting a story you heard, you should...',opts:['make up new details','use your own words to retell what you heard','change the ending','only tell one part'],ans:1},
-  {id:'q45',text:'What is the difference between "main idea" and "key detail"?',opts:['they mean the same thing','the main idea is what the whole text is about; key details support it','key details are more important','main idea is only one word'],ans:1},
-]},
-{id:'s10',icon:'✍️',title:'Narrative Writing Skills',ccss:'W.2.3',domain:'Writing',desc:'Write narratives with details and temporal words to signal event order.',
- questions:[
-  {id:'q46',text:'Which is the BEST opening sentence for a narrative?',opts:['The end.','One stormy night, I discovered something surprising in the attic.','Dogs are animals.','My name is Sam.'],ans:1},
-  {id:'q47',text:'How does the word "finally" help in a narrative?',opts:['it introduces the problem','it describes a character','it shows the last event or conclusion','it names the setting'],ans:2},
-  {id:'q48',text:'Which sentence has the BEST descriptive detail?',opts:['The dog jumped.','A dog was there.','The big fluffy dog leaped into the cold muddy puddle with a giant splash.','There was a puddle.'],ans:2},
-  {id:'q49',text:'What should a good narrative include at the END?',opts:['a list of characters','a new problem','a closing sentence or conclusion','more questions'],ans:2},
-  {id:'q50',text:'Which shows events in the CORRECT time order?',opts:['"Finally I woke up, first I ate, then I brushed teeth."','"First I woke up, then I brushed my teeth, finally I ate breakfast."','"Then I woke up, first I ate, finally I brushed teeth."','"I finally first then woke brushed ate."'],ans:1},
-]},
+function loadSaved() { try { var s = localStorage.getItem(SAVE_KEY); return s ? JSON.parse(s) : null; } catch(e) { return null; } }
+function saveProg() {
+  var writing = {};
+  for (var n = 1; n <= 5; n++) { var el = document.getElementById('wp' + n); if (el) writing['wp' + n] = el.value; }
+  try { localStorage.setItem(SAVE_KEY, JSON.stringify({ studentName: studentName, teacherName: teacherName, testDate: testDate, answers: answers, writing: writing, timerSec: timerSec, currentPart: currentPart, started: true })); } catch(e) {}
+}
+function clearSaved() { localStorage.removeItem(SAVE_KEY); }
+function checkReady() {
+  var nm = document.getElementById('student-name').value.trim();
+  var ch = document.getElementById('honor-check').checked;
+  document.getElementById('btn-start').disabled = !(nm && ch);
+}
+function resumeSaved() {
+  var sv = window._saved; if (!sv) return;
+  studentName = sv.studentName || ''; teacherName = sv.teacherName || ''; testDate = sv.testDate || '';
+  timerSec = sv.timerSec || 5400; currentPart = sv.currentPart || 0;
+  document.getElementById('student-name').value = studentName;
+  document.getElementById('teacher-name').value = teacherName;
+  document.getElementById('test-date').value = testDate;
+  document.getElementById('cover').classList.remove('active');
+  document.getElementById('test').classList.add('active');
+  buildTest(); restoreState(sv); showPart(currentPart); startTimer();
+}
+function discardSaved() { clearSaved(); document.getElementById('resume-banner').style.display = 'none'; window._saved = null; }
+
+// ── DATA ──────────────────────────────────────────────────────────
+var PARTS = [
+  { part:'A', idx:0, title:'Grammar', standards:'L.2.1a  ·  L.2.1b  ·  L.2.1c  ·  L.2.1f  ·  L.2.1d', qCount:25,
+    sections:[
+      { id:'s1', num:1, title:'Collective Nouns', ccss:'L.2.1a', domain:'Language',
+        desc:'Use collective nouns (e.g., a group, a flock, a herd).',
+        questions:[
+          { id:'q1',  text:'What is the collective noun for a group of lions?', opts:['pack','pride','flock','herd'], ans:1 },
+          { id:'q2',  text:'What is the collective noun for a group of sheep?', opts:['pack','pride','flock','team'], ans:2 },
+          { id:'q3',  text:'A ___ of grapes hung on the vine.', opts:['bunch','pile','team','school'], ans:0 },
+          { id:'q4',  text:'Which sentence uses a collective noun?', opts:['The dog barked loudly.','A pod of whales swam past.','She ran very fast.','He ate his lunch.'], ans:1 },
+          { id:'q5',  text:'"Orchestra" is a collective noun. It names...', opts:['one musician','a group of musicians who play together','a type of music','a place to sit'], ans:1 }
+        ]
+      },
+      { id:'s2', num:2, title:'Irregular Plural Nouns', ccss:'L.2.1b', domain:'Language',
+        desc:'Form and use frequently occurring irregular plural nouns.',
+        questions:[
+          { id:'q6',  text:'What is the plural of "goose"?', opts:['gooses','geeses','geese','goosies'], ans:2 },
+          { id:'q7',  text:'What is the plural of "woman"?', opts:['womans','womens','woman','women'], ans:3 },
+          { id:'q8',  text:'Which sentence uses the correct plural?', opts:['The gooses flew south.','The geese flew south.','The gooses flyed south.','The geese flewed south.'], ans:1 },
+          { id:'q9',  text:'What is the plural of "ox"?', opts:['oxes','ox','oxen','oxs'], ans:2 },
+          { id:'q10', text:'Which word is NOT an irregular plural?', opts:['geese','dogs','mice','men'], ans:1 }
+        ]
+      },
+      { id:'s3', num:3, title:'Reflexive Pronouns', ccss:'L.2.1c', domain:'Language',
+        desc:'Use reflexive pronouns (e.g., myself, ourselves, themselves).',
+        questions:[
+          { id:'q11', text:'He hurt ___ when he fell off the bike.', opts:['him','his','himself','he'], ans:2 },
+          { id:'q12', text:'We made the whole birthday cake ___.', opts:['us','ourselves','ours','we'], ans:1 },
+          { id:'q13', text:'The reflexive pronoun for "you" (one person) is...', opts:['yourself','yourselves','yours','you'], ans:0 },
+          { id:'q14', text:'She taught ___ to ride a bike.', opts:['herself','hers','her','she'], ans:0 },
+          { id:'q15', text:'Which sentence uses a reflexive pronoun correctly?', opts:['He saw himself in the mirror.','He saw him in the mirror.','He saw his in the mirror.','He saw he in the mirror.'], ans:0 }
+        ]
+      },
+      { id:'s4', num:4, title:'Compound Sentences', ccss:'L.2.1f', domain:'Language',
+        desc:'Produce, expand, and rearrange complete simple and compound sentences.',
+        questions:[
+          { id:'q16', text:'Which word best completes: "I like pizza, ___ I also like pasta."', opts:['but','the','run','and'], ans:3 },
+          { id:'q17', text:'"The sun is hot." Is this simple or compound?', opts:['compound','simple','neither','both'], ans:1 },
+          { id:'q18', text:'In "She was tired, so she went to bed," what joins the two sentences?', opts:['a period','"tired"','a comma and "so"','a capital letter'], ans:2 },
+          { id:'q19', text:'Which correctly combines "He plays soccer" and "She plays tennis"?', opts:['He plays soccer and she plays tennis (no comma)','He plays soccer, and she plays tennis.','He plays soccer. And she plays tennis.','He and she plays soccer tennis.'], ans:1 },
+          { id:'q20', text:'"The door was open, but nobody was home." What is the conjunction?', opts:['door','open','but','nobody'], ans:2 }
+        ]
+      },
+      { id:'s5', num:5, title:'Irregular Past-Tense Verbs', ccss:'L.2.1d', domain:'Language',
+        desc:'Form and use the past tense of frequently occurring irregular verbs.',
+        questions:[
+          { id:'q21', text:'What is the past tense of "eat"?', opts:['eated','ate','eating','eats'], ans:1 },
+          { id:'q22', text:'What is the past tense of "see"?', opts:['seed','sawed','saw','sees'], ans:2 },
+          { id:'q23', text:'She ___ a beautiful rainbow yesterday.', opts:['seed','see','saw','seen'], ans:2 },
+          { id:'q24', text:'They ___ all the birthday cake at the party.', opts:['eated','ate','eating','eat'], ans:1 },
+          { id:'q25', text:'What is the past tense of "give"?', opts:['gived','gives','gave','giving'], ans:2 }
+        ]
+      }
+    ]
+  },
+  { part:'B', idx:1, title:'Conventions', standards:'L.2.2a  ·  L.2.2c', qCount:20,
+    sections:[
+      { id:'s6', num:6, title:'Capitalisation', ccss:'L.2.2a', domain:'Language',
+        desc:'Capitalise holidays, product names, and geographic names.',
+        questions:[
+          { id:'q26', text:'Which sentence uses capitals correctly?', opts:['I love christmas.','I love Christmas.','i love Christmas.','I love christmas Day.'], ans:1 },
+          { id:'q27', text:'Which of these is a geographic name that needs a capital letter?', opts:['table','window','Pacific Ocean','pencil'], ans:2 },
+          { id:'q28', text:'"My friend lives in paris." Which word needs a capital?', opts:['My','friend','lives','Paris'], ans:3 },
+          { id:'q29', text:'Which sentence capitalises the product name correctly?', opts:['She drank a coke.','she drank a Coke.','She drank a Coke.','she drank a coke.'], ans:2 },
+          { id:'q30', text:'Which sentence uses capitalisation correctly throughout?', opts:['I went to new york city.','I went to New York City.','i went to New York city.','I went to New york city.'], ans:1 },
+          { id:'q31', text:'Which word in "we visited london last summer" needs a capital?', opts:['we','visited','london','last'], ans:2 },
+          { id:'q32', text:'Which sentence capitalises a holiday correctly?', opts:['We celebrate eid with our family.','We celebrate Eid with our family.','we celebrate Eid with our family.','We Celebrate Eid with our family.'], ans:1 },
+          { id:'q33', text:'"she bought froot loops at the store." Which word needs a capital because it is a product name?', opts:['she','bought','Froot','store'], ans:2 },
+          { id:'q34', text:'Which sentence has all capitals in the right places?', opts:['On monday, we visited the eiffel tower.','On Monday, we visited the Eiffel Tower in Paris.','on Monday, we visited The Eiffel Tower in Paris.','On Monday, We Visited the Eiffel Tower in Paris.'], ans:1 },
+          { id:'q35', text:'In the sentence "they travel to dubai every eid," how many words need a capital letter?', opts:['1','2','3','4'], ans:2 }
+        ]
+      },
+      { id:'s7', num:7, title:'Apostrophes', ccss:'L.2.2c', domain:'Language',
+        desc:'Use apostrophes to form contractions and frequently occurring possessives.',
+        questions:[
+          { id:'q36', text:'One dog has a bowl. Which shows this correctly?', opts:['dog bowl','dogs bowl','dog\'s bowl','dogs\' bowl'], ans:2 },
+          { id:'q37', text:'"cannot" written with an apostrophe is...', opts:['ca\'nt','can\'t','cant\'','c\'ant'], ans:1 },
+          { id:'q38', text:'"The boy jacket was red." Fix it.', opts:['The boys jacket was red.','The boy\'s jacket was red.','The boys\' jacket was red.','The boyes jacket was red.'], ans:1 },
+          { id:'q39', text:'"I am" shortened with an apostrophe is...', opts:['Im','I\'am','I\'m','Im\''], ans:2 },
+          { id:'q40', text:'Two dogs share one bone. Which shows this correctly?', opts:['the dogs bone','the dog\'s bone','the dogs\' bone','dogs bone'], ans:2 },
+          { id:'q41', text:'Which sentence uses an apostrophe to show possession?', opts:['The cats are outside.','The cat\'s bowl was empty.','The cats\' outside.','The cats bowl is outside.'], ans:1 },
+          { id:'q42', text:'"They are going to the park." Shortened with an apostrophe:', opts:['They\'re going to the park.','Theyre going to the park.','They\'are going to the park.','They are\' going to the park.'], ans:0 },
+          { id:'q43', text:'Which phrase shows that the book belongs to the teacher?', opts:['the teachers book','the teacher\'s book','the teachers\' book','the teacher book'], ans:1 },
+          { id:'q44', text:'"It is raining outside." Shortened correctly:', opts:['Its raining outside.','It\'s raining outside.','Its\' raining outside.','I\'ts raining outside.'], ans:1 },
+          { id:'q45', text:'Which sentence is missing an apostrophe that it needs?', opts:['The girls toy is lost.','She can\'t find it.','It\'s a red ball.','Don\'t worry.'], ans:0 }
+        ]
+      }
+    ]
+  },
+  { part:'C', idx:2, title:'Speaking and Listening', standards:'SL.2.1  ·  SL.2.2', qCount:15,
+    sections:[
+      { id:'s8', num:8, title:'Discussion Skills', ccss:'SL.2.1', domain:'Speaking and Listening',
+        desc:'Participate in collaborative conversations; follow agreed-upon rules for discussion.',
+        questions:[
+          { id:'q46', text:'"Building on others\' ideas" in a discussion means...', opts:['ignoring what others say','disagreeing with everyone','adding to or connecting with what someone else said','repeating the same idea over and over'], ans:2 },
+          { id:'q47', text:'How should you share an idea during a group discussion?', opts:['Interrupt as soon as you think of it.','Wait, then share when it is your turn.','Whisper only to the person next to you.','Write it down but never say it aloud.'], ans:1 },
+          { id:'q48', text:'"Agreed-upon rules" for a discussion means...', opts:['rules only the teacher made','rules that nobody follows','rules everyone in the group agreed to follow','rules written in a textbook'], ans:2 },
+          { id:'q49', text:'How can you politely disagree with a classmate?', opts:['Say "You are wrong!"','Ignore them and say nothing.','Say "I see it differently because..."','Leave the group.'], ans:2 },
+          { id:'q50', text:'What shows you are a good listener during a discussion?', opts:['drawing pictures while others speak','thinking about lunch','making eye contact with the speaker','tapping on your desk'], ans:2 },
+          { id:'q51', text:'Which is the best way to begin sharing your idea in a group discussion?', opts:['Interrupt as soon as you have an idea.','Shout out your answer.','Wait for a pause, then say "I would like to add..."','Only speak if the teacher calls on you.'], ans:2 },
+          { id:'q52', text:'Why is it important to take turns when speaking in a group?', opts:['So the teacher can write everything down.','So everyone gets a chance to share their ideas.','So the discussion ends faster.','So you can speak more than others.'], ans:1 },
+          { id:'q53', text:'What should you do if you did not understand what a classmate said?', opts:['Ignore them and move on.','Laugh and say it was confusing.','Politely ask them to explain what they meant.','Tell the teacher they spoke unclearly.'], ans:2 }
+        ]
+      },
+      { id:'s9', num:9, title:'Listening Actively', ccss:'SL.2.2', domain:'Speaking and Listening',
+        desc:'Recount or describe key ideas or details from a text read aloud or presented.',
+        questions:[
+          { id:'q54', text:'After listening to a read-aloud, what should you be able to recall?', opts:['the colour of the book','key ideas and details from the text','how long the text was','what page number it was on'], ans:1 },
+          { id:'q55', text:'Which is a key detail (not a main idea)?', opts:['The story is about friendship.','The dog hid under the bed during the storm.','The book is long.','It was a good read.'], ans:1 },
+          { id:'q56', text:'How do you show you are actively listening?', opts:['talking to a neighbour','looking out the window','sitting up, facing the speaker, and not talking','thinking about recess'], ans:2 },
+          { id:'q57', text:'When recounting a story you heard, you should...', opts:['make up new details','use your own words to retell what you heard','change the ending','only tell one part'], ans:1 },
+          { id:'q58', text:'What is the difference between "main idea" and "key detail"?', opts:['they mean the same thing','the main idea is what the whole text is about; key details support it','key details are more important','main idea is only one word'], ans:1 },
+          { id:'q59', text:'Your teacher asks you to retell a story that was just read aloud. You should...', opts:['make up a new ending','share the key events in order using your own words','only describe the pictures','read it aloud word for word'], ans:1 },
+          { id:'q60', text:'Which shows that you were paying close attention during a read-aloud?', opts:['You can hum the tune of the story.','You can describe the beginning, middle, and end accurately.','You can name the author.','You can count the sentences.'], ans:1 }
+        ]
+      }
+    ]
+  },
+  { part:'D', idx:3, title:'Writing Knowledge', standards:'W.2.3', qCount:10,
+    sections:[
+      { id:'s10', num:10, title:'Narrative Writing', ccss:'W.2.3', domain:'Writing',
+        desc:'Write narratives that recount events, include details, and use temporal words to signal event order.',
+        questions:[
+          { id:'q61', text:'Which is the best opening sentence for a narrative?', opts:['The end.','One stormy night, I discovered something surprising in the attic.','Dogs are animals.','My name is Sam.'], ans:1 },
+          { id:'q62', text:'How does the word "finally" help in a narrative?', opts:['it introduces the problem','it describes a character','it shows the last event or conclusion','it names the setting'], ans:2 },
+          { id:'q63', text:'Which sentence has the best descriptive detail?', opts:['The dog jumped.','A dog was there.','The big fluffy dog leaped into the cold muddy puddle with a giant splash.','There was a puddle.'], ans:2 },
+          { id:'q64', text:'What should a good narrative include at the end?', opts:['a list of characters','a new problem','a closing sentence or conclusion','more questions'], ans:2 },
+          { id:'q65', text:'Which shows events in the correct time order?', opts:['Finally I woke up, first I ate, then I brushed teeth.','First I woke up, then I brushed my teeth, finally I ate breakfast.','Then I woke up, first I ate, finally I brushed teeth.','I finally first then woke brushed ate.'], ans:1 },
+          { id:'q66', text:'Which word would you use to show that something happened NEXT in a sequence?', opts:['because','although','then','since'], ans:2 },
+          { id:'q67', text:'A good narrative should include...', opts:['only facts and no feelings','an event or problem that happens to a character','a list of words to learn','instructions on how to do something'], ans:1 },
+          { id:'q68', text:'Which sentence gives the best description of a setting or action?', opts:['A door opened.','Something was there.','The old wooden door creaked open slowly.','There was a door.'], ans:2 },
+          { id:'q69', text:'"After that, we went home." The phrase "After that" is an example of...', opts:['a proper noun','a reflexive pronoun','a temporal phrase that shows time order','a contraction'], ans:2 },
+          { id:'q70', text:'When ending a narrative, a good writer should...', opts:['introduce a brand-new character','ask the reader a question','write a closing sentence that wraps up the story','repeat the first sentence exactly'], ans:2 }
+        ]
+      }
+    ]
+  }
 ];
 
-const WRITING_PROMPTS=[
-{num:1,ccss:'W.2.3',icon:'🤝',title:'Helping Someone',
- prompt:'Write 3\u20134 sentences about a time you helped someone. Use at least 2 temporal words (first, next, then, finally) to show the order of events.',
- tip:'Tip: Think of a time you helped a friend, family member, or classmate. Start with \u201cFirst, I \u2026\u201d'},
-{num:2,ccss:'L.2.1d',icon:'🌟',title:'A Fun Day',
- prompt:'Write 3\u20134 sentences about a fun day at school or with friends. Use at least 3 irregular past-tense verbs from this list: ran, sat, went, gave, ate, saw, told, did.',
- tip:'Tip: Use verbs like \u201cWe ran to the playground\u201d or \u201cI ate a big lunch.\u201d'},
-{num:3,ccss:'L.2.1f + L.2.2c',icon:'🐾',title:'My Favourite Animal',
- prompt:'Write a short paragraph (3\u20134 sentences) about your favourite animal. Include at least one compound sentence using \u201cand,\u201d \u201cbut,\u201d or \u201cso,\u201d and at least one apostrophe (possessive or contraction).',
- tip:'Tip: Example: \u201cI love dogs, and they make great pets.\u201d  Apostrophe: \u201cA dog\u2019s fur is soft.\u201d  Contraction: \u201cIt\u2019s my favourite animal.\u201d'},
+var WRITING_TASKS = [
+  { num:1, ccss:'W.2.3', title:'Narrating Events in Order',
+    prompt:'Write 3 to 4 sentences about a time you helped someone. Use at least two temporal words (first, next, then, finally) to show the order of events clearly.',
+    guidance:'Guidance: Begin with when or where the event happened. Example opening: "One afternoon, I helped my little brother tie his shoes." Use a temporal word to connect each step.'
+  },
+  { num:2, ccss:'L.2.1d', title:'Using Irregular Past-Tense Verbs',
+    prompt:'Write 3 to 4 sentences about a fun day at school or with friends. Use at least three irregular past-tense verbs from this list: ran, sat, went, gave, ate, saw, told, did.',
+    guidance:'Guidance: Think about what you did, where you went, or what you ate. Underline each irregular past-tense verb you use so your teacher can see them clearly.'
+  },
+  { num:3, ccss:'L.2.1f + L.2.2c', title:'Compound Sentences and Apostrophes',
+    prompt:'Write a short paragraph of 3 to 4 sentences about your favourite animal. Include at least one compound sentence joined by "and," "but," or "so," and at least one apostrophe used correctly — either to show possession or to write a contraction.',
+    guidance:'Guidance: Compound sentence — "I love dogs, and they make great pets." Possessive apostrophe — "A dog\'s fur is soft." Contraction — "It\'s my favourite animal."'
+  },
+  { num:4, ccss:'L.2.2a', title:'Capitalisation in Context',
+    prompt:'Write 4 to 5 sentences about a special holiday or celebration that you enjoy. Capitalise every holiday name, place name, and product name correctly. Circle each word you have capitalised when you are done.',
+    guidance:'Guidance: Words that need capitals — Eid, Christmas, Diwali, Ramadan, New Year, New York, Coca-Cola. Check each sentence carefully before moving on.'
+  },
+  { num:5, ccss:'L.2.1b + L.2.1c', title:'Irregular Plurals and Reflexive Pronouns',
+    prompt:'Write 3 to 4 sentences about animals you have seen or learned about. Use at least one irregular plural noun (for example: geese, mice, oxen, children) and at least one reflexive pronoun (for example: myself, himself, herself, themselves). Underline each one.',
+    guidance:'Guidance: Irregular plural example — "We saw three geese at the pond." Reflexive pronoun example — "The cat cleaned itself." Make sure your reflexive pronoun matches the subject.'
+  }
 ];
 
-function startTest(){
-  const nm=document.getElementById('student-name').value.trim();
-  if(!nm){alert('Please enter your name.');return;}
-  if(!document.getElementById('honor-check').checked){alert('Please read and check the Honor Pledge.');return;}
-  studentName=nm;teacherName=document.getElementById('teacher-name').value.trim();testDate=document.getElementById('test-date').value;timerSec=5400;
-  document.getElementById('cover').classList.remove('active');document.getElementById('test').classList.add('active');
-  buildTest();startTimer();saveProg();
+var PART_NAMES = ['A: Grammar','B: Conventions','C: Speaking and Listening','D: Writing Knowledge','E: Written Assignments'];
+
+// ── START ─────────────────────────────────────────────────────────
+function startTest() {
+  var nm = document.getElementById('student-name').value.trim();
+  if (!nm) { alert('Please enter your name.'); return; }
+  if (!document.getElementById('honor-check').checked) { alert('Please accept the honor pledge.'); return; }
+  studentName = nm;
+  teacherName = document.getElementById('teacher-name').value.trim();
+  testDate = document.getElementById('test-date').value;
+  timerSec = 5400; currentPart = 0;
+  document.getElementById('cover').classList.remove('active');
+  document.getElementById('test').classList.add('active');
+  buildTest();
+  showPart(0);
+  startTimer();
+  saveProg();
 }
-function buildTest(){
-  const body=document.getElementById('t-body');body.innerHTML='';let qNum=0;
-  SECTIONS.forEach(sec=>{
-    const hd=document.createElement('div');hd.className='sec-hd';
-    hd.innerHTML=`<div class="sec-icon">${sec.icon}</div><div><h3>${sec.title}</h3><div class="sec-ccss">${sec.ccss} · ${sec.domain}</div><div class="sec-desc">${sec.desc}</div></div>`;
-    body.appendChild(hd);
-    sec.questions.forEach(q=>{
-      qNum++;
-      const c=document.createElement('div');c.className='q-card';
-      c.innerHTML=`<div class="q-meta"><span class="q-badge num">#${qNum}</span><span class="q-badge ccss">${sec.ccss}</span><span class="q-badge dom">${sec.domain}</span></div>
-      <div class="q-text">${q.text}</div>
-      <div class="options" id="opts-${q.id}">${q.opts.map((o,i)=>`<button class="opt" onclick="pick('${q.id}',${i})"><div class="opt-letter">${'ABCD'[i]}</div><span>${o}</span></button>`).join('')}</div>`;
-      body.appendChild(c);
+
+// ── BUILD TEST ────────────────────────────────────────────────────
+function buildTest() {
+  // Build part nav tabs
+  var nav = document.getElementById('part-nav');
+  nav.innerHTML = '';
+  var tabLabels = ['Part A','Part B','Part C','Part D','Part E'];
+  var tabTitles = ['Grammar','Conventions','Speaking & Listening','Writing Knowledge','Written Assignments'];
+  for (var i = 0; i < 5; i++) {
+    var btn = document.createElement('button');
+    btn.className = 'pn-tab' + (i === 0 ? ' active' : '');
+    btn.id = 'pn-' + i;
+    btn.setAttribute('onclick','showPart(' + i + ')');
+    btn.innerHTML = '<span class="tab-part">' + tabLabels[i] + '</span><span class="tab-title">' + tabTitles[i] + '</span>';
+    nav.appendChild(btn);
+  }
+
+  var container = document.getElementById('pages-container');
+  container.innerHTML = '';
+
+  // Parts A-D
+  PARTS.forEach(function(part) {
+    var page = document.createElement('div');
+    page.className = 'part-page';
+    page.id = 'page-' + part.idx;
+
+    // Banner
+    var banner = document.createElement('div');
+    banner.className = 'part-banner';
+    banner.innerHTML = '<div class="pb-left"><div class="pb-part">Part ' + part.part + '</div><div class="pb-title">' + part.title + '</div><div class="pb-std">' + part.standards + '</div></div><div class="pb-right"><div class="pb-count">' + part.qCount + '</div><div class="pb-count-label">Questions</div></div>';
+    page.appendChild(banner);
+
+    var qNum = getPartStartNum(part.idx);
+
+    part.sections.forEach(function(sec) {
+      var hd = document.createElement('div');
+      hd.className = 'sec-hd';
+      hd.innerHTML = '<div class="sec-num">' + sec.num + '</div><div><h3>' + sec.title + '</h3><div class="sec-ccss">' + sec.ccss + ' &nbsp;·&nbsp; ' + sec.domain + '</div><div class="sec-desc">' + sec.desc + '</div></div>';
+      page.appendChild(hd);
+
+      sec.questions.forEach(function(q) {
+        qNum++;
+        var c = document.createElement('div');
+        c.className = 'q-card';
+        c.id = 'card-' + q.id;
+        var optsHtml = q.opts.map(function(o, i) {
+          return '<button class="opt" onclick="pick(\'' + q.id + '\',' + i + ')"><div class="opt-letter">' + 'ABCD'[i] + '</div><span>' + o + '</span></button>';
+        }).join('');
+        c.innerHTML = '<div class="q-meta"><span class="q-badge num">Q ' + qNum + '</span><span class="q-badge ccss">' + sec.ccss + '</span><span class="q-badge dom">' + sec.domain + '</span></div><div class="q-text">' + q.text + '</div><div class="options" id="opts-' + q.id + '">' + optsHtml + '</div>';
+        page.appendChild(c);
+      });
     });
+
+    container.appendChild(page);
   });
-  const whd=document.createElement('div');whd.className='sec-hd';whd.style.borderLeftColor='var(--primary-dk)';
-  whd.innerHTML=`<div class="sec-icon">✍️</div><div><h3>Writing Assignments</h3><div class="sec-ccss">W.2.3 · L.2.1d · L.2.1f · L.2.2c</div><div class="sec-desc">Complete each writing prompt below in full sentences.</div></div>`;
-  body.appendChild(whd);
-  WRITING_PROMPTS.forEach(wp=>{
-    const ws=document.createElement('div');ws.className='writing-section';
-    ws.innerHTML=`<h4>${wp.icon} Writing Prompt ${wp.num} <span style="font-size:.7rem;font-weight:400;color:var(--mid);margin-left:6px">${wp.ccss}</span></h4>
-    <div class="writing-prompt">${wp.prompt}</div>
-    <div class="writing-tip">${wp.tip}</div>
-    <textarea class="writing-area" id="wp${wp.num}" placeholder="Write your answer here\u2026" oninput="updateWC(${wp.num});saveProg()"></textarea>
-    <div class="word-count" id="wc${wp.num}">0 words</div>`;
-    body.appendChild(ws);
+
+  // Part E — Writing
+  var pageE = document.createElement('div');
+  pageE.className = 'part-page';
+  pageE.id = 'page-4';
+
+  var wBanner = document.createElement('div');
+  wBanner.className = 'writing-banner';
+  wBanner.innerHTML = '<h3>Part E — Written Assignments</h3><p>Complete all five writing tasks below in full sentences. Your written responses will be submitted to your teacher along with your multiple-choice answers. Read each task carefully before you begin.</p>';
+  pageE.appendChild(wBanner);
+
+  var wBlock = document.createElement('div');
+  wBlock.className = 'writing-block';
+
+  WRITING_TASKS.forEach(function(wp) {
+    var ws = document.createElement('div');
+    ws.className = 'writing-task';
+    ws.innerHTML = '<div class="task-header"><span class="task-num-badge">Task ' + wp.num + ' of 5</span><span class="task-ccss-tag">' + wp.ccss + '</span></div><div class="task-title">' + wp.title + '</div><div class="task-prompt">' + wp.prompt + '</div><div class="task-guidance">' + wp.guidance + '</div><textarea class="writing-area" id="wp' + wp.num + '" placeholder="Write your response here..." oninput="updateWC(' + wp.num + ');saveProg()"></textarea><div class="word-count" id="wc' + wp.num + '">0 words</div>';
+    wBlock.appendChild(ws);
   });
+
+  pageE.appendChild(wBlock);
+  container.appendChild(pageE);
 }
-function restoreState(sv){
-  Object.entries(sv.answers||{}).forEach(([qId,chosen])=>{
-    answers[qId]=chosen;
-    const opts=document.querySelectorAll('#opts-'+qId+' .opt');
-    if(opts[chosen])opts[chosen].classList.add('selected');
+
+function getPartStartNum(partIdx) {
+  var total = 0;
+  for (var i = 0; i < partIdx; i++) {
+    PARTS[i].sections.forEach(function(s) { total += s.questions.length; });
+  }
+  return total;
+}
+
+// ── PART NAVIGATION ───────────────────────────────────────────────
+function showPart(idx) {
+  currentPart = idx;
+  document.querySelectorAll('.part-page').forEach(function(p, i) {
+    p.classList.toggle('active', i === idx);
   });
-  if(sv.writing){Object.entries(sv.writing).forEach(([id,val])=>{const el=document.getElementById(id);if(el){el.value=val;updateWC(parseInt(id.replace('wp','')));} });}
+  document.querySelectorAll('.pn-tab').forEach(function(t, i) {
+    t.classList.toggle('active', i === idx);
+  });
+  document.getElementById('btn-prev').disabled = (idx === 0);
+  var isLast = (idx === 4);
+  document.getElementById('btn-next').style.display = isLast ? 'none' : 'inline-block';
+  document.getElementById('btn-submit').style.display = isLast ? 'inline-block' : 'none';
+  document.getElementById('part-pill').textContent = 'Part ' + 'ABCDE'[idx] + ' of E';
+  document.getElementById('header-sub').textContent = 'Official Assessment 1 — Part ' + PART_NAMES[idx];
+  window.scrollTo(0, 0);
+  saveProg();
+}
+function nextPart() { if (currentPart < 4) showPart(currentPart + 1); }
+function prevPart() { if (currentPart > 0) showPart(currentPart - 1); }
+
+// ── ANSWER & PROGRESS ─────────────────────────────────────────────
+function restoreState(sv) {
+  Object.entries(sv.answers || {}).forEach(function(entry) {
+    var qId = entry[0], chosen = entry[1];
+    answers[qId] = chosen;
+    var opts = document.querySelectorAll('#opts-' + qId + ' .opt');
+    if (opts[chosen]) opts[chosen].classList.add('selected');
+  });
+  if (sv.writing) {
+    Object.entries(sv.writing).forEach(function(entry) {
+      var id = entry[0], val = entry[1];
+      var el = document.getElementById(id);
+      if (el) { el.value = val; updateWC(parseInt(id.replace('wp', ''))); }
+    });
+  }
   refreshProgress();
 }
-function pick(qid,idx){
-  const opts=document.querySelectorAll('#opts-'+qid+' .opt');
-  opts.forEach(o=>o.classList.remove('selected'));opts[idx].classList.add('selected');
-  answers[qid]=idx;refreshProgress();saveProg();
+
+function pick(qid, idx) {
+  var opts = document.querySelectorAll('#opts-' + qid + ' .opt');
+  opts.forEach(function(o) { o.classList.remove('selected'); });
+  opts[idx].classList.add('selected');
+  answers[qid] = idx;
+  refreshProgress();
+  saveProg();
 }
-function updateWC(n){const ta=document.getElementById('wp'+n);if(!ta)return;const wc=ta.value.trim().split(/\s+/).filter(w=>w.length>0).length;document.getElementById('wc'+n).textContent=wc+' word'+(wc===1?'':'s');}
-function refreshProgress(){
-  const allQ=SECTIONS.flatMap(s=>s.questions);const done=allQ.filter(q=>answers[q.id]!==undefined).length;
-  document.getElementById('q-counter').textContent=done+' / 50';
-  document.getElementById('prog-fill').style.width=(done/50*100)+'%';
-  const rem=50-done;document.getElementById('unanswered-msg').textContent=rem===0?'All questions answered ✓':rem+' question'+(rem!==1?'s':'')+' remaining';
+
+function updateWC(n) {
+  var ta = document.getElementById('wp' + n);
+  if (!ta) return;
+  var wc = ta.value.trim().split(/\s+/).filter(function(w) { return w.length > 0; }).length;
+  document.getElementById('wc' + n).textContent = wc + ' word' + (wc === 1 ? '' : 's');
 }
-function startTimer(){
-  timerInt=setInterval(()=>{
-    timerSec--;if(timerSec%10===0)saveProg();
-    const m=Math.floor(timerSec/60),s=timerSec%60;
-    document.getElementById('timer-display').textContent=(m<10?'0':'')+m+':'+(s<10?'0':'')+s;
-    if(timerSec<=300)document.getElementById('t-timer').classList.add('warn');
-    if(timerSec<=0){clearInterval(timerInt);confirmSubmit();}
-  },1000);
+
+function refreshProgress() {
+  var allQ = PARTS.flatMap(function(p) { return p.sections.flatMap(function(s) { return s.questions; }); });
+  var done = allQ.filter(function(q) { return answers[q.id] !== undefined; }).length;
+  document.getElementById('q-counter').innerHTML = done + ' / ' + TOTAL_MCQ + '<br><span style="font-size:.58rem;opacity:.55">answered</span>';
+  document.getElementById('prog-fill').style.width = (done / TOTAL_MCQ * 100) + '%';
+  var rem = TOTAL_MCQ - done;
+  // update bottom bar unanswered only if element exists
+  var ua = document.getElementById('unanswered-msg');
+  if (ua) ua.textContent = rem === 0 ? 'All questions answered' : rem + ' question' + (rem !== 1 ? 's' : '') + ' remaining';
 }
-function confirmSubmit(){
-  const rem=50-Object.keys(answers).length;
-  if(rem>0){if(!confirm(`You have ${rem} unanswered question${rem>1?'s':''}. Submit anyway?`))return;}
-  else if(!confirm('Submit your official test now? This cannot be undone.'))return;
+
+// ── TIMER ─────────────────────────────────────────────────────────
+function startTimer() {
+  timerInt = setInterval(function() {
+    timerSec--;
+    if (timerSec % 10 === 0) saveProg();
+    var m = Math.floor(timerSec / 60), s = timerSec % 60;
+    document.getElementById('timer-display').textContent = (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
+    if (timerSec <= 300) document.getElementById('t-timer').classList.add('warn');
+    if (timerSec <= 0) { clearInterval(timerInt); submitTest(); }
+  }, 1000);
+}
+
+// ── SUBMIT ────────────────────────────────────────────────────────
+function confirmSubmit() {
+  var rem = TOTAL_MCQ - Object.keys(answers).length;
+  if (rem > 0) {
+    if (!confirm('You have ' + rem + ' unanswered question' + (rem > 1 ? 's' : '') + '. Submit anyway?')) return;
+  } else {
+    if (!confirm('Submit your official test now? This cannot be undone.')) return;
+  }
   submitTest();
 }
-async function submitTest(){
-  clearInterval(timerInt);clearSaved();
-  let correct=0;const domScores={};const ansDetail=[];
-  SECTIONS.forEach(sec=>{
-    let sc=0;
-    sec.questions.forEach(q=>{const ok=answers[q.id]===q.ans;if(ok)sc++;ansDetail.push({q:q.id,chosen:answers[q.id]!==undefined?answers[q.id]:null,correct:q.ans,ok});});
-    domScores[sec.ccss]={title:sec.title,sc,tot:sec.questions.length};correct+=sc;
+
+async function submitTest() {
+  clearInterval(timerInt);
+  clearSaved();
+
+  var correct = 0;
+  var domScores = {};
+  var ansDetail = [];
+
+  PARTS.forEach(function(part) {
+    part.sections.forEach(function(sec) {
+      var sc = 0;
+      sec.questions.forEach(function(q) {
+        var ok = answers[q.id] === q.ans;
+        if (ok) sc++;
+        ansDetail.push({ q: q.id, chosen: answers[q.id] !== undefined ? answers[q.id] : null, correct: q.ans, ok: ok });
+      });
+      domScores[sec.ccss] = { title: sec.title, sc: sc, tot: sec.questions.length };
+      correct += sc;
+    });
   });
-  const pct=Math.round(correct/50*100);
-  const w1=(document.getElementById('wp1')||{}).value||'';
-  const w2=(document.getElementById('wp2')||{}).value||'';
-  const w3=(document.getElementById('wp3')||{}).value||'';
+
+  var pct = Math.round(correct / TOTAL_MCQ * 100);
+  var writings = {};
+  for (var n = 1; n <= 5; n++) {
+    writings['writing_task_' + n] = (document.getElementById('wp' + n) || {}).value || '(not answered)';
+  }
+
   document.getElementById('test').classList.remove('active');
-  document.getElementById('res-card').innerHTML=`
-    <div class="res-hdr"><h2>Test Submitted</h2><div class="sub">Grade 2 · Language & Writing · Official Assessment 1</div></div>
-    <div style="background:var(--light);border-radius:10px;padding:14px 18px;margin-bottom:20px;font-size:.88rem"><strong>Student:</strong> ${studentName} &nbsp;|&nbsp; <strong>Teacher:</strong> ${teacherName||'—'} &nbsp;|&nbsp; <strong>Date:</strong> ${testDate}</div>
-    <div id="submit-status" class="submit-status pending">⏳ Sending your answers to your teacher…</div>
-    <div style="text-align:center;padding:16px 0;font-size:.9rem;color:var(--mid)"><div style="font-size:2.8rem;font-weight:700;color:var(--primary-dk)">${correct} / 50</div><div style="margin-top:4px">${pct}% · Your teacher will review your results and provide feedback on your writing.</div></div>
-    <div style="background:var(--light);border-radius:10px;padding:14px;font-size:.85rem;color:var(--mid);margin-bottom:20px;line-height:1.6">ℹ️ Your multiple-choice answers and writing have been shared with your teacher. Your teacher will review and return with feedback.</div>
-    <button class="dl-btn" onclick="downloadScoreCard(${correct},${pct})">⬇️ Download Score Card</button>`;
-  document.getElementById('results').classList.add('active');window.scrollTo(0,0);
-  try{
-    const res=await fetch('https://formspree.io/f/mdapkdel',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},
-      body:JSON.stringify({
-        student:studentName,teacher:teacherName||'Not provided',date:testDate,
-        assessment:'Grade 2 Language & Writing — Official Assessment 1',
-        score:correct+'/50',percentage:pct+'%',
-        domain_scores:JSON.stringify(domScores),answer_detail:JSON.stringify(ansDetail),
-        writing_prompt_1:w1||'(not answered)',
-        writing_prompt_2:w2||'(not answered)',
-        writing_prompt_3:w3||'(not answered)'
-      })});
-    const st=document.getElementById('submit-status');
-    if(res.ok){st.className='submit-status ok';st.textContent='✅ Your answers and writing have been sent to your teacher successfully!';}
+
+  var domRows = '';
+  Object.entries(domScores).forEach(function(entry) {
+    var ccss = entry[0], d = entry[1];
+    var p = Math.round(d.sc / d.tot * 100);
+    domRows += '<tr><td>' + ccss + '</td><td>' + d.title + '</td><td>' + d.sc + '/' + d.tot + '</td><td>' + p + '%</td></tr>';
+  });
+
+  document.getElementById('res-card').innerHTML =
+    '<div class="res-hdr"><h2>Test Submitted</h2><div class="sub">Grade 2 — Language and Writing — Official Assessment 1</div></div>' +
+    '<div style="background:var(--light);border-radius:10px;padding:14px 18px;margin-bottom:20px;font-size:.88rem;line-height:1.7"><strong>Student:</strong> ' + studentName + ' &nbsp;|&nbsp; <strong>Teacher:</strong> ' + (teacherName || '—') + ' &nbsp;|&nbsp; <strong>Date:</strong> ' + testDate + '</div>' +
+    '<div id="submit-status" class="submit-status pending">Sending your answers to your teacher...</div>' +
+    '<div style="text-align:center;padding:18px 0 10px"><div style="font-size:2.8rem;font-weight:700;color:var(--primary-dk)">' + correct + ' / ' + TOTAL_MCQ + '</div><div style="margin-top:6px;font-size:.9rem;color:var(--mid)">' + pct + '% — Multiple-choice score. Your teacher will also mark your written work separately.</div></div>' +
+    '<table class="dom-table" style="margin-top:20px"><thead><tr><th>Standard</th><th>Topic</th><th>Score</th><th>%</th></tr></thead><tbody>' + domRows + '</tbody></table>' +
+    '<div style="background:var(--light);border-radius:10px;padding:14px;font-size:.85rem;color:var(--mid);margin-bottom:4px;line-height:1.6">Your five written responses have been included in the submission. Your teacher will review and return feedback.</div>' +
+    '<button class="dl-btn" onclick="downloadScoreCard(' + correct + ',' + pct + ')">Download Score Card</button>';
+
+  document.getElementById('results').classList.add('active');
+  window.scrollTo(0, 0);
+
+  try {
+    var payload = Object.assign({ student: studentName, teacher: teacherName || 'Not provided', date: testDate, assessment: 'Grade 2 Language and Writing — Official Assessment 1', score: correct + '/' + TOTAL_MCQ, percentage: pct + '%', domain_scores: JSON.stringify(domScores), answer_detail: JSON.stringify(ansDetail) }, writings);
+    var res = await fetch('https://formspree.io/f/mdapkdel', { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(payload) });
+    var st = document.getElementById('submit-status');
+    if (res.ok) { st.className = 'submit-status ok'; st.textContent = 'Your answers and written work have been sent to your teacher successfully.'; }
     else throw new Error();
-  }catch(e){
-    const st=document.getElementById('submit-status');
-    st.className='submit-status err';st.textContent='⚠️ Could not send automatically. Please download the score card and give it to your teacher.';
+  } catch(e) {
+    var st = document.getElementById('submit-status');
+    st.className = 'submit-status err';
+    st.textContent = 'Could not send automatically. Please download your score card and give it to your teacher.';
   }
 }
-function downloadScoreCard(correct,pct){
-  let rows='';SECTIONS.forEach(sec=>{let sc=0;sec.questions.forEach(q=>{if(answers[q.id]===q.ans)sc++;});const p=Math.round(sc/sec.questions.length*100);rows+=`<tr><td style="padding:8px 10px;border-bottom:1px solid #e0e8f0">${sec.ccss}</td><td style="padding:8px 10px;border-bottom:1px solid #e0e8f0">${sec.title}</td><td style="padding:8px 10px;border-bottom:1px solid #e0e8f0;text-align:center">${sc}/${sec.questions.length}</td><td style="padding:8px 10px;border-bottom:1px solid #e0e8f0;text-align:center">${p}%</td></tr>`;});
-  const w1=((document.getElementById('wp1')||{}).value||'').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-  const w2=((document.getElementById('wp2')||{}).value||'').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-  const w3=((document.getElementById('wp3')||{}).value||'').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-  const html=`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Official Score Card</title><script>window.onload=function(){window.print()}<\/script></head><body style="font-family:'Book Antiqua',Georgia,serif;padding:32px;max-width:680px;margin:0 auto;color:#1e2e42">
-<h1 style="font-size:1.4rem;color:#1e3d7a;margin-bottom:4px">Grade 2 Language & Writing — Official Assessment 1</h1>
-<p style="color:#5a7090;font-size:.85rem;margin-bottom:20px">Official Score Card · For Teacher Review</p>
-<table style="width:100%;border-collapse:collapse;margin-bottom:16px"><tr><td style="padding:6px 10px;background:#f0f5ff"><strong>Student:</strong></td><td style="padding:6px 10px">${studentName}</td><td style="padding:6px 10px;background:#f0f5ff"><strong>Teacher:</strong></td><td style="padding:6px 10px">${teacherName||'—'}</td></tr><tr><td style="padding:6px 10px;background:#f0f5ff"><strong>Date:</strong></td><td colspan="3" style="padding:6px 10px">${testDate}</td></tr></table>
-<div style="background:#1e3d7a;color:white;border-radius:10px;padding:20px;text-align:center;margin-bottom:20px"><div style="font-size:2.4rem;font-weight:700">${correct}/50</div><div style="font-size:1rem;opacity:.85">${pct}%</div></div>
-<table style="width:100%;border-collapse:collapse;font-size:.88rem;margin-bottom:20px"><thead><tr style="background:#1e3d7a;color:white"><th style="padding:8px 10px;text-align:left">Standard</th><th style="padding:8px 10px;text-align:left">Topic</th><th style="padding:8px 10px;text-align:center">Score</th><th style="padding:8px 10px;text-align:center">%</th></tr></thead><tbody>${rows}</tbody></table>
-${w1||w2||w3?`<h3 style="font-size:.95rem;color:#1e3d7a;margin-bottom:10px;margin-top:20px">Writing Assignments — For Teacher Feedback</h3>
-${w1?`<div style="background:#f0f5ff;border-radius:8px;padding:12px;margin-bottom:10px"><div style="font-size:.72rem;font-weight:700;color:#1a9070;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">Prompt 1 — Helping Someone (Temporal Words)</div><div style="font-size:.88rem;line-height:1.65;white-space:pre-wrap">${w1}</div></div>`:''}
-${w2?`<div style="background:#f0f5ff;border-radius:8px;padding:12px;margin-bottom:10px"><div style="font-size:.72rem;font-weight:700;color:#1a9070;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">Prompt 2 — A Fun Day (Irregular Past Tense)</div><div style="font-size:.88rem;line-height:1.65;white-space:pre-wrap">${w2}</div></div>`:''}
-${w3?`<div style="background:#f0f5ff;border-radius:8px;padding:12px;margin-bottom:10px"><div style="font-size:.72rem;font-weight:700;color:#1a9070;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">Prompt 3 — My Favourite Animal (Compound + Apostrophe)</div><div style="font-size:.88rem;line-height:1.65;white-space:pre-wrap">${w3}</div></div>`:''}
-`:''}
-</body></html>`;
-  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([html],{type:'text/html'}));a.download=(studentName||'Student').replace(/\s+/g,'_')+'_Grade2_LW_Official_ScoreCard.html';a.click();
+
+// ── SCORE CARD ────────────────────────────────────────────────────
+function downloadScoreCard(correct, pct) {
+  var mcRows = '';
+  PARTS.forEach(function(part) {
+    part.sections.forEach(function(sec) {
+      var sc = 0;
+      sec.questions.forEach(function(q) { if (answers[q.id] === q.ans) sc++; });
+      var p = Math.round(sc / sec.questions.length * 100);
+      mcRows += '<tr><td style="padding:7px 10px;border-bottom:1px solid #e0e8f0">Part ' + part.part + '</td><td style="padding:7px 10px;border-bottom:1px solid #e0e8f0">' + sec.ccss + '</td><td style="padding:7px 10px;border-bottom:1px solid #e0e8f0">' + sec.title + '</td><td style="padding:7px 10px;border-bottom:1px solid #e0e8f0;text-align:center">' + sc + '/' + sec.questions.length + '</td><td style="padding:7px 10px;border-bottom:1px solid #e0e8f0;text-align:center">' + p + '%</td></tr>';
+    });
+  });
+
+  var writingHtml = '';
+  WRITING_TASKS.forEach(function(wp) {
+    var val = ((document.getElementById('wp' + wp.num) || {}).value || '').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    if (val) {
+      writingHtml += '<div style="background:#f0f5ff;border-radius:8px;padding:14px 16px;margin-bottom:12px;page-break-inside:avoid"><div style="font-size:.68rem;font-weight:700;color:#1a9070;text-transform:uppercase;letter-spacing:.6px;margin-bottom:5px">Task ' + wp.num + ' — ' + wp.title + ' (' + wp.ccss + ')</div><div style="font-size:.87rem;line-height:1.7;white-space:pre-wrap">' + val + '</div></div>';
+    }
+  });
+
+  var html = '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Score Card — ' + studentName + '</title><script>window.onload=function(){window.print()}<\/script><style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:"Book Antiqua","Palatino Linotype",Georgia,serif;padding:32px;max-width:740px;margin:0 auto;color:#1e2e42;font-size:14px}@media print{body{padding:16px}}</style></head><body>'
+    + '<h1 style="font-size:1.3rem;color:#1e3d7a;margin-bottom:2px">Grade 2 — Language and Writing — Official Assessment 1</h1>'
+    + '<p style="color:#5a7090;font-size:.8rem;margin-bottom:18px">Official Score Card — For Teacher Review</p>'
+    + '<table style="width:100%;border-collapse:collapse;margin-bottom:16px;font-size:.86rem"><tr><td style="padding:7px 10px;background:#f0f5ff;width:20%"><strong>Student</strong></td><td style="padding:7px 10px">' + studentName + '</td><td style="padding:7px 10px;background:#f0f5ff;width:20%"><strong>Teacher</strong></td><td style="padding:7px 10px">' + (teacherName || '—') + '</td></tr><tr><td style="padding:7px 10px;background:#f0f5ff"><strong>Date</strong></td><td colspan="3" style="padding:7px 10px">' + testDate + '</td></tr></table>'
+    + '<div style="background:#1e3d7a;color:white;border-radius:10px;padding:18px;text-align:center;margin-bottom:18px"><div style="font-size:2rem;font-weight:700">' + correct + ' / ' + TOTAL_MCQ + '</div><div style="font-size:.9rem;opacity:.8;margin-top:3px">' + pct + '% — Multiple-choice score</div></div>'
+    + '<h3 style="font-size:.82rem;color:#1e3d7a;margin-bottom:8px;text-transform:uppercase;letter-spacing:.8px">Score by Standard</h3>'
+    + '<table style="width:100%;border-collapse:collapse;font-size:.83rem;margin-bottom:22px"><thead><tr style="background:#1e3d7a;color:white"><th style="padding:7px 10px;text-align:left">Part</th><th style="padding:7px 10px;text-align:left">Standard</th><th style="padding:7px 10px;text-align:left">Topic</th><th style="padding:7px 10px;text-align:center">Score</th><th style="padding:7px 10px;text-align:center">%</th></tr></thead><tbody>' + mcRows + '</tbody></table>'
+    + (writingHtml ? '<h3 style="font-size:.82rem;color:#1e3d7a;margin-bottom:10px;text-transform:uppercase;letter-spacing:.8px">Written Assignments — For Teacher Marking</h3>' + writingHtml : '')
+    + '<p style="font-size:.72rem;color:#a0b0c4;margin-top:22px;padding-top:14px;border-top:1px solid #e0e8f0;text-align:center">Grade 2 Exact Path Programme — Assessment 1 — Generated ' + testDate + '</p>'
+    + '</body></html>';
+
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([html], { type: 'text/html' }));
+  a.download = (studentName || 'Student').replace(/\s+/g, '_') + '_Grade2_LW_Official_ScoreCard.html';
+  a.click();
 }
 </script>
 </body>
