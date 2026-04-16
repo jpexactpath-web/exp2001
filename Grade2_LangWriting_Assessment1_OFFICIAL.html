@@ -837,6 +837,105 @@ function downloadScoreCard(correct, pct) {
 
   y = doc.lastAutoTable.finalY + 10;
 
+  // ── PER-QUESTION DETAIL ────────────────────────────────────────
+  checkY(20);
+  setFill(cNavy); doc.rect(margin, y, contentW, 11, 'F');
+  setColor(cWhite); doc.setFont('times','bold'); doc.setFontSize(10);
+  doc.text('Question by Question Review', margin + 4, y + 7.5);
+  doc.setFont('times','normal'); doc.setFontSize(7.5);
+  doc.text('Parts A \u2014 D', pageW - margin - 3, y + 7.5, { align: 'right' });
+  y += 14;
+
+  var runningQ = 0;
+  PARTS.forEach(function(part) {
+    var partRows = [];
+
+    part.sections.forEach(function(sec) {
+      sec.questions.forEach(function(q) {
+        runningQ++;
+        var chosen   = answers[q.id];
+        var isCorrect = chosen === q.ans;
+        var noAnswer  = chosen === undefined || chosen === null;
+
+        var chosenText  = noAnswer ? 'Not answered' : ('ABCD'[chosen] + '.  ' + q.opts[chosen]);
+        var correctText = isCorrect ? '\u2014' : ('ABCD'[q.ans] + '.  ' + q.opts[q.ans]);
+        var feedback    = isCorrect ? '' : ('Correct answer is ' + 'ABCD'[q.ans] + ': ' + q.opts[q.ans]);
+        var qText       = q.text.length > 80 ? q.text.substring(0, 77) + '\u2026' : q.text;
+
+        partRows.push({
+          data: ['Q' + runningQ, sec.ccss, qText, chosenText, isCorrect ? 'Correct' : (noAnswer ? 'Skipped' : 'Wrong'), correctText],
+          isCorrect: isCorrect,
+          noAnswer: noAnswer
+        });
+      });
+    });
+
+    // Part sub-header row
+    checkY(14);
+    setFill(cLight); doc.rect(margin, y, contentW, 7, 'F');
+    setStroke(cNavy); doc.setLineWidth(0.2);
+    doc.rect(margin, y, contentW, 7, 'S');
+    setColor(cNavy); doc.setFont('times','bold'); doc.setFontSize(8);
+    doc.text('Part ' + part.part + '  \u2014  ' + part.title + '  (' + part.standards + ')', margin + 4, y + 5);
+    y += 9;
+
+    doc.autoTable({
+      startY: y,
+      head: [['Q', 'Standard', 'Question', 'Student\'s Answer', 'Result', 'Correct Answer']],
+      body: partRows.map(function(r) { return r.data; }),
+      margin: { left: margin, right: margin },
+      styles: {
+        font: 'times', fontSize: 7.5, cellPadding: [2.2, 2.5],
+        textColor: cText, lineColor: [210, 220, 235], lineWidth: 0.12, overflow: 'linebreak', valign: 'top'
+      },
+      headStyles: {
+        fillColor: [50, 80, 140], textColor: cWhite,
+        fontStyle: 'bold', fontSize: 7.5, cellPadding: [2.8, 2.5]
+      },
+      alternateRowStyles: { fillColor: cBg },
+      columnStyles: {
+        0: { cellWidth: 9,  halign: 'center' },
+        1: { cellWidth: 17 },
+        2: { cellWidth: 'auto' },
+        3: { cellWidth: 42, overflow: 'linebreak' },
+        4: { cellWidth: 15, halign: 'center' },
+        5: { cellWidth: 42, overflow: 'linebreak' }
+      },
+      didParseCell: function(data) {
+        if (data.section !== 'body') return;
+        var rowObj = partRows[data.row.index];
+        if (!rowObj) return;
+        // Result column colouring
+        if (data.column.index === 4) {
+          if (rowObj.isCorrect) {
+            data.cell.styles.textColor = [20, 100, 50];
+            data.cell.styles.fontStyle = 'bold';
+          } else if (rowObj.noAnswer) {
+            data.cell.styles.textColor = [140, 100, 20];
+            data.cell.styles.fontStyle = 'bold';
+          } else {
+            data.cell.styles.textColor = [170, 30, 30];
+            data.cell.styles.fontStyle = 'bold';
+          }
+        }
+        // Correct answer column — red italic only when wrong
+        if (data.column.index === 5 && !rowObj.isCorrect && !rowObj.noAnswer) {
+          data.cell.styles.textColor = [140, 30, 30];
+          data.cell.styles.fontStyle = 'italic';
+        }
+        // Student answer column — dim if not answered
+        if (data.column.index === 3 && rowObj.noAnswer) {
+          data.cell.styles.textColor = [160, 160, 160];
+          data.cell.styles.fontStyle = 'italic';
+        }
+      }
+    });
+
+    y = doc.lastAutoTable.finalY + 8;
+  });
+
+  y += 4;
+
   // ── WRITING SECTION HEADER ─────────────────────────────────────
   checkY(16);
   setFill(cNavy); doc.rect(margin, y, contentW, 11, 'F');
