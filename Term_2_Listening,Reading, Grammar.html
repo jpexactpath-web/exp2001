@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grade 2 English Test - Reading, Listening & Grammar</title>
+<style>
+  :root{
+    --cream:#FBF7ED;
+    --navy:#1F3A5F;
+    --sky:#4E8CB8;
+    --coral:#E4693D;
+    --leaf:#5C8A56;
+    --ink:#2B2B2B;
+    --line:#D8CFBB;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--ink);
+    font-family: 'Book Antiqua', Palatino, Georgia, serif;
+    font-size:12pt;
+    line-height:1.55;
+    padding-bottom:80px;
+  }
+  header{
+    background:var(--navy);
+    color:#fff;
+    padding:28px 20px 22px;
+    text-align:center;
+    border-bottom:6px solid var(--coral);
+  }
+  header h1{
+    margin:0 0 6px;
+    font-size:1.8rem;
+    letter-spacing:0.5px;
+  }
+  header p{
+    margin:0;
+    font-size:0.95rem;
+    color:#DDE6EF;
+  }
+  .wrap{
+    max-width:820px;
+    margin:0 auto;
+    padding:0 18px;
+  }
+  #gate{
+    max-width:520px;
+    margin:60px auto;
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:32px;
+    text-align:center;
+    box-shadow:0 2px 10px rgba(31,58,95,0.08);
+  }
+  #gate h2{color:var(--navy); margin-top:0;}
+  #gate input{
+    width:100%;
+    padding:12px 14px;
+    font-size:1.05rem;
+    border:2px solid var(--sky);
+    border-radius:6px;
+    font-family:inherit;
+    margin:14px 0;
+  }
+  .btn{
+    display:inline-block;
+    background:var(--coral);
+    color:#fff;
+    border:none;
+    padding:12px 26px;
+    font-size:1.05rem;
+    border-radius:6px;
+    cursor:pointer;
+    font-family:inherit;
+    font-weight:bold;
+  }
+  .btn:hover{background:#c9552e;}
+  .btn.secondary{background:var(--sky);}
+  .btn.secondary:hover{background:#3b729a;}
+  #testArea{display:none;}
+  .section-banner{
+    background:var(--navy);
+    color:#fff;
+    padding:12px 20px;
+    border-radius:8px;
+    margin:36px 0 16px;
+    font-size:1.3rem;
+  }
+  .passage{
+    background:#fff;
+    border-left:5px solid var(--sky);
+    padding:16px 20px;
+    margin-bottom:18px;
+    border-radius:4px;
+  }
+  .passage h3{margin-top:0;color:var(--navy);}
+  .passage p{margin:0 0 10px;}
+  .qcard{
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:16px 18px;
+    margin-bottom:12px;
+  }
+  .qnum{
+    font-weight:bold;
+    color:var(--coral);
+    margin-right:6px;
+  }
+  .options label{
+    display:block;
+    margin:6px 0 6px 4px;
+    cursor:pointer;
+  }
+  .options input{margin-right:8px;}
+  textarea, .qcard input[type=text]{
+    width:100%;
+    font-family:inherit;
+    font-size:1rem;
+    padding:8px;
+    border:1px solid var(--line);
+    border-radius:5px;
+    margin-top:8px;
+  }
+  .listen-btn{
+    background:var(--leaf);
+    color:#fff;
+    border:none;
+    padding:8px 16px;
+    border-radius:5px;
+    cursor:pointer;
+    font-family:inherit;
+    margin-bottom:10px;
+  }
+  .listen-btn:hover{background:#4a6f45;}
+  #submitBar{
+    position:fixed;
+    bottom:0; left:0; right:0;
+    background:#fff;
+    border-top:2px solid var(--line);
+    padding:12px 20px;
+    text-align:center;
+    z-index:50;
+  }
+  #warningModal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.5);
+    z-index:100;
+    align-items:center;
+    justify-content:center;
+  }
+  #warningBox{
+    background:#fff;
+    max-width:480px;
+    padding:26px;
+    border-radius:10px;
+    text-align:center;
+  }
+  #warningBox h3{color:var(--coral); margin-top:0;}
+  #missingList{
+    max-height:150px;
+    overflow-y:auto;
+    text-align:left;
+    background:var(--cream);
+    padding:10px 14px;
+    border-radius:6px;
+    margin:14px 0;
+    font-size:0.9rem;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Grade 2 English Test</h1>
+  <p>Reading &bull; Listening &bull; Grammar</p>
+</header>
+
+<div id="gate">
+  <h2>Enter your name to begin</h2>
+  <p>Please write your full name below. The test will not start until you enter your name.</p>
+  <input type="text" id="studentName" placeholder="Your full name">
+  <br>
+  <button class="btn" onclick="startTest()">Start Test</button>
+  <p id="gateError" style="color:var(--coral); font-weight:bold; display:none;">Please enter your name first.</p>
+</div>
+
+<div class="wrap" id="testArea">
+  <div id="questionsHost"></div>
+</div>
+
+<div id="submitBar" style="display:none;">
+  <button class="btn" onclick="trySubmit()">Submit Test</button>
+</div>
+
+<div id="warningModal">
+  <div id="warningBox">
+    <h3>Some questions are not answered</h3>
+    <p id="warningText"></p>
+    <div id="missingList"></div>
+    <button class="btn secondary" onclick="closeWarning()">Go back and answer</button>
+    <button class="btn" onclick="forceSubmit()">Submit anyway</button>
+  </div>
+</div>
+
+<script>
+/* ---------------- QUESTION DATA ---------------- */
+
+const passages = {
+  city: {
+    title: "What Is a City?",
+    paragraphs: [
+      "A city is made up of people. They live and work in the city. Some of them work to make sure the city is a good place to live. They make rules for the people in the city. One rule might be, \"Don't throw trash in the street.\"",
+      "Other people try to make sure there are things to do in a city. They run restaurants, movie theaters, and sports centers. The bigger a city is, the more things there are to do.",
+      "If a city is going to be a nice place to live, the people who live there must agree to follow the city's rules. They must also pay taxes. Taxes pay for things such as cleaning the streets, running schools, and filling the public library with books."
+    ]
+  },
+  fable: {
+    title: "Ant and Grasshopper",
+    paragraphs: [
+      "Ant hurried back and forth. Each time he went, he carried another small piece of food back to his nest. \"I have to fill the nest, I have to fill the nest,\" he panted to himself as he worked.",
+      "Grasshopper watched. He thought Ant was silly. \"Come watch the bugs skate on the pond,\" he called to Ant.",
+      "Ant didn't even stop. \"Oh, no, I can't. I must get more food for winter. I have to fill the nest.\"",
+      "So it went all summer. Grasshopper called out every day, and Ant answered the same.",
+      "When the leaves had all fallen off the trees, a sharp wind began to blow. Ant crawled safely into his nest. Grasshopper had nowhere to go.",
+      "In spring, when there were fresh green buds on the trees, Ant came out of his nest. Grasshopper was nowhere to be found."
+    ]
+  },
+  seats: {
+    title: "Great Seats",
+    paragraphs: [
+      "People were rushing along the sidewalk. David stayed close to Grandfather. He kept his eyes on the signs that read, \"To Stadium.\"",
+      "\"I'm afraid we don't have very good seats, David,\" said Grandfather. \"They're quite high up in the stands.\"",
+      "\"That's okay, Grandfather,\" said David. He didn't really care about good seats. He was just glad to be here.",
+      "David and Grandfather ate popcorn and cheered for all of their favorite players. They saw some great hits and some great plays. During some innings, nothing happened. They cheered anyway.",
+      "After the game, David walked next to Grandfather. He could still see the players out on the green grass. He could smell the popcorn. He could hear the smack as the ball landed in the catcher's mitt.",
+      "\"Grandfather,\" said David, smiling, \"you were right. Those weren't very good seats \u2014 they were great seats.\""
+    ]
+  }
+};
+
+const questions = [];
+let qid = 1;
+function add(section, type, prompt, options, correct, passage){
+  questions.push({id: qid++, section, type, prompt, options: options||null, correct: correct||null, passage: passage||null});
+}
+
+/* ---- READING: City (10) ---- */
+add("reading","mcq","This article is mostly about:",["what makes a city","how to live in a city","America's largest cities"],"what makes a city","city");
+add("reading","text","What is your favorite thing to do in your city or in a nearby city? Write about it.",null,null,"city");
+add("reading","mcq","The person who wrote this article is the:",["reader","author","mayor"],"author","city");
+add("reading","text","Do you think this article is meant to give information or to make you laugh? Write why.",null,null,"city");
+add("reading","text","Would you most like to live in a city, in a small town, or in the country? Explain.",null,null,"city");
+add("reading","mcq","Which of the following would taxes NOT pay for?",["library books","a new clothing store","street cleaning"],"a new clothing store","city");
+add("reading","text","If you made the rules for a city, what rule would be most important to you?",null,null,"city");
+add("reading","mcq","\"It is more fun to live in a city than in the country.\" Is this a fact or an opinion?",["fact","opinion"],"opinion","city");
+add("reading","mcq","According to the article, who makes rules for the city?",["kids","people who work for the city","animals"],"people who work for the city","city");
+add("reading","mcq","What do people pay to help clean streets, run schools, and fill libraries?",["fines","taxes","tickets"],"taxes","city");
+
+/* ---- READING: Ant and Grasshopper (10) ---- */
+add("reading","mcq","Ants gather food. Is this real or make-believe?",["real","make-believe"],"real","fable");
+add("reading","mcq","Grasshoppers watch baseball games. Is this real or make-believe?",["real","make-believe"],"make-believe","fable");
+add("reading","mcq","Grasshoppers are lazy. Is this real or make-believe?",["real","make-believe"],"make-believe","fable");
+add("reading","text","This story is called a fable. Fables usually teach a lesson. What lesson does this one teach?",null,null,"fable");
+add("reading","text","If you were Ant, what would you have said to Grasshopper?",null,null,"fable");
+add("reading","text","What makes Ant and Grasshopper different from real insects?",null,null,"fable");
+add("reading","mcq","What season is it when the story begins?",["summer","winter","spring"],"summer","fable");
+add("reading","mcq","What season is it when the story ends?",["summer","winter","spring"],"spring","fable");
+add("reading","text","In paragraph 1, why do you think the words \"I have to fill the nest\" are in italics?",null,null,"fable");
+add("reading","text","Why does Grasshopper think Ant is silly?",null,null,"fable");
+
+/* ---- READING: Great Seats (10) ---- */
+add("reading","mcq","Why is David's grandfather worried about the seats?",["the seats are too expensive","the seats are high up in the stands","the team is losing"],"the seats are high up in the stands","seats");
+add("reading","text","How does David feel about the seats at first, and then later?",null,null,"seats");
+add("reading","text","What three things does David remember after the game (sights, smells, sounds)?",null,null,"seats");
+add("reading","text","What sights, smells, and sounds do you remember from a special day of your own?",null,null,"seats");
+add("reading","mcq","Which word best describes how David feels about the game?",["excited","worried","annoyed"],"excited","seats");
+add("reading","text","In paragraph 5, what senses does David use to remember the game? Name all three.",null,null,"seats");
+add("reading","text","Do you think David and Grandfather go to a lot of baseball games together? Why or why not?",null,null,"seats");
+add("reading","text","David and Grandfather cheered even when nothing much happened. Why do you think they did this?",null,null,"seats");
+add("reading","mcq","Where are David and Grandfather going?",["the stadium","the library","the park"],"the stadium","seats");
+add("reading","mcq","What did David hear when the ball landed in the catcher's mitt?",["a smack","a bell","a whistle"],"a smack","seats");
+
+/* ---- LISTENING (20) ---- */
+function addListen(audioText, prompt, options, correct){
+  add("listening","mcq",prompt,options,correct,null);
+  questions[questions.length-1].audio = audioText;
+}
+addListen("Minh wakes up at six o'clock every morning. He washes his face and brushes his teeth. At seven o'clock, he eats breakfast with his family. After breakfast, he goes to school by bike.","What is Minh doing at seven o'clock?",["eating breakfast","sleeping","playing"],"eating breakfast");
+addListen("Minh wakes up at six o'clock every morning. He washes his face and brushes his teeth. At seven o'clock, he eats breakfast with his family. After breakfast, he goes to school by bike.","How does Minh go to school?",["by bike","by bus","by car"],"by bike");
+addListen("The sky is dark and cloudy today. It is raining very hard outside. My little sister wants to go to the park, but she has to stay inside. She is a little sad about the rain.","What is the weather like today?",["sunny","raining","snowing"],"raining");
+addListen("The sky is dark and cloudy today. It is raining very hard outside. My little sister wants to go to the park, but she has to stay inside. She is a little sad about the rain.","How does the sister feel about the rain?",["happy","sad","excited"],"sad");
+addListen("There are three cats in the kitchen. Two cats are sitting under the table. One cat is sleeping on the chair. They are all waiting for their food.","How many cats are there in total?",["two","three","four"],"three");
+addListen("There are three cats in the kitchen. Two cats are sitting under the table. One cat is sleeping on the chair. They are all waiting for their food.","Where is the cat that is sleeping?",["under the table","on the chair","on the floor"],"on the chair");
+addListen("Yesterday, Anna played soccer with her brother in the park. They played for one hour after school. Anna scored two goals, and her brother scored one goal. They were both very happy after the game.","Who did Anna play with?",["her sister","her brother","her friend"],"her brother");
+addListen("Yesterday, Anna played soccer with her brother in the park. They played for one hour after school. Anna scored two goals, and her brother scored one goal. They were both very happy after the game.","How many goals did Anna score?",["one","two","three"],"two");
+addListen("The big brown dog is running quickly in the park. It is chasing a small yellow ball. A boy is standing near the tree and watching the dog. The dog looks very happy.","What color is the dog?",["black","brown","white"],"brown");
+addListen("The big brown dog is running quickly in the park. It is chasing a small yellow ball. A boy is standing near the tree and watching the dog. The dog looks very happy.","What is the dog chasing?",["a ball","a cat","a bird"],"a ball");
+addListen("Last evening, my mother was cooking dinner in the kitchen. At the same time, my father was reading a book in the living room. My little brother was doing his homework at the table. Everyone was busy before dinner.","What was mother doing?",["cooking","reading","sleeping"],"cooking");
+addListen("Last evening, my mother was cooking dinner in the kitchen. At the same time, my father was reading a book in the living room. My little brother was doing his homework at the table. Everyone was busy before dinner.","What was the little brother doing?",["playing","doing homework","sleeping"],"doing homework");
+addListen("My classroom has twenty students and one teacher. There are five rows of desks. Each row has four desks. Our classroom also has a big whiteboard at the front.","How many students are in the classroom?",["ten","twenty","thirty"],"twenty");
+addListen("My classroom has twenty students and one teacher. There are five rows of desks. Each row has four desks. Our classroom also has a big whiteboard at the front.","How many rows of desks are there?",["four","five","six"],"five");
+addListen("We go to school from Monday to Friday every week. We start class at seven thirty in the morning. School finishes at four o'clock in the afternoon. On Saturday and Sunday, we stay home and rest.","Which days do we go to school?",["Monday to Friday","Saturday and Sunday","every day"],"Monday to Friday");
+addListen("We go to school from Monday to Friday every week. We start class at seven thirty in the morning. School finishes at four o'clock in the afternoon. On Saturday and Sunday, we stay home and rest.","What time does school finish?",["seven thirty","four o'clock","six o'clock"],"four o'clock");
+addListen("The red ball is on the chair, next to the box. The blue ball is under the table. My brother is looking for the red ball because he wants to play outside. He cannot find it at first.","Where is the red ball?",["on the chair","under the table","in the box"],"on the chair");
+addListen("The red ball is on the chair, next to the box. The blue ball is under the table. My brother is looking for the red ball because he wants to play outside. He cannot find it at first.","Where is the blue ball?",["on the chair","under the table","in the box"],"under the table");
+addListen("Last night, it was very cold outside. The wind was blowing hard, and the sky was full of stars. I wore a warm jacket before I went outside. My father made hot tea for the whole family.","When did this happen?",["last night","this morning","next week"],"last night");
+addListen("Last night, it was very cold outside. The wind was blowing hard, and the sky was full of stars. I wore a warm jacket before I went outside. My father made hot tea for the whole family.","What did father make for the family?",["hot tea","cold juice","ice cream"],"hot tea");
+
+/* ---- GRAMMAR (30) ---- */
+add("grammar","mcq","She ___ to school every day.",["go","goes"],"goes");
+add("grammar","mcq","They ___ football on Sundays.",["play","plays"],"play");
+add("grammar","mcq","Look! The children ___ in the yard.",["is playing","are playing"],"are playing");
+add("grammar","mcq","I ___ a book right now.",["am reading","reads"],"am reading");
+add("grammar","mcq","___ I was cooking, my brother was watching TV.",["While","When"],"While");
+add("grammar","mcq","She was singing ___ she was washing the dishes.",["while","when"],"while");
+add("grammar","mcq","___ the phone rang, I was sleeping.",["While","When"],"When");
+add("grammar","mcq","He came home ___ it started to rain.",["while","when"],"when");
+add("grammar","mcq","Yesterday, we ___ our grandmother.",["visit","visited"],"visited");
+add("grammar","mcq","She ___ an apple this morning.",["eat","ate"],"ate");
+add("grammar","mcq","They ___ to the zoo last week.",["go","went"],"went");
+add("grammar","mcq","At 8 pm last night, I ___.",["was sleeping","sleep"],"was sleeping");
+add("grammar","mcq","They ___ TV when I called.",["was watching","were watching"],"were watching");
+add("grammar","mcq","She ___ a book when it started to rain.",["was reading","read"],"was reading");
+add("grammar","mcq","The elephant is very ___.",["big","bigly"],"big");
+add("grammar","mcq","\"The cat is small and cute.\" Which word describes the cat's size?",["small","cute","cat"],"small");
+add("grammar","mcq","An elephant is ___ than a mouse.",["big","bigger"],"bigger");
+add("grammar","mcq","This book is ___ than that one.",["interesting","more interesting"],"more interesting");
+add("grammar","mcq","Mount Everest is the ___ mountain in the world.",["tall","tallest"],"tallest");
+add("grammar","mcq","She is the ___ girl in class.",["happy","happiest"],"happiest");
+add("grammar","mcq","He runs ___.",["quick","quickly"],"quickly");
+add("grammar","mcq","She sings very ___.",["beautiful","beautifully"],"beautifully");
+add("grammar","mcq","We go to school ___ Monday.",["in","on"],"on");
+add("grammar","mcq","My birthday is ___ July.",["in","at"],"in");
+add("grammar","mcq","The cat is ___ the table.",["in","on"],"on");
+add("grammar","mcq","The ball is ___ the basket.",["in","under"],"in");
+add("grammar","mcq","I saw ___ elephant at the zoo.",["a","an"],"an");
+add("grammar","mcq","She has ___ dog.",["a","an"],"a");
+add("grammar","mcq","Choose the correctly punctuated sentence.",["What is your name","What is your name?"],"What is your name?");
+add("grammar","mcq","Choose the correctly punctuated sentence.",["i live in hanoi.","I live in Hanoi."],"I live in Hanoi.");
+add("grammar","mcq","He ___ ice cream.",["like","likes"],"likes");
+add("grammar","mcq","We ___ lunch now.",["is eating","are eating"],"are eating");
+add("grammar","mcq","___ my mom was driving, my dad was talking on the phone.",["While","When"],"While");
+add("grammar","mcq","___ I got home, my dog ran to the door.",["While","When"],"When");
+add("grammar","mcq","I ___ a new pencil yesterday.",["buy","bought"],"bought");
+add("grammar","mcq","It ___ when we left the house.",["was raining","rain"],"was raining");
+add("grammar","mcq","This soup is too ___ to eat.",["hot","hotly"],"hot");
+add("grammar","mcq","My bag is ___ than yours.",["heavy","heavier"],"heavier");
+add("grammar","mcq","She told the ___ story in class.",["funny","funniest"],"funniest");
+add("grammar","mcq","The turtle walks ___.",["slow","slowly"],"slowly");
+
+/* ---------------- RENDER ---------------- */
+
+const sectionTitles = {reading:"Part 1: Reading", listening:"Part 2: Listening", grammar:"Part 3: Grammar"};
+const passageOrder = ["city","fable","seats"];
+
+function renderAll(){
+  const host = document.getElementById("questionsHost");
+  let html = "";
+  let lastSection = null;
+  let lastPassage = undefined;
+
+  questions.forEach(q => {
+    if(q.section !== lastSection){
+      html += `<div class="section-banner">${sectionTitles[q.section]}</div>`;
+      lastSection = q.section;
+      lastPassage = undefined;
+    }
+    if(q.section === "reading" && q.passage !== lastPassage){
+      const p = passages[q.passage];
+      html += `<div class="passage"><h3>${p.title}</h3>`;
+      p.paragraphs.forEach(par => html += `<p>${par}</p>`);
+      html += `</div>`;
+      lastPassage = q.passage;
+    }
+    html += `<div class="qcard" id="qcard-${q.id}">`;
+    html += `<span class="qnum">Q${q.id}.</span>${q.prompt}`;
+    if(q.section === "listening"){
+      html += `<br><button type="button" class="listen-btn" onclick="playAudio(${q.id})">Play audio</button>`;
+    }
+    if(q.type === "mcq"){
+      html += `<div class="options">`;
+      q.options.forEach((opt,i) => {
+        html += `<label><input type="radio" name="q${q.id}" value="${opt.replace(/"/g,'&quot;')}"> ${opt}</label>`;
+      });
+      html += `</div>`;
+    } else {
+      html += `<textarea rows="2" id="q${q.id}" placeholder="Write your answer here"></textarea>`;
+    }
+    html += `</div>`;
+  });
+
+  host.innerHTML = html;
+}
+
+const audioMap = {};
+questions.forEach(q => { if(q.audio) audioMap[q.id] = q.audio; });
+
+function playAudio(id){
+  if(!('speechSynthesis' in window)){
+    alert("Sorry, your browser cannot play audio. Please try Google Chrome.");
+    return;
+  }
+  const utter = new SpeechSynthesisUtterance(audioMap[id]);
+  utter.rate = 0.85;
+  utter.lang = "en-US";
+  window.speechSynthesis.cancel();
+  window.speechSynthesis.speak(utter);
+}
+
+/* ---------------- GATE / START ---------------- */
+
+let studentName = "";
+
+function startTest(){
+  const val = document.getElementById("studentName").value.trim();
+  if(!val){
+    document.getElementById("gateError").style.display = "block";
+    return;
+  }
+  studentName = val;
+  document.getElementById("gate").style.display = "none";
+  document.getElementById("testArea").style.display = "block";
+  document.getElementById("submitBar").style.display = "block";
+  renderAll();
+  window.scrollTo(0,0);
+}
+
+/* ---------------- ANSWER COLLECTION ---------------- */
+
+function getAnswer(q){
+  if(q.type === "mcq"){
+    const checked = document.querySelector(`input[name="q${q.id}"]:checked`);
+    return checked ? checked.value : "";
+  } else {
+    const el = document.getElementById(`q${q.id}`);
+    return el ? el.value.trim() : "";
+  }
+}
+
+function getMissing(){
+  const missing = [];
+  questions.forEach(q => {
+    if(getAnswer(q) === "") missing.push(q.id);
+  });
+  return missing;
+}
+
+function trySubmit(){
+  const missing = getMissing();
+  if(missing.length > 0){
+    document.getElementById("warningText").textContent =
+      `You have ${missing.length} question(s) left unanswered. Please go back and finish, or submit anyway.`;
+    document.getElementById("missingList").textContent = "Unanswered: Q" + missing.join(", Q");
+    document.getElementById("warningModal").style.display = "flex";
+  } else {
+    finalizeSubmit();
+  }
+}
+
+function closeWarning(){
+  document.getElementById("warningModal").style.display = "none";
+  const missing = getMissing();
+  if(missing.length > 0){
+    document.getElementById(`qcard-${missing[0]}`).scrollIntoView({behavior:"smooth", block:"center"});
+  }
+}
+
+function forceSubmit(){
+  document.getElementById("warningModal").style.display = "none";
+  finalizeSubmit();
+}
+
+function finalizeSubmit(){
+  let out = "";
+  out += "GRADE 2 ENGLISH TEST RESULTS\n";
+  out += "Student Name: " + studentName + "\n";
+  out += "Date submitted: " + new Date().toLocaleString() + "\n";
+  out += "=========================================\n\n";
+
+  let currentSection = null;
+  questions.forEach(q => {
+    if(q.section !== currentSection){
+      out += "\n----- " + sectionTitles[q.section].toUpperCase() + " -----\n\n";
+      currentSection = q.section;
+    }
+    const ans = getAnswer(q);
+    out += "Q" + q.id + ". " + q.prompt + "\n";
+    out += "Student answer: " + (ans === "" ? "(no answer)" : ans) + "\n";
+    if(q.correct){
+      out += "Correct answer: " + q.correct + "\n";
+    } else {
+      out += "Correct answer: (open response - please grade manually)\n";
+    }
+    out += "\n";
+  });
+
+  const blob = new Blob([out], {type:"text/plain"});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  const safeName = studentName.replace(/[^a-z0-9]/gi,"_");
+  a.href = url;
+  a.download = safeName + "_grade2_test_results.txt";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+
+  document.getElementById("questionsHost").innerHTML =
+    `<div class="qcard" style="text-align:center; font-size:1.1rem;">
+      <p><strong>Test submitted!</strong></p>
+      <p>A file named <strong>${safeName}_grade2_test_results.txt</strong> has been downloaded to your device.</p>
+      <p>Please send this file to your teacher.</p>
+    </div>`;
+  document.getElementById("submitBar").style.display = "none";
+  window.scrollTo(0,0);
+}
+</script>
+
+</body>
+</html>
